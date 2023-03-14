@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace L00177804_Project;
+﻿namespace L00177804_Project;
 
 public static class MauiProgram
 {
@@ -13,11 +11,16 @@ public static class MauiProgram
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			})
+			.UseMauiMaps();
 
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
+		builder.Services.AddSingleton<MapViewModel>();
+		builder.Services.AddTransient<MapView>();
+	
 
 		return builder.Build();
 	}

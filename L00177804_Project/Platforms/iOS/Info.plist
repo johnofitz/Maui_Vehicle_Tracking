@@ -29,4 +29,11 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
 </dict>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<array>
+		<dict>
+			<key>TemporaryFullAccuracyUsageDescription</key>
+			<string>Fill in a reason why your app needs full accuracy</string>
+		</dict>
+	</array>
 </plist>

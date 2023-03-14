@@ -1,24 +1,14 @@
-﻿namespace L00177804_Project;
+﻿
+namespace L00177804_Project;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
-
-	public MainPage()
+    public MainPage()
 	{
 		InitializeComponent();
-	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+    }
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
 }
 
