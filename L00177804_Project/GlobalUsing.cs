@@ -14,4 +14,4 @@ global using System;
 global using Microsoft.Extensions.Logging;
 global using L00177804_Project.ViewModel;
 global using L00177804_Project.View;
-global using L00177804_Project.Model;
+global using L00177804_Project.Service;

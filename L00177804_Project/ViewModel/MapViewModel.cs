@@ -1,4 +1,5 @@
-﻿
+﻿using Microsoft.Maui.Devices.Sensors;
+
 namespace L00177804_Project.ViewModel
 {
     /// <summary>
@@ -6,35 +7,37 @@ namespace L00177804_Project.ViewModel
     /// </summary>
     public partial class MapViewModel: ParentViewModel
     {
-    
+        // Create object from Class GeoLocationService
+        private readonly GoogleMapService _googleMapService = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="googleMapService"></param>
         public MapViewModel()
         {
-            // Open map at default location
+         
         }
 
 
+        // User Location
         [ObservableProperty]
         public bool userLocation = true;
 
+
+        /// <summary>
+        /// Relay Command that accesses GoogleServce to redirect to route application
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
-        public static async void GetDirection()
+        public async Task GetDirection()
         {
-            if (DeviceInfo.Current.Platform == DevicePlatform.iOS || DeviceInfo.Current.Platform == DevicePlatform.MacCatalyst)
-            {
-                // https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html
-                await Launcher.OpenAsync("http://maps.apple.com/?daddr=52.6676407,-8.724467");
-            }
-            else if (DeviceInfo.Current.Platform == DevicePlatform.Android)
-            {
-                // opens the 'task chooser' so the user can pick Maps, Chrome or other mapping app
-                await Launcher.OpenAsync("http://maps.google.com/?daddr=52.6676407,-8.724467");
-            }
-            else if (DeviceInfo.Current.Platform == DevicePlatform.WinUI)
-            {
-                await Launcher.OpenAsync("bingmaps:?rtp=adr.394 Pacific Ave San Francisco CA~adr.One Microsoft Way Redmond WA 98052");
-            }
+            await _googleMapService.GetGoogleMaps(); 
+     
+        }
+
+
 
         
-        }
     }
 }
