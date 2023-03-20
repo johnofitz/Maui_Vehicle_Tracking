@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace L00177804_Project.Models
+namespace xUnitTests.ServiceTests
 {
-    public class Geometry
+    public class NearByServiceTest
     {
-        public Location location { get; set; }
-
-
     }
 }
