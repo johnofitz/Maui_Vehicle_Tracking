@@ -51,8 +51,6 @@ namespace L00177804_Project.Service.NearByService
             }
             // return list
             return items;
-
         }
-
     }
 }

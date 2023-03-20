@@ -18,7 +18,7 @@ namespace L00177804_Project.ViewModel
         private readonly NearByRestService nearByRestService = new();
         public MapViewModel()
         {
-            _ = GetNearByAsync();
+            _ = GetNearByItemsAsync();
         }
 
 
@@ -41,7 +41,7 @@ namespace L00177804_Project.ViewModel
         }
 
         // Method to get NearbyService rest and pass to an observable collection
-        public async Task GetNearByAsync()
+        public async Task GetNearByItemsAsync()
         {
             try
             {
