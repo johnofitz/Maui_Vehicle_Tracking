@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Devices.Sensors;
+﻿using L00177804_Project.Service.NearByService;
+using Microsoft.Maui.Devices.Sensors;
 
 namespace L00177804_Project.ViewModel
 {
@@ -10,13 +11,14 @@ namespace L00177804_Project.ViewModel
         // Create object from Class GeoLocationService
         private readonly GoogleMapService _googleMapService = new();
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="googleMapService"></param>
+        // Create object from Class NearByRestService
+        public ObservableCollection<NearBy> Item { get; } = new();
+
+        // Inatialize object from NearByService
+        private readonly NearByRestService nearByRestService = new();
         public MapViewModel()
         {
-         
+            _ = GetNearByAsync();
         }
 
 
@@ -32,10 +34,36 @@ namespace L00177804_Project.ViewModel
         [RelayCommand]
         public async Task GetDirection()
         {
-            await _googleMapService.GetGoogleMaps(); 
+            // Get user location
+            await _googleMapService.GetGoogleMaps();
+           
      
         }
 
+        // Method to get NearbyService rest and pass to an observable collection
+        public async Task GetNearByAsync()
+        {
+            try
+            {
+                // Get list of nearby objects
+                var near = await nearByRestService.GetNearByAsync();
+
+                // Condition to check if items are already loaded
+                if(Item.Count !=0)
+                {
+                    Item.Clear();
+                }
+
+                // Add nearby objects to observable collection
+                near.ForEach(Item.Add);
+            }
+            catch (Exception ex)
+            {
+                // Catch exceptions and display
+                Debug.WriteLine($"Unable to get menu: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+        }
 
 
         
