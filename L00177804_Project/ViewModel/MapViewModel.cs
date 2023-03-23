@@ -39,7 +39,7 @@ namespace L00177804_Project.ViewModel
 
         // User Location
         [ObservableProperty]
-        public bool userLocation = true;
+        public bool run = true;
 
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace L00177804_Project.ViewModel
                 return;
             }
 
-            await Task.Run(() => _locationTrackService.UpdateLocation(token), token);
+            await Task.Run(() => _locationTrackService.UpdateLocation(token, Run), token);
         }
 
     }

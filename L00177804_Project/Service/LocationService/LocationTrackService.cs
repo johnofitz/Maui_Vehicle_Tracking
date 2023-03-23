@@ -5,15 +5,21 @@ namespace L00177804_Project.Service.LocationService
     {
         public LocationTrackService() { }
 
+        // Create object from Locations class
         private Locations _currentlocations = new();
 
-        private double oldLat = 0;
-        private double oldLng = 0;
+        // Store previous lat and long for distance matric
+        private double _oldLat = 0;
+        private double _oldLng = 0;
 
-
-        public async Task UpdateLocation(CancellationToken ct)
+        /// <summary>
+        /// Method to update location
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task UpdateLocation(CancellationToken ct, bool running)
         {
-            while (true)
+            while (running)
             {
                 // Request the device's location with the best accuracy and a 5-second timeout
                 GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(5));
@@ -24,10 +30,13 @@ namespace L00177804_Project.Service.LocationService
                 {
                     // Use the cancellation token to abort the location request if needed
                     location = await Geolocation.Default.GetLocationAsync(request, cancelTokenSource.Token);
-
-                    _currentlocations.Lat = location.Latitude;
-                    _currentlocations.Lng = location.Longitude;
-                    _currentlocations.Speed = (double)location.Speed;
+                    if (location != null)
+                    {
+                        // Add Location class data to local object
+                        _currentlocations.Lat = location.Latitude;
+                        _currentlocations.Lng = location.Longitude;
+                        _currentlocations.Speed = (double)location.Speed;
+                    }
 
                 }
                 catch (TaskCanceledException)
@@ -39,17 +48,18 @@ namespace L00177804_Project.Service.LocationService
 
                 finally
                 {
-
-                    if (_currentlocations != null && oldLat != 0 && oldLng != 0)
+                    // Only excutes after second itteration
+                    if (_currentlocations != null && _oldLat != 0 && _oldLng != 0)
                     {
-                        Location oldDist = new(oldLat, oldLng);
+                        // Calculate distance between two points
+                        Location oldDist = new(_oldLat, _oldLng);
                         Location newDist = new(_currentlocations.Lat, _currentlocations.Lng);
                         double km = Location.CalculateDistance(oldDist, newDist, DistanceUnits.Kilometers);
                         _currentlocations.Distance += km;
                     }
-
-                    oldLat = _currentlocations.Lat;
-                    oldLng = _currentlocations.Lng;
+                    // store previous lat and long for distance matric
+                    _oldLat = _currentlocations.Lat;
+                    _oldLng = _currentlocations.Lng;
                 }
 
                 // Wait for the location to be retrieved
