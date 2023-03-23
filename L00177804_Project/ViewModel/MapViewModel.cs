@@ -1,30 +1,45 @@
-﻿using L00177804_Project.Service.NearByService;
-using Microsoft.Maui.Devices.Sensors;
+﻿
+using L00177804_Project.Service.GoogleMapService;
+using L00177804_Project.Service.LocationService;
+using L00177804_Project.Service.NearByService;
+
 
 namespace L00177804_Project.ViewModel
 {
     /// <summary>
-    /// Map Class used to initalize Google Maps API
+    ///  MapViewModel Class
     /// </summary>
-    public partial class MapViewModel: ParentViewModel
+    public partial class MapViewModel : ParentViewModel
     {
         // Create object from Class GeoLocationService
         private readonly GoogleMapService _googleMapService = new();
+
+        // Create object from Class LocationTrackService
+        private readonly LocationTrackService _locationTrackService = new();
+
+        
+        CancellationTokenSource tokenSource;
+        CancellationToken token;
+
 
         // Create object from Class NearByRestService
         public ObservableCollection<NearBy> Item { get; } = new();
 
         // Inatialize object from NearByService
         private readonly NearByRestService nearByRestService = new();
+
+        /// <summary>
+        /// MapViewModel Constructor
+        /// </summary>
         public MapViewModel()
         {
-            _ = GetNearByItemsAsync();
+            //_ = GetNearByItemsAsync();
         }
 
 
         // User Location
         [ObservableProperty]
-        public bool userLocation = true;
+        public bool run = true;
 
 
         /// <summary>
@@ -36,8 +51,8 @@ namespace L00177804_Project.ViewModel
         {
             // Get user location
             await _googleMapService.GetGoogleMaps();
-           
-     
+
+
         }
 
         // Method to get NearbyService rest and pass to an observable collection
@@ -49,7 +64,7 @@ namespace L00177804_Project.ViewModel
                 var near = await nearByRestService.GetNearByAsync();
 
                 // Condition to check if items are already loaded
-                if(Item.Count !=0)
+                if (Item.Count != 0)
                 {
                     Item.Clear();
                 }
@@ -66,6 +81,21 @@ namespace L00177804_Project.ViewModel
         }
 
 
-        
+
+        [RelayCommand]
+        public async Task StartTracking()
+        {
+            tokenSource = new();
+            token = tokenSource.Token;
+
+            if (await Permissions.RequestAsync<Permissions.LocationAlways>() != PermissionStatus.Granted)
+            {
+                return;
+            }
+
+            await Task.Run(() => _locationTrackService.UpdateLocation(token, Run), token);
+        }
+
     }
+
 }

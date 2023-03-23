@@ -4,19 +4,27 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:L00177804_Project"
-    xmlns:page="clr-namespace:L00177804_Project.View"
+    xmlns:view="clr-namespace:L00177804_Project.View"
     Shell.FlyoutBehavior="Flyout"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    FlyoutBackgroundColor="AliceBlue">
+    FlyoutBackgroundColor="Purple">
+    
+    <!--<Shell.Resources>
+        <Style x:Key="MyPageStyle" TargetType="Element">
+            <Setter Property="Shell.BackgroundColor" Value="Purple" />
+            <Setter Property="Shell.TitleColor" Value="Yellow" />
+        </Style>
+    </Shell.Resources>-->
+
 
     <ShellContent
-        Title="Home"
+        Title="Home" 
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
     <ShellContent
         Title="Map"
-        ContentTemplate="{DataTemplate page:MapView}"
+        ContentTemplate="{DataTemplate view:MapView}"
         Route="MapView"/>
 
 </Shell>

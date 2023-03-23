@@ -8,3 +8,4 @@ namespace L00177804_Project;
 public class MainActivity : MauiAppCompatActivity
 {
 }
+
