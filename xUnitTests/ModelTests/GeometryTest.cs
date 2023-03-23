@@ -11,7 +11,7 @@ namespace xUnitTests.ModelTests
             Geometry geometry = new()
             {
                 // Act
-                Location = new L00177804_Project.Models.Locations
+                Location = new Locations
                 {
                     Lat = 1.0,
                     Lng = 2.0
