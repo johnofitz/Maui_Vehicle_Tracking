@@ -9,5 +9,7 @@ namespace L00177804_Project.Models
 
         public double Speed { get; set; }
 
+        public double Distance { get; set; }
+
     }
 }
