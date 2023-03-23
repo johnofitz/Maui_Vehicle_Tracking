@@ -1,4 +1,6 @@
-﻿namespace L00177804_Project;
+﻿using L00177804_Project.Service.NearByService;
+
+namespace L00177804_Project;
 
 public static class MauiProgram
 {
@@ -20,8 +22,11 @@ public static class MauiProgram
 
 		builder.Services.AddSingleton<MapViewModel>();
 		builder.Services.AddTransient<MapView>();
-	
 
+		builder.Services.AddTransient<MainPageViewModel>();
+		builder.Services.AddTransient<MainPage>();
+
+		builder.Services.AddTransient<NearByRestService>();
 		return builder.Build();
 	}
 }

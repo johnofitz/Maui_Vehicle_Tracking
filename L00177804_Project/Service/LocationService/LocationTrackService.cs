@@ -3,7 +3,7 @@ namespace L00177804_Project.Service.LocationService
 {
     public class LocationTrackService
     {
-        public LocationTrackService(){}
+        public LocationTrackService() { }
 
         private Locations _currentlocations = new();
 
@@ -68,4 +68,5 @@ namespace L00177804_Project.Service.LocationService
 
             }
         }
+    }
 }
