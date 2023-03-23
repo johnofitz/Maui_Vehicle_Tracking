@@ -8,18 +8,20 @@ namespace xUnitTests.ModelTests
         public void GeometryModelTest()
         {
             // Arrange
-            Geometry geometry = new();
-            // Act
-            geometry.location = new L00177804_Project.Models.Location
+            Geometry geometry = new()
             {
-                lat = 1.0,
-                lng = 2.0
+                // Act
+                Location = new L00177804_Project.Models.Locations
+                {
+                    Lat = 1.0,
+                    Lng = 2.0
+                }
             };
             // Assert
             Assert.NotNull(geometry);
-            Assert.NotNull(geometry.location);
-            Assert.Equal(1.0, geometry.location.lat);
-            Assert.Equal(2.0, geometry.location.lng);
+            Assert.NotNull(geometry.Location);
+            Assert.Equal(1.0, geometry.Location.Lat);
+            Assert.Equal(2.0, geometry.Location.Lng);
         }
     }
 }

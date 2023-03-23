@@ -9,10 +9,14 @@
              Title="{Binding Heading}">
 
     <StackLayout Margin="10">
-        <Button Text="Get directions using Maps app"
+        <Button Text="Get directions using Maps"
+                TextColor="Black"
                 Command="{Binding GetDirectionCommand}" />
+        <Button Text="Get directions using Maps"
+                TextColor="Black"
+                Command="{Binding StartTrackingCommand}" />
 
-        <maps:Map
+        <!--<maps:Map
              IsShowingUser="true" >
             <x:Arguments>
                 <MapSpan>
@@ -28,7 +32,7 @@
                     </x:Arguments>
                 </MapSpan>
             </x:Arguments>
-        </maps:Map>
+        </maps:Map>-->
         
     </StackLayout>
 

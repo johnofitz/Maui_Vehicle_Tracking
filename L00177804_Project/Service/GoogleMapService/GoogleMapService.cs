@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace L00177804_Project.Service
+namespace L00177804_Project.Service.GoogleMapService
 {
     public class GoogleMapService
     {

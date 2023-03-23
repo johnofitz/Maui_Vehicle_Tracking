@@ -8,7 +8,7 @@ namespace L00177804_Project.Models
 {
     public class Geometry
     {
-        public Location location { get; set; }
+        public Locations Location { get; set; }
 
 
     }
