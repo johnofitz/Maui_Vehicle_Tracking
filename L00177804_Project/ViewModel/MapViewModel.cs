@@ -50,7 +50,7 @@ namespace L00177804_Project.ViewModel
         public async Task GetDirection()
         {
             // Get user location
-            await _googleMapService.GetGoogleMaps();
+            await _googleMapService.GetGoogleMaps(52.663857, -8.639021);
 
 
         }
