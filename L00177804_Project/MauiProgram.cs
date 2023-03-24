@@ -27,6 +27,16 @@ public static class MauiProgram
 		builder.Services.AddTransient<MainPage>();
 
 		builder.Services.AddTransient<NearByRestService>();
+
+		builder.Services.AddTransient<ExpensesViewModel>();
+		builder.Services.AddTransient<ExpenseView>();
+
+		builder.Services.AddTransient<TripView>();
+		builder.Services.AddTransient<TripLogViewModel>();
+
+		builder.Services.AddTransient<VehicleView>();
+		builder.Services.AddTransient<VehicleViewModel>();
+
 		return builder.Build();
 	}
 }

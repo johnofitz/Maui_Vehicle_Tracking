@@ -6,7 +6,7 @@ namespace L00177804_Project.Service.LocationService
         public LocationTrackService() { }
 
         // Create object from Locations class
-        private Locations _currentlocations = new();
+        private readonly Locations _currentlocations = new();
 
         // Store previous lat and long for distance matric
         private double _oldLat = 0;
@@ -17,7 +17,7 @@ namespace L00177804_Project.Service.LocationService
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task UpdateLocation(CancellationToken ct, bool running)
+        public async Task<Locations> UpdateLocation(bool running, CancellationToken ct)
         {
             while (running)
             {
@@ -69,14 +69,40 @@ namespace L00177804_Project.Service.LocationService
 
                     if (ct.IsCancellationRequested)
                     {
-                        // If cancellation is requested, break out of the loop
-                        return;
+                        // Debug cancelation exception
+                        Debug.WriteLine("Location request canceled");
+
                     }
                 }
                 // Wait for 3 seconds before requesting the next location
                 await Task.Delay(3000, ct);
 
             }
+            return _currentlocations;
         }
+
+
+        public static async Task<Location> CurrentLocation(CancellationToken ct)
+        {
+            // Request the device's location with the best accuracy and a 5-second timeout
+            GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(5));
+            CancellationTokenSource cancelTokenSource = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            Location location = null;
+
+            try
+            {
+                // Use the cancellation token to abort the location request if needed
+                location = await Geolocation.Default.GetLocationAsync(request, cancelTokenSource.Token);
+
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                Debug.WriteLine(ex.Message);
+            }
+
+            return location;
+        }
+
     }
 }

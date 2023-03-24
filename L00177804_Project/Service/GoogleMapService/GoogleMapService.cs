@@ -15,17 +15,17 @@
         ///  at the users current location
         /// </summary>
         /// <returns></returns>
-        public async Task GetGoogleMaps(double lat, double lng)
+        public async Task GetGoogleMaps(string lat, string lng)
         {
             if (DeviceInfo.Current.Platform == DevicePlatform.iOS || DeviceInfo.Current.Platform == DevicePlatform.MacCatalyst)
             {
                 // https://developer.apple.com/library/ios/featuredarticles/iPhoneURLScheme_Reference/MapLinks/MapLinks.html
-                await Launcher.OpenAsync("http://maps.apple.com/?saddr=52.6676407,-8.724467");
+                await Launcher.OpenAsync($"http://maps.apple.com/?saddr={lat},{lng}");
             }
             else if (DeviceInfo.Current.Platform == DevicePlatform.Android)
             {
                 // opens the 'task chooser' so the user can pick Maps, Chrome or other mapping app
-                await Launcher.OpenAsync("http://maps.google.com/?saddr=52.6676407,-8.724467");
+                await Launcher.OpenAsync($"http://maps.google.com/?saddr={lat},{lng}");
             }
         }
     }

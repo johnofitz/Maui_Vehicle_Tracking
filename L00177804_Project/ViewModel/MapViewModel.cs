@@ -21,6 +21,7 @@ namespace L00177804_Project.ViewModel
         CancellationTokenSource tokenSource;
         CancellationToken token;
 
+        
 
         // Create object from Class NearByRestService
         public ObservableCollection<NearBy> Item { get; } = new();
@@ -49,19 +50,37 @@ namespace L00177804_Project.ViewModel
         [RelayCommand]
         public async Task GetDirection()
         {
-            // Get user location
-            await _googleMapService.GetGoogleMaps(52.663857, -8.639021);
+            tokenSource = new();
+            token = tokenSource.Token;
+            try
+            {
+                var current = await LocationTrackService.CurrentLocation(token);
 
+                if (current != null)
+                {
+                    await _googleMapService.GetGoogleMaps(current.Latitude.ToString(), current.Longitude.ToString());
+                }
+                // Get user location
+                await _googleMapService.GetGoogleMaps("52.663857", "-8.639021");
 
+            }
+            catch (Exception ex)
+            {
+                // exception
+                Debug.WriteLine(ex);
+            }
         }
 
         // Method to get NearbyService rest and pass to an observable collection
         public async Task GetNearByItemsAsync()
         {
+            tokenSource = new();
+            token = tokenSource.Token;
             try
             {
+                var current = await LocationTrackService.CurrentLocation(token);
                 // Get list of nearby objects
-                var near = await nearByRestService.GetNearByAsync();
+                var near = await nearByRestService.GetNearByAsync(current.Latitude.ToString(), current.Longitude.ToString());
 
                 // Condition to check if items are already loaded
                 if (Item.Count != 0)
@@ -87,13 +106,12 @@ namespace L00177804_Project.ViewModel
         {
             tokenSource = new();
             token = tokenSource.Token;
-
             if (await Permissions.RequestAsync<Permissions.LocationAlways>() != PermissionStatus.Granted)
             {
                 return;
             }
 
-            await Task.Run(() => _locationTrackService.UpdateLocation(token, Run), token);
+            await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
         }
 
     }
