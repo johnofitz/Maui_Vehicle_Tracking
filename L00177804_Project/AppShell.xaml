@@ -32,8 +32,8 @@
         Title="Reminders"
         Icon="remind.png"
         StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:MapView}"
-        Route="MapView"/>
+        ContentTemplate="{DataTemplate view:ReminderView}"
+        Route="ReminderView"/>
 
     <ShellContent
         Title="Map Service"
@@ -67,8 +67,8 @@
         Title="Settings"
         Icon="settings.png"
         StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:TripView}"
-        Route="TripView"/>
+        ContentTemplate="{DataTemplate view:SettingsView}"
+        Route="SettingsView"/>
 
     <Shell.FlyoutFooter>
         <Label Text="About"
