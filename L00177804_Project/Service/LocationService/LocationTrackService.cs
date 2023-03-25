@@ -36,11 +36,13 @@ namespace L00177804_Project.Service.LocationService
                     // Use the cancellation token to abort the location request if needed
                     location = await Geolocation.Default.GetLocationAsync(request, cancelTokenSource.Token);
 
-                    // Add Location class data to local object
-                    _currentlocations.Lat = location.Latitude;
-                    _currentlocations.Lng = location.Longitude;
-                    _currentlocations.Speed = (double)location.Speed;
-
+                    if (location != null)
+                    {
+                        // Add Location class data to local object
+                        _currentlocations.Lat = location.Latitude;
+                        _currentlocations.Lng = location.Longitude;
+                        _currentlocations.Speed = (double)location.Speed;
+                    }
                     // Only excutes after second itteration
                     if (_currentlocations != null && _oldLat != 0 && _oldLng != 0)
                     {
@@ -67,7 +69,7 @@ namespace L00177804_Project.Service.LocationService
                         Thread.Sleep(100);
                     }
                     // Wait for 3 seconds before requesting the next location
-                    await Task.Delay(3000);
+                    await Task.Delay(3000, ct);
 
                 }
             }
