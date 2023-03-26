@@ -1,4 +1,5 @@
 ﻿using L00177804_Project.Service.NearByService;
+using L00177804_Project.Service.VehicleInfoService;
 
 namespace L00177804_Project;
 
@@ -45,6 +46,11 @@ public static class MauiProgram
 
 		builder.Services.AddTransient<AddVehicleView>();
 		builder.Services.AddTransient<AddVehicleViewModel>();
+
+		builder.Services.AddTransient<VehicleDataService>();
+
+
+
 		return builder.Build();
 	}
 }

@@ -1,4 +1,6 @@
 ﻿
+using L00177804_Project.Service.VehicleInfoService;
+
 namespace L00177804_Project.ViewModel
 {
     /// <summary>
@@ -7,41 +9,48 @@ namespace L00177804_Project.ViewModel
     /// </summary>
     public partial class VehicleViewModel:ParentViewModel
     {
+        // 
+        private VehicleDataService VehicleDataService;
 
-        public VehicleViewModel() { }
+        // Create observable collection for vehicle 
+        public ObservableCollection<Vehicle> Vehicles { get; set; }
 
-        // Vehicle properties for Model
-        [ObservableProperty]
-        string name;
-        [ObservableProperty]
-        public string make;
-        [ObservableProperty]
-        public string model;
-        [ObservableProperty]
-        public string fuelType;
-        [ObservableProperty]
-        public double odometer;
-        [ObservableProperty]
-        public double fuelConsumption;
-        [ObservableProperty]
-        public string fuelUnit;
-        [ObservableProperty]
-        public string insurencePolicy;
-        [ObservableProperty]
-        public string insurenceCompany;
-        [ObservableProperty]
-        public string licence;
-        [ObservableProperty]
-        public string distance;
 
+        public VehicleViewModel(VehicleDataService vehicleData) {
+            
+            this.VehicleDataService = vehicleData;
+            Vehicles = new ObservableCollection<Vehicle>();
+            GetVehiclesAsync();
+        }
 
 
         [RelayCommand]
         public async Task GoToAddVehicle()
         {
             await Shell.Current.GoToAsync(nameof(AddVehicleView));
-            
+        }
 
+        /// <summary>
+        ///  Method to get the vehicle data from the json file
+        /// </summary>
+        public async void GetVehiclesAsync()
+        {
+            try
+            {
+                var item = await VehicleDataService.GetVehiclesInfo();
+
+                // condition to clear menu for erroneous behaviour
+                if (Vehicles.Count != 0)
+                    Vehicles.Clear();
+
+                item.ForEach(Vehicles.Add);
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"No File History Found: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error! No File History Found", ex.Message, "OK");
+            }
         }
     }
 }

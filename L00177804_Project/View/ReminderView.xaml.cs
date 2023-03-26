@@ -5,5 +5,8 @@ public partial class ReminderView : ContentPage
 	public ReminderView()
 	{
 		InitializeComponent();
-	}
+       
+    }
+
+
 }

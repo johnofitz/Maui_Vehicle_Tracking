@@ -6,5 +6,6 @@ public partial class VehicleView : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = viewModel;
-	}
+   
+    }
 }
