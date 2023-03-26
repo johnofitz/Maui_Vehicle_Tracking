@@ -1,15 +1,10 @@
 ﻿
+
 namespace L00177804_Project.ViewModel
 {
-    /// <summary>
-    ///  This Class is used to store the data for the Vehicle View
-    ///  
-    /// </summary>
-    public partial class VehicleViewModel:ParentViewModel
+    public partial class AddVehicleViewModel:ParentViewModel
     {
-
-        public VehicleViewModel() { }
-
+        public AddVehicleViewModel() { }
         // Vehicle properties for Model
         [ObservableProperty]
         string name;
@@ -17,6 +12,10 @@ namespace L00177804_Project.ViewModel
         public string make;
         [ObservableProperty]
         public string model;
+        [ObservableProperty]
+        public string year;
+        [ObservableProperty]
+        public string engineSize;
         [ObservableProperty]
         public string fuelType;
         [ObservableProperty]
@@ -31,17 +30,5 @@ namespace L00177804_Project.ViewModel
         public string insurenceCompany;
         [ObservableProperty]
         public string licence;
-        [ObservableProperty]
-        public string distance;
-
-
-
-        [RelayCommand]
-        public async Task GoToAddVehicle()
-        {
-            await Shell.Current.GoToAsync(nameof(AddVehicleView));
-            
-
-        }
     }
 }

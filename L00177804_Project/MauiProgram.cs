@@ -43,6 +43,8 @@ public static class MauiProgram
 		builder.Services.AddTransient<ReminderView>();
 		//builder.Services.AddTransient<ReminderViewModel>();
 
+		builder.Services.AddTransient<AddVehicleView>();
+		builder.Services.AddTransient<AddVehicleViewModel>();
 		return builder.Build();
 	}
 }
