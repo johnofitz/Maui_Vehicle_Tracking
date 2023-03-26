@@ -11,10 +11,6 @@ namespace L00177804_Project.Models
 
         public string Model { get; set; }
 
-        public string Year { get; set; }
-
-        public string EngineSize { get; set; }
-
         public string FuelType { get; set; }
 
         public double Odometer { get; set; }
@@ -28,6 +24,8 @@ namespace L00177804_Project.Models
         public string InsurenceCompany { get; set; }
 
         public string Licence { get; set; }
+
+        public string Distance { get; set; }
 
     }
 }
