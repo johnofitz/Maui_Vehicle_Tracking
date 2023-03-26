@@ -7,23 +7,58 @@
     xmlns:model="clr-namespace:L00177804_Project.Models"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     Title="Vehicles">
-    <ScrollView>
-        <!--  *,* makes coloumns as big as needed  -->
-        <Grid>
-            <StackLayout>
-                <StackLayout
-                    Margin="0,0,0,20"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="End">
-                    <Button
-                        BackgroundColor="Black"
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="*,Auto"
+                  RowSpacing="0">
+
+                <CollectionView BackgroundColor="Transparent"
+                                  Grid.ColumnSpan="2"
+                                  ItemsSource="{Binding Vehicles}"
+                                  SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Vehicle">
+                            <Grid Padding="10">
+                                <Frame HeightRequest="165"
+                                       BackgroundColor="Gainsboro">
+                                    <Grid Padding="0">
+                                        <Label Text="{Binding Name}"
+                                               Padding="20"
+                                               FontSize="Header"
+                                               HorizontalOptions="Center">
+                                        </Label>
+                                        <VerticalStackLayout Padding="30">
+                                            <Label Text="{Binding Odometer}"
+                                                   FontSize="Small"
+                                                   FontAttributes="Bold"
+                                                   Margin="20,0,0,10"/>
+                                            <Label Text="{Binding Make}"
+                                                   FontAttributes="Bold"
+                                                   Margin="20,0,0,10"/>
+                                            <Label Text="{Binding Model}"
+                                                   FontAttributes="Bold"
+                                                   Margin="20,0,0,0"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Button BackgroundColor="Black"
                         Command="{Binding GoToAddVehicleCommand}"
                         Text="Add Vehicle"
-                        WidthRequest="200" />
-                </StackLayout>
+                        WidthRequest="200"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="End"
+                        Margin="0,0,0,20" />
 
-                <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
-            </StackLayout>
-        </Grid>
-    </ScrollView>
+                <ActivityIndicator HorizontalOptions="Fill"
+                                       VerticalOptions="Center" />
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>
