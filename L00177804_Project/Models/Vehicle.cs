@@ -15,9 +15,9 @@ namespace L00177804_Project.Models
 
         public double Odometer { get; set; }
 
-        public double FuelConsumption { get; set; }
+        public string EngineSize { get; set; }
 
-        public string FuelUnit { get; set; }
+        public string FuelConsumption { get; set; }
 
         public string InsurencePolicy { get; set; }
 

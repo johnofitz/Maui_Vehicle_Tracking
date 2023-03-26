@@ -3,13 +3,19 @@ namespace L00177804_Project.ViewModel
 {
     public partial class AddVehicleViewModel:ParentViewModel
     {
-
+        // Create an observable collection for the fuel types
         public ObservableCollection<string> FuelTypes { get; set; }
+
+        // Create an observable collection for the consumption unit
 
         public ObservableCollection<string> ConsumptionUnit { get; set; }
 
+        // Create an observable collection for the distance unit
         public ObservableCollection<string> DistanceUnit { get; set; }
 
+        /// <summary>
+        ///  Constructor for the AddVehicleViewModel class
+        /// </summary>
         public AddVehicleViewModel() {
 
             FuelTypes = new ObservableCollection<string>();
@@ -27,46 +33,46 @@ namespace L00177804_Project.ViewModel
         }
         // Vehicle properties for Model
         [ObservableProperty]
-        public string name;
+        public string names;
         [ObservableProperty]
-        public string make;
+        public string makes;
         [ObservableProperty]
         public string models;
         [ObservableProperty]
-        public string fuelType;
+        public string engineSizes;
         [ObservableProperty]
-        public double odometer;
+        public double odometers;
         [ObservableProperty]
-        public double fuelConsumption;
+        public string insurencePolicys;
         [ObservableProperty]
-        public string fuelUnit;
+        public string insurenceCompanys;
         [ObservableProperty]
-        public string insurencePolicy;
-        [ObservableProperty]
-        public string insurenceCompany;
-        [ObservableProperty]
-        public string licence;
+        public string licences;
 
 
         // Create a new instance of the FuelTypes class
-        FuelTypes fuelTypes = new();
+        private FuelTypes fuelTypes = new();
 
         // Create a new instance of the ConsumptionUnit class
-        ConsumptionUnit consumptionUnit = new();
+        private ConsumptionUnit consumptionUnit = new();
 
         // Create a new instance of the DistanceUnit class
-        DistanceUnit distanceUnit = new();
+        private DistanceUnit distanceUnit = new();
 
+        private List<Vehicle> logging = new();
+
+        // Selected fuel type default
         public string SelectedFuelType { get; set; }
 
+        // Selected consumption type default
         public string SelectedConsumptionType { get; set; }
 
-
+        // Selected distance type default
         public string SelectedDistanceType { get; set; }
 
 
         // Add fuel types to the observable collection
-        public void AddFuelTypes()
+        private void AddFuelTypes()
         {
             FuelTypes.Add(fuelTypes.Type1);
             FuelTypes.Add(fuelTypes.Type2);
@@ -76,7 +82,7 @@ namespace L00177804_Project.ViewModel
         }
 
         // Add consumption Types to the observable collection
-        public void AddConsumptionUnit()
+        private void AddConsumptionUnit()
         {
             ConsumptionUnit.Add(consumptionUnit.Consumption1);
             ConsumptionUnit.Add(consumptionUnit.Consumption2);
@@ -85,21 +91,63 @@ namespace L00177804_Project.ViewModel
         }
 
         // Add distance unit to the observable collection
-        public void AddDistanceUnit()
+        private void AddDistanceUnit()
         {
             DistanceUnit.Add(distanceUnit.Distance1);
             DistanceUnit.Add(distanceUnit.Distance2);
         }
 
+        // Target File to save json data
+        readonly string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "vehicle.json");
+
+        // Method used To save vehicle data
 
         [RelayCommand]
-        public async Task GetVehicle()
+        public async Task SaveVehicleData()
         {
-            string newName = Name;
-            double ode = Odometer;
-            string t = SelectedFuelType;
+            try
+            {
+
+                Vehicle vehicle = new()
+                {
+                    Name = names,
+                    Make = makes,
+                    Model = models,
+                    EngineSize = engineSizes,
+                    FuelType = SelectedFuelType,
+                    Odometer = odometers,
+                    FuelConsumption = SelectedConsumptionType,
+                    Distance = SelectedDistanceType,
+                    InsurencePolicy = insurencePolicys,
+                    InsurenceCompany = insurenceCompanys,
+                    Licence = licences,
+                };
+
+                if (!File.Exists(targetFile))
+                {
+                    logging.Add(vehicle);
+                    string json = JsonConvert.SerializeObject(logging);
+                    File.WriteAllText(targetFile, json);
+                }
+                else
+                {
+                    string json = File.ReadAllText(targetFile);
+                    logging = JsonConvert.DeserializeObject<List<Vehicle>>(json);
+                    logging.Add(vehicle);
+                    string newJson = JsonConvert.SerializeObject(logging);
+                    File.WriteAllText(targetFile, newJson);
+                }
+            }
+            catch(Exception ex)
+            {
+                // Debug
+                Debug.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                // Route to previous page
+                await Shell.Current.GoToAsync("..//..");
+            }
         }
-
-
     }
 }

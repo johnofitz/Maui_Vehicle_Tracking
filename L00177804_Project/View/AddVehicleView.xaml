@@ -22,13 +22,13 @@
                                 FontSize="Body"
                                 Placeholder="Name"
                                 PlaceholderColor="DarkGray"
-                                Text="{Binding Name}"
+                                Text="{Binding Names}"
                                 TextColor="Black" />
                             <Entry
                                 FontSize="Body"
                                 Placeholder="Odmeter"
                                 PlaceholderColor="DarkGray"
-                                Text="{Binding Odometer}"
+                                Text="{Binding Odometers}"
                                 TextColor="Black" />
                         </VerticalStackLayout>
                     </Grid>
@@ -120,14 +120,14 @@
                                     FontSize="Body"
                                     Placeholder="Make"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding Make}"
+                                    Text="{Binding Makes}"
                                     TextColor="Black" />
                                 <Entry
                                     Margin="0,0,0,20"
                                     FontSize="Body"
                                     Placeholder="Engine size"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding FuelType}"
+                                    Text="{Binding EngineSizes}"
                                     TextColor="Black" />
                             </VerticalStackLayout>
 
@@ -147,7 +147,7 @@
                                     FontSize="Body"
                                     Placeholder="Reg"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding Licence}"
+                                    Text="{Binding Licences}"
                                     TextColor="Black" />
                             </VerticalStackLayout>
                         </Grid>
@@ -161,7 +161,7 @@
                     VerticalOptions="End">
                     <Button
                         BackgroundColor="Black"
-                        Command="{Binding GetVehicleCommand}"
+                        Command="{Binding SaveVehicleDataCommand}"
                         Text="Save Vehicle"
                         WidthRequest="200" />
                 </StackLayout>
