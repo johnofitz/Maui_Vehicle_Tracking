@@ -1,105 +1,65 @@
-    name: CI Build
+name: CI Build
 
-    on:
-      push:
-        branches: [ master ]
-        paths-ignore:
-          - '**/*.md'
-          - '**/*.gitignore'
-          - '**/*.gitattributes'
-      pull_request:
-        branches: [ master ]
-      workflow_dispatch:
-    
-    permissions:
-      contents: read
-    
-    env:
-      DOTNET_NOLOGO: true                     # Disable the .NET logo
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
-      DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
-    
-    jobs:
-    # MAUI Android Build
-      build-android:
-        runs-on: windows-latest
-        name: Android Build
-        steps:
-    
-          - name: Checkout
-            uses: actions/checkout@v3
-    
-          - name: Setup .NET 7
-            uses: actions/setup-dotnet@v3
-            with:
-              dotnet-version: 7.0.x
-              
-          - name: Install MAUI Workload
-            run: dotnet workload install maui --ignore-failed-sources
-    
-          - name: Restore Dependencies
-            run: dotnet restore L00177804_Project/L00177804_Project.csproj
-    
-          - name: Build MAUI Android
-            run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
-    
-      test-android:
-        name: Android Test
-        runs-on: windows-latest
-    
-        steps:        
-        - name: Run tests
-          run: dotnet test --no-build --verbosity normal
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.gitignore'
+      - '**/*.gitattributes'
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
 
+permissions:
+  contents: read
 
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
 
-      deploy-android:
-        needs: [build-android, test-android]
-        runs-on: windows-latest
-        # display output message
-        steps:
-          - name: Display message
-            run: echo "Deploying to Azure App Service"
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.os }} Build and Test
+    strategy:
+      matrix:
+        os: [windows-latest, macos-12]
+        platform: [android, ios]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    # MAUI iOS Build
-      build-ios:
-        runs-on: macos-12
-        name: iOS Build
-        steps:
-    
-          - name: Checkout
-            uses: actions/checkout@v3
-    
-          - name: Setup .NET 7
-            uses: actions/setup-dotnet@v3
-            with:
-              dotnet-version: 7.0.x
-    
-          - name: Install MAUI Workload
-            run: dotnet workload install maui --ignore-failed-sources
-    
-          - name: Restore Dependencies
-            run: dotnet restore L00177804_Project/L00177804_Project.csproj
-    
-          - name: Build MAUI iOS
-            run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
- 
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
 
-      test-ios:
-        name: iOS Test
-        runs-on: macos-12
-    
-        steps:
-        - name: Run tests
-          run: dotnet test --no-build --verbosity normal
-        
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-dotnet-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-
 
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --version 7.0.0-preview3.21151.1
 
-      Deploy-ios:
-        needs: [build-ios, test-ios]
-        runs-on: windows-latest
-        # display output message
-        steps:
-          - name: Display message
-            run: echo "Deploying to Azure App Service"
+      - name: Restore Dependencies
+        run: dotnet restore L00177804_Project/L00177804_Project.csproj
 
+      - name: Build MAUI ${{ matrix.platform }}
+        run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-${{ matrix.platform }} --no-restore --incremental
+
+      - name: Run tests
+        run: dotnet test --no-build --verbosity normal
+
+  deploy:
+    needs: [build-and-test]
+    runs-on: windows-latest
+    name: Deploy to Azure App Service
+    steps:
+      - name: Display message
+        run: echo "Deploying to Azure App Service"
