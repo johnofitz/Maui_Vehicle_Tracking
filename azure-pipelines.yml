@@ -56,6 +56,9 @@ stages:
       displayName: 'Run tests'
 
 - stage: xunitTest
+  dependsOn:
+  - Build
+  - Test
   displayName: 'xUnit Test'
   jobs:
   - job: xUnitSetup
@@ -77,7 +80,10 @@ stages:
 
 - stage: Deploy
   displayName: 'Deploy Stage'
-  dependsOn: Test
+  dependsOn:
+  - Build
+  - Test
+  - xUnitTest
   jobs:
   - job: Deploy
     displayName: 'Deploy Job'
