@@ -62,9 +62,12 @@
           # Test build for android
         - name: Restore Dependencies
           run: dotnet restore xUnitTests/xUnitTests.csproj
-
+          
+        - name: Build MAUI Android
+          run: dotnet build xUnitTests/xUnitTests.csproj -c Release -f net7.0-android --no-restore
+          
         - name: Run tests
-          run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
+          run: dotnet test --no-build --verbosity normal
 
 
 
@@ -98,7 +101,7 @@
     
           - name: Build MAUI iOS
             run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
-              # xunit test build for ios
+ 
 
       test-ios:
         name: iOS Test
@@ -120,9 +123,12 @@
 
         - name: Restore Dependencies
           run: dotnet restore xUnitTests/xUnitTests.csproj
+          
+        - name: Build MAUI iOS
+          run: dotnet build xUnitTests/xUnitTests.csproj -c Release -f net7.0-ios --no-restore
 
         - name: Run tests
-          run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
+          run: dotnet test --no-build --verbosity normal
         
 
 
