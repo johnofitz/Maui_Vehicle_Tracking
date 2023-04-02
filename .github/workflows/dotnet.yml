@@ -43,9 +43,8 @@ jobs:
       - name: Build MAUI Android
         run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
 
-          # xunit test build for android
-      - name: Build xUnit Tests
-        run: dotnet build L00177804_Project/xUnitTests.csproj -c Release -f net7.0-android --no-restore
+      - name: Test Maui
+        run: dotnet test --no-restore --verbosity normal
 
 
 
