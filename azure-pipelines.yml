@@ -55,6 +55,26 @@ stages:
     - script: 'dotnet test --no-build --verbosity normal'
       displayName: 'Run tests'
 
+- stage: xunitTest
+  displayName: 'xUnit Test'
+  jobs:
+  - job: xUnitSetup
+    displayName: 'Setup xUnit'
+    steps:
+    - checkout: self
+    - script: 'dotnet tool install --global dotnet-xunit'
+      displayName: 'Install xUnit'
+    - script: 'dotnet tool install --global coverlet.console'
+      displayName: 'Install Coverlet'
+
+  - job: xUnitTesting
+    displayName: 'Run Unit Test'
+    dependsOn: xUnitSetup
+    steps:
+    - script: dotnet test xUnitTests/xUnitTests.csproj --filter "TestCategory!=Smoke"
+      displayName: 'Running Unit Tests'
+
+
 - stage: Deploy
   displayName: 'Deploy Stage'
   dependsOn: Test
@@ -65,3 +85,5 @@ stages:
     - script: 'echo "Deploying to Azure App Service"'
       displayName: 'Display message'
       condition: and(succeeded(), eq(variables['Build.Reason'], 'IndividualCI'))
+
+  
