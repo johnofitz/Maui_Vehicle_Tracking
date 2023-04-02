@@ -1,62 +1,71 @@
 trigger:
   - master
-  pool:
-    vmImage: 'windows-latest'
-  variables:
-    DOTNET_NOLOGO: true                     
-    DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true 
-    DOTNET_CLI_TELEMETRY_OPTOUT: true       
-  stages:
-  - stage: Build_Android
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+- stage: Build_Android
+  displayName: 'Build and Test Android'
+  jobs:
+  - job: Build_Android
     displayName: 'Build and Test Android'
-    jobs:
-    - job: Build_Android
-      displayName: 'Build and Test Android'
-      steps:
-      - task: Checkout@v2
-        inputs:
-          repository: 'L00177804_Project'
-          ref: 'refs/heads/$(Build.master)'
-      - task: UseDotNet@2
-        inputs:
-          version: '7.x'
-      - script: dotnet workload install maui --ignore-failed-sources
-      - script: dotnet restore L00177804_Project/L00177804_Project.csproj
-      - script: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
-      - script: dotnet test --no-build --verbosity normal
-      - stage: Deploy_Android
-        dependsOn: Build_Android
-        displayName: 'Deploy to Azure App Service (Android)'
-        jobs:
-        - job: Deploy_Android
-          displayName: 'Deploy to Azure App Service (Android)'
-          steps:
-          - script: echo 'Deploying to Azure App Service (Android)'
-  
-  - stage: Build_iOS
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        version: '7.x'
+    - script: dotnet workload install maui --ignore-failed-sources
+    - script: dotnet restore $(solution)
+    - script: dotnet build $(solution) --configuration $(buildConfiguration) --framework net7.0-android --no-restore
+    - script: dotnet test --no-build --verbosity normal $(solution)
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/*.trx'
+        failTaskOnFailedTests: true
+    - task: CopyFiles@2
+      inputs:
+        Contents: '**/bin/$(buildConfiguration)/net7.0-android/**'
+        TargetFolder: '$(build.artifactstagingdirectory)/Android'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)/Android'
+        ArtifactName: 'Android'
+        publishLocation: 'Container'
+        
+- stage: Build_iOS
+  displayName: 'Build and Test iOS'
+  jobs:
+  - job: Build_iOS
     displayName: 'Build and Test iOS'
-    jobs:
-    - job: Build_iOS
-      displayName: 'Build and Test iOS'
-      pool:
-        vmImage: 'macos-12'
-      steps:
-      - task: Checkout@v2
-        inputs:
-          repository: 'L00177804_Project'
-          ref: 'refs/heads/$(Build.master)'
-      - task: UseDotNet@2
-        inputs:
-          version: '7.x'
-      - script: dotnet workload install maui --ignore-failed-sources
-      - script: dotnet restore L00177804_Project/L00177804_Project.csproj
-      - script: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
-      - script: dotnet test --no-build --verbosity normal
-      - stage: Deploy_iOS
-        dependsOn: Build_iOS
-        displayName: 'Deploy to Azure App Service (iOS)'
-        jobs:
-        - job: Deploy_iOS
-          displayName: 'Deploy to Azure App Service (iOS)'
-          steps:
-          - script: echo 'Deploying to Azure App Service (iOS)'  
+    pool:
+      vmImage: 'macos-12'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        version: '7.x'
+    - script: dotnet workload install maui --ignore-failed-sources
+    - script: dotnet restore $(solution)
+    - script: dotnet build $(solution) --configuration $(buildConfiguration) --framework net7.0-ios --no-restore
+    - script: dotnet test --no-build --verbosity normal $(solution)
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles: '**/*.trx'
+        failTaskOnFailedTests: true
+    - task: CopyFiles@2
+      inputs:
+        Contents: '**/bin/$(buildConfiguration)/net7.0-ios/**'
+        TargetFolder: '$(build.artifactstagingdirectory)/iOS'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)/iOS'
+        ArtifactName: 'iOS'
+        publishLocation: 'Container'
+        
+
