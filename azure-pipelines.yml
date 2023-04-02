@@ -52,30 +52,8 @@ stages:
   - job: Test
     displayName: 'Test Job'
     steps:
-    - script: 'dotnet test --no-build --verbosity normal'
-      displayName: 'Run tests'
-
-- stage: xunitTest
-  dependsOn:
-  - Build
-  - Test
-  displayName: 'xUnit Test'
-  jobs:
-  - job: xUnitSetup
-    displayName: 'Setup xUnit'
-    steps:
-    - checkout: self
-    - task: UseDotNet@2
-      displayName: 'Setup .NET 7'
-      inputs:
-        packageType: sdk
-        version: '7.x'
-    - script: dotnet restore
-      displayName: 'Restore NuGet packages'
     - script: dotnet test xUnitTests/xUnitTests.csproj --filter "TestCategory!=Smoke"
-      displayName: 'Build and Test'
-
-
+      displayName: 'Run tests'
 
 - stage: Deploy
   displayName: 'Deploy Stage'
