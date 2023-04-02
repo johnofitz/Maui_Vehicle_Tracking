@@ -6,7 +6,7 @@ namespace L00177804_Project.Service.LocationService
         public LocationTrackService() { }
 
         // Create object from Locations class
-        private Locations _currentlocations = new();
+        private readonly Locations _currentlocations = new();
 
         // Store previous lat and long for distance matric
         private double _oldLat = 0;
@@ -17,10 +17,15 @@ namespace L00177804_Project.Service.LocationService
         /// </summary>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task UpdateLocation(CancellationToken ct, bool running)
+        public async Task<Locations> UpdateLocation(bool running, CancellationToken ct)
         {
+
             while (running)
             {
+                if (ct.IsCancellationRequested)
+                {
+                    return _currentlocations;
+                }
                 // Request the device's location with the best accuracy and a 5-second timeout
                 GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(5));
                 CancellationTokenSource cancelTokenSource = CancellationTokenSource.CreateLinkedTokenSource(ct);
@@ -30,6 +35,7 @@ namespace L00177804_Project.Service.LocationService
                 {
                     // Use the cancellation token to abort the location request if needed
                     location = await Geolocation.Default.GetLocationAsync(request, cancelTokenSource.Token);
+
                     if (location != null)
                     {
                         // Add Location class data to local object
@@ -37,17 +43,6 @@ namespace L00177804_Project.Service.LocationService
                         _currentlocations.Lng = location.Longitude;
                         _currentlocations.Speed = (double)location.Speed;
                     }
-
-                }
-                catch (TaskCanceledException)
-                {
-                    // Debug cancelation exception
-                    Debug.WriteLine("Location request canceled");
-
-                }
-
-                finally
-                {
                     // Only excutes after second itteration
                     if (_currentlocations != null && _oldLat != 0 && _oldLng != 0)
                     {
@@ -60,23 +55,50 @@ namespace L00177804_Project.Service.LocationService
                     // store previous lat and long for distance matric
                     _oldLat = _currentlocations.Lat;
                     _oldLng = _currentlocations.Lng;
-                }
 
-                // Wait for the location to be retrieved
-                while (location == null)
+                }
+                catch (Exception ex)
                 {
-                    Thread.Sleep(1000);
-
-                    if (ct.IsCancellationRequested)
-                    {
-                        // If cancellation is requested, break out of the loop
-                        return;
-                    }
+                    Debug.WriteLine(ex);
                 }
-                // Wait for 3 seconds before requesting the next location
-                await Task.Delay(3000, ct);
+                finally
+                {
+                    // Wait for the location to be retrieved
+                    while (location == null)
+                    {
+                        Thread.Sleep(100);
+                    }
+                    // Wait for 3 seconds before requesting the next location
+                    await Task.Delay(3000, ct);
+
+                }
+            }
+            return _currentlocations;
+
+        }
+
+
+        public static async Task<Location> CurrentLocation(CancellationToken ct)
+        {
+            // Request the device's location with the best accuracy and a 5-second timeout
+            GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(5));
+            CancellationTokenSource cancelTokenSource = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            Location location = null;
+
+            try
+            {
+                // Use the cancellation token to abort the location request if needed
+                location = await Geolocation.Default.GetLocationAsync(request, cancelTokenSource.Token);
 
             }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                Debug.WriteLine(ex.Message);
+            }
+
+            return location;
         }
+
     }
 }

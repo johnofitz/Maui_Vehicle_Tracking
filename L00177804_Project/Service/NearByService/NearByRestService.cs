@@ -15,19 +15,30 @@ namespace L00177804_Project.Service.NearByService
         // Always response on data
         private readonly string resp = "results";
 
+        private readonly string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
+
+        private readonly string radius = "1500";
+
+        private readonly string types = "gas_station";
+
+        private readonly string keyword = "fuel";
+
+        private readonly string apiKey = "AIzaSyCisbhXpngbhbhJSq_ykG8a6HljIFvFhjc";
+
         /// <summary>
         /// Method used to Deserialize Json object
         /// using Newtonsoft.Json library and http client
         /// Parses Json object to a list of Nearby objects
         /// </summary>
         /// <returns> A List of Nearby fuel stations</returns>
-        public async Task<List<NearBy>> GetNearByAsync()
+        public async Task<List<NearBy>> GetNearByAsync(string lat, string lng)
         {
+            string fullUrl = url + lat + "%2C" + lng + "&radius=" + radius + "&types=" + types + "&keyword=" + keyword + "&key=" + apiKey;
             // Url to get nearby fuel stations
-            string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.663857%2C-8.639021&radius=1500&types=gas_station&keyword=fuel&key=AIzaSyCisbhXpngbhbhJSq_ykG8a6HljIFvFhjc";
+            //string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.663857%2C-8.639021&radius=1500&types=gas_station&keyword=fuel&key=AIzaSyCisbhXpngbhbhJSq_ykG8a6HljIFvFhjc";
 
             // pass url and return response as a stream
-            var response = await _client.GetStreamAsync(url);
+            var response = await _client.GetStreamAsync(fullUrl);
 
             // Inatialize Stream reader to read byte data
             using StreamReader reader = new(response);

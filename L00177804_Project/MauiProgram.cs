@@ -1,4 +1,5 @@
 ﻿using L00177804_Project.Service.NearByService;
+using L00177804_Project.Service.VehicleInfoService;
 
 namespace L00177804_Project;
 
@@ -27,6 +28,29 @@ public static class MauiProgram
 		builder.Services.AddTransient<MainPage>();
 
 		builder.Services.AddTransient<NearByRestService>();
+
+		builder.Services.AddTransient<ExpensesViewModel>();
+		builder.Services.AddTransient<ExpenseView>();
+
+		builder.Services.AddTransient<TripView>();
+		builder.Services.AddTransient<TripLogViewModel>();
+
+		builder.Services.AddTransient<VehicleView>();
+		builder.Services.AddTransient<VehicleViewModel>();
+
+		builder.Services.AddTransient<SettingsView>();
+		//builder.Services.AddTransient<SettingsViewModel>();
+
+		builder.Services.AddTransient<ReminderView>();
+		//builder.Services.AddTransient<ReminderViewModel>();
+
+		builder.Services.AddTransient<AddVehicleView>();
+		builder.Services.AddTransient<AddVehicleViewModel>();
+
+		builder.Services.AddTransient<VehicleDataService>();
+
+
+
 		return builder.Build();
 	}
 }

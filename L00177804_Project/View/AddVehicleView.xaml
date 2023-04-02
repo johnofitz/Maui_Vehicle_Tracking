@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="L00177804_Project.View.AddVehicleView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:DataType="viewmodel:AddVehicleViewModel"
+    xmlns:model="clr-namespace:L00177804_Project.Models"
+    xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
+    Title="Add Vehicle">
+    <ScrollView>
+        <!--  *,* makes coloumns as big as needed  -->
+        <Grid>
+            <StackLayout>
+                <Frame
+                    Margin="20"
+                    Padding="20"
+                    BackgroundColor="LightGray">
+                    <Grid>
+                        <VerticalStackLayout Padding="20" BackgroundColor="LightGray">
+                            <Entry
+                                Margin="0,0,0,0"
+                                FontSize="Body"
+                                Placeholder="Name"
+                                PlaceholderColor="DarkGray"
+                                Text="{Binding Names}"
+                                TextColor="Black" />
+                            <Entry
+                                FontSize="Body"
+                                Placeholder="Odmeter"
+                                PlaceholderColor="DarkGray"
+                                Text="{Binding Odometers}"
+                                TextColor="Black" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+
+                <Frame
+                    Margin="20"
+                    Padding="20"
+                    BackgroundColor="LightGray">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Text="Unit Settings" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Fuel Type:" />
+                            <Picker
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                ItemsSource="{Binding FuelTypes}"
+                                SelectedItem="{Binding SelectedFuelType}" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="Consumption Unit:" />
+                            <Picker
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                ItemsSource="{Binding ConsumptionUnit}"
+                                SelectedItem="{Binding SelectedConsumptionType}" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="Distance Unit:" />
+                            <Picker
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                ItemsSource="{Binding DistanceUnit}"
+                                SelectedItem="{Binding SelectedDistanceType}" />
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+
+                <!--  Horizontal stack for data  -->
+
+                <Frame
+                    Margin="20"
+                    Padding="20"
+                    BackgroundColor="LightGray">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Text="Optional Data"
+                            VerticalOptions="Center" />
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <VerticalStackLayout
+                                Grid.Column="0"
+                                Padding="20"
+                                BackgroundColor="LightGray">
+                                <Entry
+                                    Margin="0,0,0,20"
+                                    FontSize="Body"
+                                    Placeholder="Make"
+                                    PlaceholderColor="DarkGray"
+                                    Text="{Binding Makes}"
+                                    TextColor="Black" />
+                                <Entry
+                                    Margin="0,0,0,20"
+                                    FontSize="Body"
+                                    Placeholder="Engine size"
+                                    PlaceholderColor="DarkGray"
+                                    Text="{Binding EngineSizes}"
+                                    TextColor="Black" />
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                Padding="20"
+                                BackgroundColor="LightGray">
+                                <Entry
+                                    Margin="0,0,0,20"
+                                    FontSize="Body"
+                                    Placeholder="Model"
+                                    PlaceholderColor="DarkGray"
+                                    Text="{Binding Models}"
+                                    TextColor="Black" />
+                                <Entry
+                                    Margin="0,0,0,20"
+                                    FontSize="Body"
+                                    Placeholder="Reg"
+                                    PlaceholderColor="DarkGray"
+                                    Text="{Binding Licences}"
+                                    TextColor="Black" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+
+                <StackLayout
+                    Margin="0,0,0,20"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="End">
+                    <Button
+                        BackgroundColor="Black"
+                        Command="{Binding SaveVehicleDataCommand}"
+                        Text="Save Vehicle"
+                        WidthRequest="200" />
+                </StackLayout>
+
+                <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

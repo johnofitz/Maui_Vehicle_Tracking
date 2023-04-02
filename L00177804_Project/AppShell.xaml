@@ -7,24 +7,76 @@
     xmlns:view="clr-namespace:L00177804_Project.View"
     Shell.FlyoutBehavior="Flyout"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    FlyoutBackgroundColor="Purple">
-    
-    <!--<Shell.Resources>
-        <Style x:Key="MyPageStyle" TargetType="Element">
-            <Setter Property="Shell.BackgroundColor" Value="Purple" />
-            <Setter Property="Shell.TitleColor" Value="Yellow" />
-        </Style>
-    </Shell.Resources>-->
+    FlyoutBackgroundColor="GhostWhite">
+
+
+    <Shell.FlyoutHeader>
+       
+            <Image Source="head.jpg"
+               Aspect="Fill"
+               HeightRequest="220"
+               Margin="0,0,0,10"
+               />
+
+    </Shell.FlyoutHeader>
 
 
     <ShellContent
-        Title="Home" 
+        Title="Home"
+        Icon="home.png"
+        StyleClass="FlyoutItemTitleStyle"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Route="MainPage"/>
+    
+    <ShellContent
+        Title="Reminders"
+        Icon="remind.png"
+        StyleClass="FlyoutItemTitleStyle"
+        ContentTemplate="{DataTemplate view:ReminderView}"
+        Route="ReminderView"/>
 
     <ShellContent
-        Title="Map"
+        Title="Map Service"
+        Icon="mape.png"
+        StyleClass="FlyoutItemTitleStyle"
         ContentTemplate="{DataTemplate view:MapView}"
         Route="MapView"/>
+
+    <ShellContent
+        Title="Trip Stats"
+        Icon="stats.png"
+        StyleClass="FlyoutItemTitleStyle"
+        ContentTemplate="{DataTemplate view:TripView}"
+        Route="TripView"/>
+
+    <ShellContent
+        Title="Expenses"
+        Icon="euro.png"
+        StyleClass="FlyoutItemTitleStyle"
+        ContentTemplate="{DataTemplate view:ExpenseView}"
+        Route="ExpenseView"/>
+
+    <ShellContent
+        Title="Vehicle"
+        Icon="car.png"
+        StyleClass="FlyoutItemTitleStyle"
+        ContentTemplate="{DataTemplate view:VehicleView}"
+        Route="VehicleView"/>
+
+    <ShellContent
+        Title="Settings"
+        Icon="settings.png"
+        StyleClass="FlyoutItemTitleStyle"
+        ContentTemplate="{DataTemplate view:SettingsView}"
+        Route="SettingsView"/>
+
+    <Shell.FlyoutFooter>
+        <Label Text="About"
+               TextColor="DarkSlateGrey"
+               FontAttributes="Bold"
+               FontSize="Medium"
+               HorizontalOptions="Center" />
+    </Shell.FlyoutFooter>
+
 
 </Shell>
