@@ -50,20 +50,22 @@
         steps:
         - name: Checkout code
           uses: actions/checkout@v3
-    
+
         - name: Setup .NET SDK
           uses: actions/setup-dotnet@v3
           with:
             dotnet-version: '7.0.x'
-    
+
         - name: Install MAUI Workload
           run: dotnet workload install maui --ignore-failed-sources
 
+          # Test build for android
         - name: Restore Dependencies
           run: dotnet restore L00177804_Project/xUnitTests.csproj
-    
+
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
+
 
       deploy-android:
         needs: [build-android, test-android]
@@ -104,21 +106,20 @@
         steps:
         - name: Checkout code
           uses: actions/checkout@v3
-    
+
         - name: Setup .NET SDK
+
           uses: actions/setup-dotnet@v3
           with:
             dotnet-version: '7.0.x'
-    
-        - name: Restore dependencies
-          run: dotnet restore
-    
+
         - name: Install MAUI Workload
+
           run: dotnet workload install maui --ignore-failed-sources
 
         - name: Restore Dependencies
           run: dotnet restore L00177804_Project/xUnitTests.csproj
-  
+
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
 
