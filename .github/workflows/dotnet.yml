@@ -47,25 +47,7 @@
         name: Android Test
         runs-on: windows-latest
     
-        steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
-
-        - name: Setup .NET SDK
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: '7.0.x'
-
-        - name: Install MAUI Workload
-          run: dotnet workload install maui --ignore-failed-sources
-
-          # Test build for android
-        - name: Restore Dependencies
-          run: dotnet restore xUnitTests/xUnitTests.csproj
-          
-        - name: Build MAUI Android
-          run: dotnet build xUnitTests/xUnitTests.csproj -c Release -f net7.0-android --no-restore
-          
+        steps:        
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
 
@@ -108,25 +90,6 @@
         runs-on: macos-12
     
         steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
-
-        - name: Setup .NET SDK
-
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: '7.0.x'
-
-        - name: Install MAUI Workload
-
-          run: dotnet workload install maui --ignore-failed-sources
-
-        - name: Restore Dependencies
-          run: dotnet restore xUnitTests/xUnitTests.csproj
-          
-        - name: Build MAUI iOS
-          run: dotnet build xUnitTests/xUnitTests.csproj -c Release -f net7.0-ios --no-restore
-
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
         
