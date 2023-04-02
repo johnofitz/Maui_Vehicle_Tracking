@@ -64,7 +64,7 @@
           run: dotnet restore xUnitTests/xUnitTests.csproj
 
         - name: Run tests
-          run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)/L00177804_Project/xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
+          run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
 
 
 
@@ -122,7 +122,7 @@
           run: dotnet restore xUnitTests/xUnitTests.csproj
 
         - name: Run tests
-          run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)/L00177804_Project/xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
+          run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
         
 
 
