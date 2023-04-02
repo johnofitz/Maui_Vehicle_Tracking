@@ -45,7 +45,7 @@ jobs:
             ${{ runner.os }}-dotnet-
 
       - name: Install MAUI Workload
-        run: dotnet workload install maui --version 7.0.0-preview3.21151.1
+        run: dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
         run: dotnet restore L00177804_Project/L00177804_Project.csproj
