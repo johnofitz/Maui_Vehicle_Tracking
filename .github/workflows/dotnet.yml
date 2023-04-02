@@ -44,6 +44,7 @@
             run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
     
       test-android:
+        name: Android Test
         runs-on: windows-latest
     
         steps:
@@ -55,8 +56,11 @@
           with:
             dotnet-version: '7.0.x'
     
-        - name: Restore dependencies
-          run: dotnet restore
+        - name: Install MAUI Workload
+          run: dotnet workload install maui --ignore-failed-sources
+
+        - name: Restore Dependencies
+          run: dotnet restore L00177804_Project/xUnitTests.csproj
     
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
@@ -94,7 +98,8 @@
               # xunit test build for ios
 
       test-ios:
-        runs-on: windows-latest
+        name: iOS Test
+        runs-on: macos-12
     
         steps:
         - name: Checkout code
@@ -108,10 +113,16 @@
         - name: Restore dependencies
           run: dotnet restore
     
+        - name: Install MAUI Workload
+          run: dotnet workload install maui --ignore-failed-sources
+
+        - name: Restore Dependencies
+          run: dotnet restore L00177804_Project/xUnitTests.csproj
+  
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
 
-      deploy-ios:
+      Deploy-ios:
         needs: [build-ios, test-ios]
         runs-on: windows-latest
         # display output message
