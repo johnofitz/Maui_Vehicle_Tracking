@@ -61,7 +61,7 @@
 
           # Test build for android
         - name: Restore Dependencies
-          run: dotnet restore L00177804_Project/xUnitTests.csproj
+          run: dotnet restore xUnitTests/xUnitTests.csproj
 
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
@@ -118,7 +118,7 @@
           run: dotnet workload install maui --ignore-failed-sources
 
         - name: Restore Dependencies
-          run: dotnet restore L00177804_Project/xUnitTests.csproj
+          run: dotnet restore xUnitTests/xUnitTests.csproj
 
         - name: Run tests
           run: dotnet test --no-build --verbosity normal
