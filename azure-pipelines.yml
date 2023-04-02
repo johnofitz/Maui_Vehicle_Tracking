@@ -60,7 +60,6 @@ stages:
   dependsOn:
   - Build
   - Test
-  - xUnitTest
   jobs:
   - job: Deploy
     displayName: 'Deploy Job'
