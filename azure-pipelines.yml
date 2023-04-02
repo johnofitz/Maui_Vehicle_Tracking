@@ -65,17 +65,16 @@ stages:
     displayName: 'Setup xUnit'
     steps:
     - checkout: self
-    - script: 'dotnet tool install --global dotnet-xunit'
-      displayName: 'Install xUnit'
-    - script: 'dotnet tool install --global coverlet.console'
-      displayName: 'Install Coverlet'
-
-  - job: xUnitTesting
-    displayName: 'Run Unit Test'
-    dependsOn: xUnitSetup
-    steps:
+    - task: UseDotNet@2
+      displayName: 'Setup .NET 7'
+      inputs:
+        packageType: sdk
+        version: '7.x'
+    - script: dotnet restore
+      displayName: 'Restore NuGet packages'
     - script: dotnet test xUnitTests/xUnitTests.csproj --filter "TestCategory!=Smoke"
-      displayName: 'Running Unit Tests'
+      displayName: 'Build and Test'
+
 
 
 - stage: Deploy
