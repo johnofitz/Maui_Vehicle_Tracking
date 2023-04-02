@@ -67,6 +67,7 @@
           run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)/L00177804_Project/xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
 
 
+
       deploy-android:
         needs: [build-android, test-android]
         runs-on: windows-latest
@@ -124,6 +125,7 @@
           run: dotnet test --no-build --verbosity normal "$(System.DefaultWorkingDirectory)/L00177804_Project/xUnitTests/bin/Debug/net7.0/xUnitTests.dll"
         
 
+
       Deploy-ios:
         needs: [build-ios, test-ios]
         runs-on: windows-latest
@@ -131,3 +133,4 @@
         steps:
           - name: Display message
             run: echo "Deploying to Azure App Service"
+

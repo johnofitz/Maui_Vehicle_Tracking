@@ -1,3 +1,5 @@
+[![CI Build](https://github.com/johnefitz/L00177804_Project/actions/workflows/dotnet.yml/badge.svg)](https://github.com/johnefitz/L00177804_Project/actions/workflows/dotnet.yml)
+
 # Fuel monitoring and Vehicle tracking App
 
 #### Student Name: **John Fitzgerald**
