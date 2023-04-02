@@ -1,71 +1,57 @@
 trigger:
-  - master
+- master
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  DOTNET_NOLOGO: true                     # Disable the .NET logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
 
-stages:
-- stage: Build_Android
-  displayName: 'Build and Test Android'
-  jobs:
-  - job: Build_Android
-    displayName: 'Build and Test Android'
-    steps:
-    - task: UseDotNet@2
-      inputs:
-        version: '7.x'
-    - script: dotnet workload install maui --ignore-failed-sources
-    - script: dotnet restore $(solution)
-    - script: dotnet build $(solution) --configuration $(buildConfiguration) --framework net7.0-android --no-restore
-    - script: dotnet test --no-build --verbosity normal $(solution)
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFormat: 'VSTest'
-        testResultsFiles: '**/*.trx'
-        failTaskOnFailedTests: true
-    - task: CopyFiles@2
-      inputs:
-        Contents: '**/bin/$(buildConfiguration)/net7.0-android/**'
-        TargetFolder: '$(build.artifactstagingdirectory)/Android'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)/Android'
-        ArtifactName: 'Android'
-        publishLocation: 'Container'
-        
-- stage: Build_iOS
-  displayName: 'Build and Test iOS'
-  jobs:
-  - job: Build_iOS
-    displayName: 'Build and Test iOS'
-    pool:
-      vmImage: 'macos-12'
-    steps:
-    - task: UseDotNet@2
-      inputs:
-        version: '7.x'
-    - script: dotnet workload install maui --ignore-failed-sources
-    - script: dotnet restore $(solution)
-    - script: dotnet build $(solution) --configuration $(buildConfiguration) --framework net7.0-ios --no-restore
-    - script: dotnet test --no-build --verbosity normal $(solution)
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFormat: 'VSTest'
-        testResultsFiles: '**/*.trx'
-        failTaskOnFailedTests: true
-    - task: CopyFiles@2
-      inputs:
-        Contents: '**/bin/$(buildConfiguration)/net7.0-ios/**'
-        TargetFolder: '$(build.artifactstagingdirectory)/iOS'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)/iOS'
-        ArtifactName: 'iOS'
-        publishLocation: 'Container'
-        
+steps:
+- checkout: self
 
+- task: UseDotNet@2
+  displayName: 'Setup .NET 7'
+  inputs:
+    packageType: 'sdk'
+    version: '7.0.x'
+
+- script: 'dotnet workload install maui --ignore-failed-sources'
+  displayName: 'Install MAUI Workload'
+
+- script: 'dotnet restore L00177804_Project/L00177804_Project.csproj'
+  displayName: 'Restore Dependencies'
+
+- script: 'dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore'
+  displayName: 'Build MAUI Android'
+
+- script: 'dotnet test --no-build --verbosity normal'
+  displayName: 'Run tests'
+
+- script: 'echo "Deploying to Azure App Service"'
+  displayName: 'Display message'
+  condition: and(succeeded(), eq(variables['Build.Reason'], 'IndividualCI'))
+
+- task: UseDotNet@2
+  displayName: 'Setup .NET 7'
+  inputs:
+    packageType: 'sdk'
+    version: '7.0.x'
+
+- script: 'dotnet workload install maui --ignore-failed-sources'
+  displayName: 'Install MAUI Workload'
+
+- script: 'dotnet restore L00177804_Project/L00177804_Project.csproj'
+  displayName: 'Restore Dependencies'
+
+- script: 'dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore'
+  displayName: 'Build MAUI iOS'
+
+- script: 'dotnet test --no-build --verbosity normal'
+  displayName: 'Run tests'
+
+- script: 'echo "Deploying to Azure App Service"'
+  displayName: 'Display message'
+  condition: and(succeeded(), eq(variables['Build.Reason'], 'IndividualCI'))
