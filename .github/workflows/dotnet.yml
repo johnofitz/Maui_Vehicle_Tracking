@@ -46,7 +46,6 @@
           - name: Run tests
             run: dotnet test --no-build --verbosity normal
 
-
       deploy-android:
         needs: [Build-Test-android]
         runs-on: windows-latest
@@ -58,7 +57,7 @@
     # MAUI iOS Build
       Build-Test-ios:
         runs-on: macos-12
-        name: iOS Build
+        name: iOS Build and Test
         steps:
     
           - name: Checkout
@@ -88,3 +87,19 @@
         steps:
           - name: Display message
             run: echo "Deploying to Azure App Service"
+
+ 
+      xUnitTests:
+        runs-on: windows-latest
+        name: xUnit Test
+        steps:
+                 
+          - name: Install MAUI Workload
+            run: dotnet workload install maui --ignore-failed-sources
+    
+          - name: Restore Dependencies
+            run: dotnet restore xUnitTests/xUnitTests.csproj
+
+              # xunit test build for android
+          - name: Run tests
+            run: dotnet test --no-build --verbosity normal
