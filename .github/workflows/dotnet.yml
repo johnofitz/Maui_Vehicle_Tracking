@@ -45,7 +45,7 @@ jobs:
 
           # xunit test build for android
       - name: Build xUnit Tests
-        run: dotnet build L00177804_Project/xUnitTest.csproj -c Release -f net7.0-android --no-restore
+        run: dotnet build L00177804_Project/xUnitTests.csproj -c Release -f net7.0-android --no-restore
 
 
 
@@ -73,4 +73,4 @@ jobs:
         run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
           # xunit test build for ios
       - name: Build xUnit Tests
-        run: dotnet build L00177804_Project/xUnitTest.csproj -c Release -f net7.0-ios --no-restore
+        run: dotnet build L00177804_Project/xUnitTests.csproj -c Release -f net7.0-ios --no-restore
