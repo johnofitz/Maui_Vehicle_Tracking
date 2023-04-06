@@ -18,6 +18,7 @@ namespace L00177804_Project.Service.VehicleInfoService
                 return _vehicles;
 
             string stream = Path.Combine(FileSystem.Current.AppDataDirectory, file);
+            File.Exists(stream);
             using var reader = new StreamReader(stream);
             var items = await reader.ReadToEndAsync();
             _vehicles = JsonConvert.DeserializeObject<List<Vehicle>>(items);
