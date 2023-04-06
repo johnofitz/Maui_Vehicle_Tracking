@@ -107,7 +107,6 @@ namespace L00177804_Project.ViewModel
         {
             try
             {
-
                 Vehicle vehicle = new()
                 {
                     Name = names,

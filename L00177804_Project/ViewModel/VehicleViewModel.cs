@@ -10,7 +10,7 @@ namespace L00177804_Project.ViewModel
     public partial class VehicleViewModel:ParentViewModel
     {
         // 
-        private VehicleDataService VehicleDataService;
+        private readonly VehicleDataService VehicleDataService;
 
         // Create observable collection for vehicle 
         public ObservableCollection<Vehicle> Vehicles { get; set; }
@@ -29,7 +29,7 @@ namespace L00177804_Project.ViewModel
         {
             await Shell.Current.GoToAsync(nameof(AddVehicleView));
         }
-
+        private readonly string _file = "vehicle.json";
         /// <summary>
         ///  Method to get the vehicle data from the json file
         /// </summary>
@@ -37,7 +37,7 @@ namespace L00177804_Project.ViewModel
         {
             try
             {
-                var item = await VehicleDataService.GetVehiclesInfo();
+                var item = await VehicleDataService.GetVehiclesInfo(_file);
 
                 // condition to clear menu for erroneous behaviour
                 if (Vehicles.Count != 0)
