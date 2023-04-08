@@ -51,13 +51,13 @@ namespace L00177804_Project.ViewModel
 
 
         // Create a new instance of the FuelTypes class
-        private FuelTypes fuelTypes = new();
+        private readonly FuelTypes fuelTypes = new();
 
         // Create a new instance of the ConsumptionUnit class
-        private ConsumptionUnit consumptionUnit = new();
+        private readonly ConsumptionUnit consumptionUnit = new();
 
         // Create a new instance of the DistanceUnit class
-        private DistanceUnit distanceUnit = new();
+        private readonly DistanceUnit distanceUnit = new();
 
         private List<Vehicle> logging = new();
 

@@ -9,11 +9,13 @@ namespace L00177804_Project.ViewModel
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;
 
-        [ObservableProperty]
-        public string heading;
 
         // Lambda function to check if not busy
         public bool IsNotBusy => !IsBusy;
+
+
+        [ObservableProperty]
+        public string heading;
 
     }
 }

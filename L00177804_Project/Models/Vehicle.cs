@@ -27,5 +27,12 @@ namespace L00177804_Project.Models
 
         public string Distance { get; set; }
 
+
+       
+        public override string ToString()
+        {
+            return Name;
+        }
+
     }
 }
