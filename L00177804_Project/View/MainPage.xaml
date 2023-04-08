@@ -7,6 +7,7 @@
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     x:DataType="viewmodel:MainPageViewModel">
 
+
     <StackLayout Margin="10">
         <Button
             Margin="0,0,0,20"
@@ -33,26 +34,21 @@
             HasShadow="True"
             HeightRequest="140">
             <StackLayout>
-                  <!--Bind ItemsSource and SelectedItem to ViewModel properties-->  
+                <!--Bind ItemsSource and SelectedItem to ViewModel properties-->
                 <Picker
                     Grid.Row="1"
                     Grid.Column="1"
                     ItemsSource="{Binding VehiclesCollection}"
                     SelectedItem="{Binding SelectVehicle}"/>
 
-                  <!--Display selected vehicle in front view-->  
+                <!--Display selected vehicle in front view-->
                 <StackLayout>
-                      <!--Bind Label's Text property to SelectedVehicle properties-->  
+                    <!--Bind Label's Text property to SelectedVehicle properties-->
                     <Label Text="{Binding SelectVehicle.Make}" />
                     <Label Text="{Binding SelectVehicle.Odometer, StringFormat='{0} km'}" />
-                      <!--Add additional properties as needed-->  
+                    <!--Add additional properties as needed-->
                 </StackLayout>
             </StackLayout>
-
-
-
-
-
         </Frame>
 
 
