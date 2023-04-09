@@ -5,8 +5,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:DataType="viewmodel:AddVehicleViewModel"
     xmlns:model="clr-namespace:L00177804_Project.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
-    Title="Add Vehicle">
+    Title="Add Vehicle"
+    x:DataType="viewmodel:AddVehicleViewModel">
+
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>
+
+
     <ScrollView>
         <!--  *,* makes coloumns as big as needed  -->
         <Grid>
@@ -18,18 +31,35 @@
                     <Grid>
                         <VerticalStackLayout Padding="20" BackgroundColor="LightGray">
                             <Entry
-                                Margin="0,0,0,0"
                                 FontSize="Body"
                                 Placeholder="Name"
                                 PlaceholderColor="DarkGray"
-                                Text="{Binding Names}"
-                                TextColor="Black" />
+                                Text="{Binding Names}">
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="10"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
+
+
                             <Entry
                                 FontSize="Body"
-                                Placeholder="Odmeter"
+                                Placeholder="Odometer Reading"
                                 PlaceholderColor="DarkGray"
-                                Text="{Binding Odometers}"
-                                TextColor="Black" />
+                                Text="{Binding Odometers}">
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="10"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>
@@ -120,15 +150,33 @@
                                     FontSize="Body"
                                     Placeholder="Make"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding Makes}"
-                                    TextColor="Black" />
+                                    Text="{Binding Makes}">
+
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MaximumLength="10"
+                                            MinimumLength="1"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
+
                                 <Entry
                                     Margin="0,0,0,20"
                                     FontSize="Body"
                                     Placeholder="Engine size"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding EngineSizes}"
-                                    TextColor="Black" />
+                                    Text="{Binding EngineSizes}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MaximumLength="10"
+                                            MinimumLength="1"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </VerticalStackLayout>
 
                             <VerticalStackLayout
@@ -140,31 +188,45 @@
                                     FontSize="Body"
                                     Placeholder="Model"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding Models}"
-                                    TextColor="Black" />
+                                    Text="{Binding Models}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MaximumLength="10"
+                                            MinimumLength="1"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
                                 <Entry
                                     Margin="0,0,0,20"
                                     FontSize="Body"
                                     Placeholder="Reg"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding Licences}"
-                                    TextColor="Black" />
+                                    Text="{Binding Licences}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                            Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            MaximumLength="10"
+                                            MinimumLength="1"
+                                            ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </VerticalStackLayout>
                         </Grid>
                     </Grid>
                 </Frame>
 
 
-                <StackLayout
-                    Margin="0,0,0,20"
-                    HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="End">
-                    <Button
-                        BackgroundColor="Black"
-                        Command="{Binding SaveVehicleDataCommand}"
-                        Text="Save Vehicle"
-                        WidthRequest="200" />
-                </StackLayout>
+                <Button
+                    BackgroundColor="Black"
+                    Command="{Binding SaveVehicleDataCommand}"
+                    HorizontalOptions="Center"
+                    Text="Save Vehicle"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="200" />
+
 
                 <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
             </StackLayout>

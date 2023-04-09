@@ -9,19 +9,13 @@
     FlyoutHeaderBehavior="CollapseOnScroll"
     Shell.FlyoutBehavior="Flyout">
 
-
-
-
     <Shell.FlyoutHeader>
-
         <Image
             Margin="0,0,0,10"
             Aspect="Fill"
             HeightRequest="220"
             Source="head.jpg" />
-
     </Shell.FlyoutHeader>
-
 
     <FlyoutItem
         Title="Home"

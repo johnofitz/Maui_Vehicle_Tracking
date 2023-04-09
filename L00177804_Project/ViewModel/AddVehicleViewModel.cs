@@ -1,7 +1,10 @@
 ﻿
 namespace L00177804_Project.ViewModel
 {
-    public partial class AddVehicleViewModel:ParentViewModel
+    /// <summary>
+    ///  AddVehicleViewModel class
+    /// </summary>
+    public partial class AddVehicleViewModel : ParentViewModel
     {
         // Create an observable collection for the fuel types
         public ObservableCollection<string> FuelTypes { get; set; }
@@ -16,16 +19,17 @@ namespace L00177804_Project.ViewModel
         /// <summary>
         ///  Constructor for the AddVehicleViewModel class
         /// </summary>
-        public AddVehicleViewModel() {
-
+        public AddVehicleViewModel()
+        {
+            // Create a new instance of the FuelTypes class
             FuelTypes = new ObservableCollection<string>();
             AddFuelTypes();
             SelectedFuelType = fuelTypes.Type1; // set Type1 as the default selected item
-
+            // Create a new instance of the ConsumptionUnit class
             ConsumptionUnit = new ObservableCollection<string>();
             AddConsumptionUnit();
             SelectedConsumptionType = consumptionUnit.Consumption1; // set Consumption1 as the default selected item
-
+            // Create a new instance of the DistanceUnit class
             DistanceUnit = new ObservableCollection<string>();
             AddDistanceUnit();
             SelectedDistanceType = distanceUnit.Distance1; // set Distance1 as the default selected item
@@ -41,13 +45,15 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty]
         public string engineSizes;
         [ObservableProperty]
-        public double odometers;
+        public string odometers;
         [ObservableProperty]
         public string insurencePolicys;
         [ObservableProperty]
         public string insurenceCompanys;
         [ObservableProperty]
         public string licences;
+        // Odometer convert to double
+        public double odeconvert;
 
 
         // Create a new instance of the FuelTypes class
@@ -70,8 +76,12 @@ namespace L00177804_Project.ViewModel
         // Selected distance type default
         public string SelectedDistanceType { get; set; }
 
+        public string ValidationCheck { get; set; }
 
-        // Add fuel types to the observable collection
+
+        /// <summary>
+        ///  Add fuel types to the observable collection
+        /// </summary>
         private void AddFuelTypes()
         {
             FuelTypes.Add(fuelTypes.Type1);
@@ -81,7 +91,9 @@ namespace L00177804_Project.ViewModel
             FuelTypes.Add(fuelTypes.Type5);
         }
 
-        // Add consumption Types to the observable collection
+        /// <summary>
+        ///  Add consumption unit to the observable collection
+        /// </summary>
         private void AddConsumptionUnit()
         {
             ConsumptionUnit.Add(consumptionUnit.Consumption1);
@@ -90,7 +102,9 @@ namespace L00177804_Project.ViewModel
             ConsumptionUnit.Add(consumptionUnit.Consumption4);
         }
 
-        // Add distance unit to the observable collection
+        /// <summary>
+        ///  Add distance unit to the observable collection
+        /// </summary>
         private void AddDistanceUnit()
         {
             DistanceUnit.Add(distanceUnit.Distance1);
@@ -100,53 +114,94 @@ namespace L00177804_Project.ViewModel
         // Target File to save json data
         readonly string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "vehicle.json");
 
-        // Method used To save vehicle data
+        /// <summary>
+        ///  Method to save the vehicle data to the json file
+        /// </summary>
+        /// <returns></returns>
 
         [RelayCommand]
         public async Task SaveVehicleData()
         {
-            try
+            if (await CanSaveVehicleDataAsync() && await IsDoubleAsync(odometers))
             {
-                Vehicle vehicle = new()
-                {
-                    Name = names,
-                    Make = makes,
-                    Model = models,
-                    EngineSize = engineSizes,
-                    FuelType = SelectedFuelType,
-                    Odometer = odometers,
-                    FuelConsumption = SelectedConsumptionType,
-                    Distance = SelectedDistanceType,
-                    InsurencePolicy = insurencePolicys,
-                    InsurenceCompany = insurenceCompanys,
-                    Licence = licences,
-                };
+                // Convert odometer to double
+                odeconvert = double.Parse(odometers);
 
-                if (!File.Exists(targetFile))
+                try
                 {
-                    logging.Add(vehicle);
-                    string json = JsonConvert.SerializeObject(logging);
-                    File.WriteAllText(targetFile, json);
+                    // Create a new instance of the Vehicle class
+                    Vehicle vehicle = new()
+                    {
+                        Name = names,
+                        Make = makes,
+                        Model = models,
+                        EngineSize = engineSizes,
+                        FuelType = SelectedFuelType,
+                        Odometer = odeconvert,
+                        FuelConsumption = SelectedConsumptionType,
+                        Distance = SelectedDistanceType,
+                        InsurencePolicy = insurencePolicys,
+                        InsurenceCompany = insurenceCompanys,
+                        Licence = licences,
+                    };
+
+                    // Check if the file exists
+                    if (!File.Exists(targetFile))
+                    {
+                        logging.Add(vehicle);
+                        string json = JsonConvert.SerializeObject(logging);
+                        File.WriteAllText(targetFile, json);
+                    }
+                    // If the file exists
+                    else
+                    {
+                        string json = File.ReadAllText(targetFile);
+                        logging = JsonConvert.DeserializeObject<List<Vehicle>>(json);
+                        logging.Add(vehicle);
+                        string newJson = JsonConvert.SerializeObject(logging);
+                        File.WriteAllText(targetFile, newJson);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    string json = File.ReadAllText(targetFile);
-                    logging = JsonConvert.DeserializeObject<List<Vehicle>>(json);
-                    logging.Add(vehicle);
-                    string newJson = JsonConvert.SerializeObject(logging);
-                    File.WriteAllText(targetFile, newJson);
+                    // Debug
+                    Debug.WriteLine(ex.ToString());
                 }
-            }
-            catch(Exception ex)
-            {
-                // Debug
-                Debug.WriteLine(ex.ToString());
-            }
-            finally
-            {
-                // Route to previous page
-                await Shell.Current.GoToAsync("..//..");
+                finally
+                {
+                    // Route to previous page
+                    await Shell.Current.GoToAsync("..//..");
+                }
             }
         }
+
+        /// <summary>
+        ///  Method to check if the vehicle data can be saved for string information
+        /// </summary>
+        /// <returns> boolean true or false</returns>
+        private async Task<bool> CanSaveVehicleDataAsync()
+        {
+            if (string.IsNullOrEmpty(names) || string.IsNullOrEmpty(makes) || string.IsNullOrEmpty(models) || names.Length > 20 || models.Length>10 || makes.Length >10)
+            {
+                await Shell.Current.DisplayAlert("Error!", "Required fields are blank or invalid", "OK");
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        ///  Method to check if the vehicle data can be saved for double information
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns> Boolean true/false</returns>
+        public static async Task<bool> IsDoubleAsync(string value)
+        {
+            if(double.TryParse(value, out _) == false)
+            {
+                await Shell.Current.DisplayAlert("Error!", "Not a vald Odometer Reading", "OK");
+            } 
+            return double.TryParse(value, out _);
+        }
+
     }
 }

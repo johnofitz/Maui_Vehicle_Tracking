@@ -1,5 +1,6 @@
 ﻿using L00177804_Project.Service.NearByService;
 using L00177804_Project.Service.VehicleInfoService;
+using CommunityToolkit.Maui;
 
 namespace L00177804_Project;
 
@@ -15,10 +16,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
-			.UseMauiMaps();
+			.UseMauiMaps().UseMauiCommunityToolkit();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		builder.Services.AddSingleton<MapViewModel>();

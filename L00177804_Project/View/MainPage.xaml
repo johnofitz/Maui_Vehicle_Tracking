@@ -7,25 +7,12 @@
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     x:DataType="viewmodel:MainPageViewModel">
 
-
     <StackLayout Margin="10">
         <Button
             Margin="0,0,0,20"
             Command="{Binding GetDirectionCommand}"
             Text="Get directions using Maps"
             TextColor="Black" />
-        <!--<Button
-            Margin="0,0,0,10"
-            Command="{Binding StartTrackingCommand}"
-            Text="Start Tracking"
-            TextColor="Black" />-->
-        <!--<RadioButton
-            Margin="0,0,0,10"
-            CheckedChanged="{Binding StartTrackingCommand}"
-            Content="Start Tracking"
-            IsChecked="{Binding IsTracking, Mode=TwoWay}"
-            TextColor="Black" />-->
-
         <Frame
             Margin="10"
             BackgroundColor="Gainsboro"
@@ -34,26 +21,20 @@
             HasShadow="True"
             HeightRequest="140">
             <StackLayout>
-                <!--Bind ItemsSource and SelectedItem to ViewModel properties-->
+                <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
                 <Picker
                     Grid.Row="1"
                     Grid.Column="1"
                     ItemsSource="{Binding VehiclesCollection}"
-                    SelectedItem="{Binding SelectVehicle}"/>
-
-                <!--Display selected vehicle in front view-->
+                    SelectedItem="{Binding SelectVehicle}" />
                 <StackLayout>
-                    <!--Bind Label's Text property to SelectedVehicle properties-->
+                    <!--  Bind Label's Text property to SelectedVehicle properties  -->
                     <Label Text="{Binding SelectVehicle.Make}" />
                     <Label Text="{Binding SelectVehicle.Odometer, StringFormat='{0} km'}" />
-                    <!--Add additional properties as needed-->
+                    <!--  Add additional properties as needed  -->
                 </StackLayout>
             </StackLayout>
         </Frame>
-
-
-
-
 
         <Frame
             Margin="10"
@@ -64,7 +45,9 @@
             HeightRequest="140">
 
             <StackLayout>
-                <!--  Title  -->
+        
+          <!--Title-->  
+        
                 <Label
                     Margin="10,0,0,0"
                     FontAttributes="Bold"
@@ -104,15 +87,11 @@
 
                                 </StackLayout>
                             </StackLayout>
-
-
-
-
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
         </Frame>
-
+      
     </StackLayout>
 </ContentPage>

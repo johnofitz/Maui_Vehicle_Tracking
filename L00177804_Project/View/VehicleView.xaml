@@ -3,64 +3,142 @@
     x:Class="L00177804_Project.View.VehicleView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:DataType="viewmodel:VehicleViewModel"
     xmlns:model="clr-namespace:L00177804_Project.Models"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
-    Title="Vehicles">
-    <ScrollView>
-        <Grid
+    Title="Vehicles"
+    x:DataType="viewmodel:VehicleViewModel">
+    <!--<AbsoluteLayout>
+        <ScrollView>
+            <Grid
             ColumnDefinitions="*,*"
             ColumnSpacing="5"
             RowDefinitions="*,Auto"
             RowSpacing="0">
 
-            <CollectionView
+                <CollectionView
                 Grid.ColumnSpan="2"
                 BackgroundColor="Transparent"
                 ItemsSource="{Binding Vehicles}"
                 SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Vehicle">
-                        <Grid Padding="10">
-                            <Frame BackgroundColor="Gainsboro" HeightRequest="165">
-                                <Grid Padding="0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Vehicle">
+                            <Frame BackgroundColor="Gainsboro" HeightRequest="165" Padding="0" Margin="20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                        <RowDefinition Height="1*" />
+                                    </Grid.RowDefinitions>
                                     <Label
-                                        Padding="20"
-                                        FontSize="Header"
-                                        HorizontalOptions="Center"
-                                        Text="{Binding Name}" />
-                                    <VerticalStackLayout Padding="30">
-                                        <Label
-                                            Margin="20,0,0,10"
-                                            FontAttributes="Bold"
-                                            FontSize="Small"
-                                            Text="{Binding Odometer}" />
-                                        <Label
-                                            Margin="20,0,0,10"
-                                            FontAttributes="Bold"
-                                            Text="{Binding Make}" />
-                                        <Label
-                                            Margin="20,0,0,0"
-                                            FontAttributes="Bold"
-                                            Text="{Binding Model}" />
-                                    </VerticalStackLayout>
+                                    Grid.Row="0"
+                                    FontSize="Header"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="CenterAndExpand"
+                                    Text="{Binding Name}" />
+                                    <Label
+                                    Grid.Row="1"
+                                    FontAttributes="Bold"
+                                    FontSize="Small"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="CenterAndExpand"
+                                    Text="{Binding Odometer}" />
+                                    <Label
+                                    Grid.Row="2"
+                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="CenterAndExpand"
+                                    Text="{Binding Make}" />
                                 </Grid>
                             </Frame>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <Button
-                Margin="0,0,0,20"
+                <Button
                 BackgroundColor="Black"
                 Command="{Binding GoToAddVehicleCommand}"
-                HorizontalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
                 Text="Add Vehicle"
-                VerticalOptions="End"
+                VerticalOptions="EndAndExpand"
                 WidthRequest="200" />
 
-            <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
-        </Grid>
-    </ScrollView>
+                <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
+            </Grid>
+        </ScrollView>
+        <Button
+        Margin="0,0,20,20"
+        AbsoluteLayout.LayoutBounds="1,1,60,60"
+        AbsoluteLayout.LayoutFlags="PositionProportional"
+        BackgroundColor="Black"
+        Command="{Binding GoToAddVehicleCommand}"
+        CornerRadius="30"
+        FontSize="Large"
+        HeightRequest="60"
+        Text="+"
+        TextColor="White"
+        WidthRequest="60" />
+    </AbsoluteLayout>-->
+
+    <AbsoluteLayout>
+        <!--  Content  -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Grid>
+                <!--  CollectionView content  -->
+                <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Vehicle">
+                            <Grid Padding="10">
+                                <!--  Vehicle item UI  -->
+                                <Frame
+                                    Margin="20"
+                                    Padding="0"
+                                    BackgroundColor="Gainsboro"
+                                    HeightRequest="165">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                            <RowDefinition Height="1*" />
+                                        </Grid.RowDefinitions>
+                                        <Label
+                                            Grid.Row="0"
+                                            FontSize="Header"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Name}"
+                                            VerticalOptions="CenterAndExpand" />
+                                        <Label
+                                            Grid.Row="1"
+                                            FontAttributes="Bold"
+                                            FontSize="Small"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Odometer}"
+                                            VerticalOptions="CenterAndExpand" />
+                                        <Label
+                                            Grid.Row="2"
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Make}"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+
+        <!--  Floating Button  -->
+        <Button
+            AbsoluteLayout.LayoutBounds="1,1,100,90"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            BackgroundColor="DarkGreen"
+            Command="{Binding GoToAddVehicleCommand}"
+            CornerRadius="30"
+            FontSize="Large"
+            HeightRequest="60"
+            Text="+"
+            TextColor="GhostWhite"
+            WidthRequest="60" />
+    </AbsoluteLayout>
 </ContentPage>
