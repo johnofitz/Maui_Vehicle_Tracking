@@ -23,13 +23,20 @@ namespace L00177804_Project.ViewModel
             GetVehiclesAsync();
         }
 
-
+        /// <summary>
+        ///  Method used to navigate to the AddVehicleView
+        /// </summary>
+        /// <returns></returns>
         [RelayCommand]
         public async Task GoToAddVehicle()
         {
             await Shell.Current.GoToAsync(nameof(AddVehicleView));
         }
+
+        // file name
+
         private readonly string _file = "vehicle.json";
+
         /// <summary>
         ///  Method to get the vehicle data from the json file
         /// </summary>
@@ -45,11 +52,14 @@ namespace L00177804_Project.ViewModel
 
                 item.ForEach(Vehicles.Add);
 
+                if(Vehicles is null)
+                {
+                    await GoToAddVehicle();
+                }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"No File History Found: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error! No File History Found", ex.Message, "OK");
+                Debug.WriteLine(ex);
             }
         }
     }
