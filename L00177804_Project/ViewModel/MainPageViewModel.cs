@@ -37,7 +37,7 @@ namespace L00177804_Project.ViewModel
             SelectVehicle = VehiclesCollection.FirstOrDefault();
 
             // GetNearByItemsAsync();
-           // _ = GetNearByItemsAsync();
+            _ = GetNearByItemsAsync();
         }
         
         private Vehicle _selectVehicle;

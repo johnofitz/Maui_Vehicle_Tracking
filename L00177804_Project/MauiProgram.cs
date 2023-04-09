@@ -25,8 +25,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<MapViewModel>();
 		builder.Services.AddTransient<MapView>();
 
-		builder.Services.AddTransient<MainPageViewModel>();
-		builder.Services.AddTransient<MainPage>();
+		builder.Services.AddSingleton<MainPageViewModel>();
+		builder.Services.AddSingleton<MainPage>();
 
 		builder.Services.AddTransient<NearByRestService>();
 

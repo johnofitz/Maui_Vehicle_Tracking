@@ -61,7 +61,7 @@
         <Button
             AbsoluteLayout.LayoutBounds="1,1,100,90"
             AbsoluteLayout.LayoutFlags="PositionProportional"
-            BackgroundColor="DarkGreen"
+            BackgroundColor="#9eb2e0"
             Command="{Binding GoToAddVehicleCommand}"
             CornerRadius="30"
             FontSize="Large"

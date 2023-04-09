@@ -19,17 +19,22 @@
         </Style>
     </ContentPage.Resources>
 
-
     <ScrollView>
         <!--  *,* makes coloumns as big as needed  -->
         <Grid>
             <StackLayout>
                 <Frame
                     Margin="20"
-                    Padding="20"
+                    Padding="10"
                     BackgroundColor="LightGray">
                     <Grid>
                         <VerticalStackLayout Padding="20" BackgroundColor="LightGray">
+                            <Label
+                                Grid.Row="0"
+                                FontSize="Large"
+                                HorizontalOptions="Center"
+                                Text="Basic Info"
+                                VerticalOptions="Center" />
                             <Entry
                                 FontSize="Body"
                                 Placeholder="Name"
@@ -44,8 +49,6 @@
                                         ValidStyle="{StaticResource ValidEntryStyle}" />
                                 </Entry.Behaviors>
                             </Entry>
-
-
                             <Entry
                                 FontSize="Body"
                                 Placeholder="Odometer Reading"
@@ -65,7 +68,7 @@
                 </Frame>
 
 
-                <Frame
+                <!--<Frame
                     Margin="20"
                     Padding="20"
                     BackgroundColor="LightGray">
@@ -113,7 +116,60 @@
                                 SelectedItem="{Binding SelectedDistanceType}" />
                         </Grid>
                     </StackLayout>
+                </Frame>-->
+                <Frame
+                    Margin="20"
+                    Padding="20"
+                    BackgroundColor="LightGray">
+                    <StackLayout Orientation="Vertical">
+                        <Label
+                            Margin="0,0,0,10"
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Text="Unit Settings" />
+                        <Grid HorizontalOptions="CenterAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="Fuel Type:"
+                                VerticalOptions="CenterAndExpand" />
+                            <Picker
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="150,0,0,0"
+                                ItemsSource="{Binding FuelTypes}"
+                                SelectedItem="{Binding SelectedFuelType}" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Text="Consumption Unit:"
+                                VerticalOptions="CenterAndExpand" />
+                            <Picker
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="150,0,0,0"
+                                ItemsSource="{Binding ConsumptionUnit}"
+                                SelectedItem="{Binding SelectedConsumptionType}" />
+                            <Label
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Text="Distance Unit:"
+                                VerticalOptions="CenterAndExpand" />
+                            <Picker
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="150,0,0,0"
+                                ItemsSource="{Binding DistanceUnit}"
+                                SelectedItem="{Binding SelectedDistanceType}" />
+                        </Grid>
+                    </StackLayout>
                 </Frame>
+
 
 
                 <!--  Horizontal stack for data  -->

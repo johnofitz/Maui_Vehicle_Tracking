@@ -10,7 +10,6 @@ namespace L00177804_Project.ViewModel
         public ObservableCollection<string> FuelTypes { get; set; }
 
         // Create an observable collection for the consumption unit
-
         public ObservableCollection<string> ConsumptionUnit { get; set; }
 
         // Create an observable collection for the distance unit
