@@ -17,37 +17,47 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Vehicle">
                             <Grid Padding="10">
-                                <!--  Vehicle item UI  -->
                                 <Frame
                                     Margin="20"
                                     Padding="0"
-                                    BackgroundColor="Gainsboro"
+                                    BackgroundColor="GhostWhite"
+                                    CornerRadius="25"
                                     HeightRequest="165">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:VehicleViewModel}}, Path=GoToEditVehicleCommand}" CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
                                     <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="1*" />
-                                            <RowDefinition Height="1*" />
-                                            <RowDefinition Height="1*" />
-                                        </Grid.RowDefinitions>
-                                        <Label
-                                            Grid.Row="0"
-                                            FontSize="Header"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Name}"
-                                            VerticalOptions="CenterAndExpand" />
-                                        <Label
-                                            Grid.Row="1"
-                                            FontAttributes="Bold"
-                                            FontSize="Small"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Odometer}"
-                                            VerticalOptions="CenterAndExpand" />
-                                        <Label
-                                            Grid.Row="2"
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Make}"
-                                            VerticalOptions="CenterAndExpand" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--  Add a RadioButton control with a name for later reference  -->
+                                        <StackLayout Orientation="Vertical">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Header"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Name, StringFormat='Name: {0}'}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Make, StringFormat='Make: {0}'}"
+                                                VerticalOptions="CenterAndExpand" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Model, StringFormat='Make: {0}'}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Small"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Odometer, StringFormat='{0} km'}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
                                     </Grid>
                                 </Frame>
                             </Grid>

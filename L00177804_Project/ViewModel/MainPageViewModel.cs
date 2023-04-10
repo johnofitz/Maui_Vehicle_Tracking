@@ -8,35 +8,50 @@ namespace L00177804_Project.ViewModel
     public partial class MainPageViewModel:ParentViewModel
     {
 
+        private const string _vehicleFile = "vehicle.json";
         // Create object from Class GeoLocationService
         private readonly GoogleMapService _googleMapService = new();
 
         // Create object from Class LocationTrackService
         private readonly LocationTrackService _locationTrackService = new();
 
-   
+        // Create object from Class VehicleViewModel for page redirection
         private readonly VehicleViewModel _vehicleViewModel = new( new VehicleDataService());
 
-        CancellationTokenSource tokenSource;
-        CancellationToken token;
+        // Create an instance of the VehicleDataService class
+        private readonly VehicleDataService VehicleDataService;
 
+        
+        private CancellationTokenSource tokenSource;
+        private CancellationToken token;
+
+        // User Location
+        [ObservableProperty]
+        public bool run = true;
+
+     
         // Create object from Class NearByRestService
         public ObservableCollection<NearBy> Item { get; } = new();
 
         // Inatialize object from NearByService
         private readonly NearByRestService nearByRestService = new();
 
-        public ObservableCollection<Vehicle> VehiclesCollection { get; set; }
+        // Create observable collection for vehicle
+        public ObservableCollection<Vehicle> VehiclesCollection { get; set; } = new();
 
-        public MainPageViewModel()
+        /// <summary>
+        /// Constructor for the MainPageViewModel class
+        /// </summary>
+        /// <param name="vehicleData"></param>
+        public MainPageViewModel(VehicleDataService vehicleData)
         {
-            _vehicleViewModel.GetVehiclesAsync();
+            // Create an instance of the VehicleDataService class
+            VehicleDataService = vehicleData;
 
-            AddVehiclesToMain();
+            // Get Vehicle data from json file
+            AddVehiclesToMainAsync();
 
-            SelectVehicle = VehiclesCollection.FirstOrDefault();
-
-            // GetNearByItemsAsync();
+            // Get NearBy Fuel stations within 1.5km
             _ = GetNearByItemsAsync();
         }
         
@@ -50,20 +65,36 @@ namespace L00177804_Project.ViewModel
                 OnPropertyChanged(nameof(SelectVehicle));
             }
         }
-
+ 
         // Access the Vehicles property
-        public void AddVehiclesToMain()
+        public async void AddVehiclesToMainAsync()
         {
-            // Get vehicle data
-            VehiclesCollection = _vehicleViewModel.Vehicles;
+            try
+            {
+                // Get the vehicle data from the json file
+                var item = await VehicleDataService.GetVehiclesInfo(_vehicleFile);
 
+                // condition to clear menu for erroneous behaviour
+                if (VehiclesCollection.Count != 0)
+                {
+                    VehiclesCollection.Clear();
+                }
+                // Add the vehicle data to the observable collection
+                item.ForEach(VehiclesCollection.Add);
+
+                SelectVehicle = VehiclesCollection.FirstOrDefault();
+                // condition to check if the observable collection is empty
+                if (VehiclesCollection is null)
+                {
+                    await _vehicleViewModel.GoToAddVehicle();
+                }
+            }
+            // Catch errors
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
-
-
-
-        // User Location
-        [ObservableProperty]
-        public bool run = true;
 
 
         /// <summary>
@@ -94,7 +125,11 @@ namespace L00177804_Project.ViewModel
             }
         }
 
-        // Method to get NearbyService rest and pass to an observable collection
+        /// <summary>
+        ///  Relay Command that accesses NearByRestService to get nearby fuel stations
+        ///  within 1.5km radius
+        /// </summary>
+        /// <returns></returns>
         public async Task GetNearByItemsAsync()
         {
             tokenSource = new();
@@ -122,16 +157,10 @@ namespace L00177804_Project.ViewModel
             }
         }
 
-
-
-
-    
-        //public Vehicle SelectVehicle { get; set; }
-
-
-       
-
-
+        /// <summary>
+        ///  Relay Command that accesses LocationTrackService to start tracking user location
+        /// </summary>
+        /// <returns></returns>
 
         [RelayCommand]
         public async Task StartTracking()
@@ -146,8 +175,6 @@ namespace L00177804_Project.ViewModel
             await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
         }
 
-
-
-
     }
 }
+

@@ -14,6 +14,8 @@ namespace L00177804_Project.ViewModel
         public bool IsNotBusy => !IsBusy;
 
 
+        
+
         [ObservableProperty]
         public string heading;
 

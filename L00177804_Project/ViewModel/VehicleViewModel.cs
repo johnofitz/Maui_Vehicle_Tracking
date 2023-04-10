@@ -11,8 +11,9 @@ namespace L00177804_Project.ViewModel
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
 
+        private const string _vehicleFile = "vehicle.json";
         // Create observable collection for vehicle 
-        public ObservableCollection<Vehicle> Vehicles { get; set; }
+        public ObservableCollection<Vehicle> Vehicles { get; set; } = new();
 
         /// <summary>
         ///  Constructor for the VehicleViewModel class
@@ -21,8 +22,7 @@ namespace L00177804_Project.ViewModel
         /// <param name="vehicleData"></param>
         public VehicleViewModel(VehicleDataService vehicleData) {
             
-            this.VehicleDataService = vehicleData;
-            Vehicles = new ObservableCollection<Vehicle>();
+            VehicleDataService = vehicleData;
             GetVehiclesAsync();
         }
 
@@ -36,9 +36,23 @@ namespace L00177804_Project.ViewModel
             await Shell.Current.GoToAsync(nameof(AddVehicleView));
         }
 
-        // file name
+        /// <summary>
+        /// Method used to navigate to the EditVehicleView
+        /// </summary>
+        /// <param name="vehicle"></param>
+        /// <returns></returns>
 
-        private readonly string _file = "vehicle.json";
+        [RelayCommand]
+        public async Task GoToEditVehicle(Vehicle vehicle)
+        {
+            if (vehicle.Name == null) return;
+
+            await Shell.Current.GoToAsync(nameof(EditVehicleView), true, new Dictionary<string, object>
+            {
+            {"Vehicle", vehicle }
+            });
+        }
+
 
         /// <summary>
         ///  Method to get the vehicle data from the json file
@@ -47,7 +61,7 @@ namespace L00177804_Project.ViewModel
         {
             try
             {
-                var item = await VehicleDataService.GetVehiclesInfo(_file);
+                var item = await VehicleDataService.GetVehiclesInfo(_vehicleFile);
 
                 // condition to clear menu for erroneous behaviour
                 if (Vehicles.Count != 0)

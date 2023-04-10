@@ -7,29 +7,28 @@ namespace L00177804_Project.ViewModel
     public partial class AddVehicleViewModel : ParentViewModel
     {
         // Create an observable collection for the fuel types
-        public ObservableCollection<string> FuelTypes { get; set; }
+        public ObservableCollection<string> FuelTypes { get; set; } = new();
 
         // Create an observable collection for the consumption unit
-        public ObservableCollection<string> ConsumptionUnit { get; set; }
+        public ObservableCollection<string> ConsumptionUnit { get; set; } = new();
 
         // Create an observable collection for the distance unit
-        public ObservableCollection<string> DistanceUnit { get; set; }
+        public ObservableCollection<string> DistanceUnit { get; set; } = new();
 
         /// <summary>
         ///  Constructor for the AddVehicleViewModel class
         /// </summary>
         public AddVehicleViewModel()
         {
-            // Create a new instance of the FuelTypes class
-            FuelTypes = new ObservableCollection<string>();
+           
+         
             AddFuelTypes();
             SelectedFuelType = fuelTypes.Type1; // set Type1 as the default selected item
-            // Create a new instance of the ConsumptionUnit class
-            ConsumptionUnit = new ObservableCollection<string>();
+       
             AddConsumptionUnit();
             SelectedConsumptionType = consumptionUnit.Consumption1; // set Consumption1 as the default selected item
             // Create a new instance of the DistanceUnit class
-            DistanceUnit = new ObservableCollection<string>();
+        
             AddDistanceUnit();
             SelectedDistanceType = distanceUnit.Distance1; // set Distance1 as the default selected item
 
@@ -56,24 +55,27 @@ namespace L00177804_Project.ViewModel
 
 
         // Create a new instance of the FuelTypes class
-        private readonly FuelTypes fuelTypes = new();
+        public readonly FuelTypes fuelTypes = new();
 
         // Create a new instance of the ConsumptionUnit class
-        private readonly ConsumptionUnit consumptionUnit = new();
+        public readonly ConsumptionUnit consumptionUnit = new();
 
         // Create a new instance of the DistanceUnit class
-        private readonly DistanceUnit distanceUnit = new();
+        public readonly DistanceUnit distanceUnit = new();
 
         private List<Vehicle> logging = new();
 
         // Selected fuel type default
-        public string SelectedFuelType { get; set; }
+        [ObservableProperty]
+        public string selectedFuelType;
 
         // Selected consumption type default
-        public string SelectedConsumptionType { get; set; }
+        [ObservableProperty]
+        public string selectedConsumptionType;
 
         // Selected distance type default
-        public string SelectedDistanceType { get; set; }
+        [ObservableProperty]
+        public string selectedDistanceType;
 
         public string ValidationCheck { get; set; }
 
@@ -81,7 +83,7 @@ namespace L00177804_Project.ViewModel
         /// <summary>
         ///  Add fuel types to the observable collection
         /// </summary>
-        private void AddFuelTypes()
+        public void AddFuelTypes()
         {
             FuelTypes.Add(fuelTypes.Type1);
             FuelTypes.Add(fuelTypes.Type2);
@@ -93,7 +95,7 @@ namespace L00177804_Project.ViewModel
         /// <summary>
         ///  Add consumption unit to the observable collection
         /// </summary>
-        private void AddConsumptionUnit()
+        public void AddConsumptionUnit()
         {
             ConsumptionUnit.Add(consumptionUnit.Consumption1);
             ConsumptionUnit.Add(consumptionUnit.Consumption2);
@@ -104,7 +106,7 @@ namespace L00177804_Project.ViewModel
         /// <summary>
         ///  Add distance unit to the observable collection
         /// </summary>
-        private void AddDistanceUnit()
+        public void AddDistanceUnit()
         {
             DistanceUnit.Add(distanceUnit.Distance1);
             DistanceUnit.Add(distanceUnit.Distance2);
@@ -144,9 +146,12 @@ namespace L00177804_Project.ViewModel
                         Licence = licences,
                     };
 
+                
+
                     // Check if the file exists
                     if (!File.Exists(targetFile))
                     {
+                        vehicle.Id = 1;
                         logging.Add(vehicle);
                         string json = JsonConvert.SerializeObject(logging);
                         File.WriteAllText(targetFile, json);
@@ -156,7 +161,11 @@ namespace L00177804_Project.ViewModel
                     {
                         string json = File.ReadAllText(targetFile);
                         logging = JsonConvert.DeserializeObject<List<Vehicle>>(json);
+
+                        // Set the ID for subsequent entries
+                        vehicle.Id = logging.Max(v => v.Id) + 1;
                         logging.Add(vehicle);
+
                         string newJson = JsonConvert.SerializeObject(logging);
                         File.WriteAllText(targetFile, newJson);
                     }
