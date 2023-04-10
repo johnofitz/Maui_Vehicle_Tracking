@@ -1,4 +1,6 @@
 ﻿
+using L00177804_Project.Service.VehicleInfoService;
+
 namespace L00177804_Project.ViewModel
 {
     /// <summary>
@@ -177,6 +179,8 @@ namespace L00177804_Project.ViewModel
                 }
                 finally
                 {
+                    VehicleViewModel vehicleViewModel = new(new VehicleDataService());
+                    MainPageViewModel mainPageViewModel = new(new VehicleDataService());
                     // Route to previous page
                     await Shell.Current.GoToAsync("..//..");
                 }

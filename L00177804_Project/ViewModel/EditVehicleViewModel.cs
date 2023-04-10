@@ -135,6 +135,7 @@ namespace L00177804_Project.ViewModel
                 // Handle exceptions as needed
                 Console.WriteLine($"Error editing vehicle data: {ex.Message}");
             }
+            VehicleViewModel VehicleViewModel = new( new VehicleDataService());
             await Shell.Current.GoToAsync("..//..");
         }
 
@@ -161,12 +162,21 @@ namespace L00177804_Project.ViewModel
                     // Remove the vehicle from the list
                     vehicles.Remove(vehicleToDelete);
 
-                    // Serialize the updated list back to JSON
-                    string json = JsonConvert.SerializeObject(vehicles);
+                    if (vehicles.Count == 0)
+                    {
+                        // Delete the entire file if there are no vehicles left
+                        File.Delete(targetFile);
+                    }
+                    else
+                    {
+                        // Serialize the updated list back to JSON
+                        string json = JsonConvert.SerializeObject(vehicles);
 
-                    // Save the updated JSON to the file
-                    File.WriteAllText(targetFile, json);
+                        // Save the updated JSON to the file
+                        File.WriteAllText(targetFile, json);
+                    }
 
+                    VehicleViewModel VehicleViewModel = new(new VehicleDataService());
                     // Route to previous page
                     await Shell.Current.GoToAsync("..//..");
                 }
@@ -177,5 +187,6 @@ namespace L00177804_Project.ViewModel
                 Debug.WriteLine(ex.ToString());
             }
         }
+
     }
 }

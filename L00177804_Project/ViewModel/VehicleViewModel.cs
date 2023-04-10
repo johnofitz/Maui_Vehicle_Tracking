@@ -33,6 +33,7 @@ namespace L00177804_Project.ViewModel
         [RelayCommand]
         public async Task GoToAddVehicle()
         {
+            
             await Shell.Current.GoToAsync(nameof(AddVehicleView));
         }
 

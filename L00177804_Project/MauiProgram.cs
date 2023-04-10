@@ -57,8 +57,6 @@ public static class MauiProgram
         builder.Services.AddTransient<EditVehicleView>();
         builder.Services.AddTransient<EditVehicleViewModel>();
 
-
-
         return builder.Build();
     }
 }

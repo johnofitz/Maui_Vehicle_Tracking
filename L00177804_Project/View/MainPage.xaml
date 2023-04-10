@@ -53,14 +53,8 @@
                             Text="Vehicles"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-
                 </Grid>
-
             </Border>
-
-
-
-
 
             <Frame
                 Margin="10"
@@ -128,7 +122,6 @@
                         Source="mapnear.png"
                         WidthRequest="25" />
                     <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
-
                     <StackLayout
                         Grid.Column="1"
                         Padding="10,0,0,0"
@@ -140,10 +133,9 @@
                             Text="Nearby"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-
                 </Grid>
-
             </Border>
+
             <Frame
                 Margin="10"
                 BackgroundColor="GhostWhite"
@@ -159,8 +151,7 @@
                         FontSize="Micro"
                         HorizontalOptions="Center"
                         Text="{Binding Item.Count, StringFormat='{0} Fuel Stations Nearby'}"
-                        TextColor="BlueViolet" 
-                        />
+                        TextColor="BlueViolet" />
 
                     <CollectionView ItemsSource="{Binding Item}" SelectionMode="None">
                         <CollectionView.ItemsLayout>
@@ -210,12 +201,10 @@
                                                 FontSize="Micro"
                                                 Text="{Binding Vicinity}"
                                                 VerticalOptions="CenterAndExpand" />
-
                                         </StackLayout>
                                     </StackLayout>
                                 </Frame>
                             </DataTemplate>
-
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </StackLayout>
@@ -231,7 +220,6 @@
                 StrokeThickness="6"
                 VerticalOptions="Center"
                 WidthRequest="130">
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -260,9 +248,7 @@
                             Text="Costs"
                             VerticalOptions="CenterAndExpand" />
                     </StackLayout>
-
                 </Grid>
-
             </Border>
 
             <Frame
@@ -298,10 +284,10 @@
             <Button
                 Margin="0,20,0,0"
                 Command="{Binding GetDirectionCommand}"
+                CornerRadius="20"
                 HorizontalOptions="Center"
                 Text="Get directions using Maps"
                 VerticalOptions="EndAndExpand"
-                CornerRadius="20"
                 WidthRequest="150" />
             <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
         </StackLayout>
