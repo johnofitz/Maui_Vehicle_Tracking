@@ -4,15 +4,38 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:L00177804_Project.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     x:DataType="viewmodel:MainPageViewModel">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent" />
+    </ContentPage.Behaviors>
+
     <ScrollView>
-        <StackLayout Margin="10">
+        <StackLayout Padding="10">
+
+            <Border
+                Margin="0,0,0,0"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Stroke="GhostWhite"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="6"
+                VerticalOptions="Center"
+                WidthRequest="60">
+                <Image
+                    Aspect="AspectFill"
+                    HeightRequest="20"
+                    Source="car.png"
+                    WidthRequest="20" />
+            </Border>
+
             <Frame
                 Margin="10"
                 BackgroundColor="Gainsboro"
-                BorderColor="Gray"
-                CornerRadius="5"
+                BorderColor="Gainsboro"
+                CornerRadius="15"
                 HasShadow="True"
                 HeightRequest="110">
                 <Grid>
@@ -23,11 +46,11 @@
                         <!--  Set the second column to take up remaining space  -->
                     </Grid.ColumnDefinitions>
                     <Image
+                        Margin="20,0,0,0"
                         HeightRequest="50"
                         HorizontalOptions="Start"
                         Source="car.png"
                         VerticalOptions="CenterAndExpand"
-                        Margin="20,0,0,0"
                         WidthRequest="50" />
                     <!--  Set the image to the start of the grid (left)  -->
                     <StackLayout
@@ -46,21 +69,38 @@
                 </Grid>
             </Frame>
 
+            <Border
+                Margin="0,0,0,0"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Stroke="GhostWhite"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="6"
+                VerticalOptions="Center"
+                WidthRequest="50">
+                <Image
+                    Aspect="AspectFill"
+                    HeightRequest="20"
+                    Source="mape.png"
+                    WidthRequest="20" />
+            </Border>
+
             <Frame
                 Margin="10"
                 BackgroundColor="Gainsboro"
-                BorderColor="Gray"
-                CornerRadius="5"
-                HasShadow="True"
+                BorderColor="Gainsboro"
+                CornerRadius="15"
+                HasShadow="False"
                 HeightRequest="140">
                 <StackLayout>
                     <!--  Title  -->
                     <Label
                         Margin="10,0,0,0"
                         FontAttributes="Bold"
-                        FontSize="Small"
-                        HorizontalOptions="Center"
-                        Text="Fuel Stations Nearby" />
+                        FontSize="Micro"
+                        HorizontalOptions="Start"
+                        Text="{Binding Item.Count, StringFormat='{0} Fuel Stations Nearby'}"
+                        TextColor="BlueViolet" />
 
                     <CollectionView ItemsSource="{Binding Item}" SelectionMode="None">
                         <CollectionView.ItemsLayout>
@@ -121,8 +161,49 @@
                 </StackLayout>
             </Frame>
 
-            <Button
+
+            <Border
                 Margin="0,0,0,0"
+                HeightRequest="50"
+                HorizontalOptions="Center"
+                Stroke="GhostWhite"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="6"
+                VerticalOptions="Center"
+                WidthRequest="50">
+                <Image
+                    Aspect="AspectFill"
+                    HeightRequest="20"
+                    Source="euro.png"
+                    WidthRequest="20" />
+            </Border>
+
+            <Frame
+                Margin="10"
+                BackgroundColor="Gainsboro"
+                BorderColor="Gainsboro"
+                CornerRadius="15"
+                HasShadow="True"
+                HeightRequest="110">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Set the first column to Auto to allow for image width  -->
+                        <ColumnDefinition Width="*" />
+                        <!--  Set the second column to take up remaining space  -->
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Set the image to the start of the grid (left)  -->
+                    <StackLayout Grid.Column="1" Margin="0,0,0,0">
+                        <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
+                        <Label Text="This Month" />
+                        <Label Text="Last Month" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+            <Button
+                Margin="0,20,0,0"
                 Command="{Binding GetDirectionCommand}"
                 HorizontalOptions="Center"
                 Text="Get directions using Maps"
