@@ -231,21 +231,24 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
-                        BackgroundColor="Black"
+                        Margin="0,0,10,0"
                         Command="{Binding EditVehicleDataCommand}"
                         HorizontalOptions="Center"
                         Text="Save Vehicle"
                         VerticalOptions="EndAndExpand"
-                        WidthRequest="200" />
+                        WidthRequest="150" />
+                    <!--  Add 10 units of margin to the right  -->
                     <Button
                         Grid.Column="1"
-                        BackgroundColor="Black"
+                        Margin="10,0,0,0"
                         Command="{Binding DeleteVehicleCommand}"
                         HorizontalOptions="Center"
                         Text="Delete Vehicle"
                         VerticalOptions="EndAndExpand"
-                        WidthRequest="200" />
+                        WidthRequest="150" />
+                    <!--  Add 10 units of margin to the left  -->
                 </Grid>
+
 
 
 

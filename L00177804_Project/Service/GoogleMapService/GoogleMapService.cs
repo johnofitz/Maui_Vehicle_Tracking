@@ -15,7 +15,7 @@
         ///  at the users current location
         /// </summary>
         /// <returns></returns>
-        public async Task GetGoogleMaps(string lat, string lng)
+        public static async Task GetGoogleMaps(string lat, string lng)
         {
             if (DeviceInfo.Current.Platform == DevicePlatform.iOS || DeviceInfo.Current.Platform == DevicePlatform.MacCatalyst)
             {

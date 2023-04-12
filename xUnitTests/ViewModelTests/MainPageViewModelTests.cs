@@ -14,7 +14,7 @@ namespace xUnitTests.ViewModelTests
         public void GetNearByItemsTest()
         {
             // Arrange
-            var mainViewModel = new MainPageViewModel();
+            var mainViewModel = new MainPageViewModel( new VehicleDataService());
             // Act
             var result = mainViewModel.GetNearByItemsAsync();
             // Assert

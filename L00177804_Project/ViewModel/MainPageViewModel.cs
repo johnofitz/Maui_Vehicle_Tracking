@@ -112,10 +112,10 @@ namespace L00177804_Project.ViewModel
 
                 if (current != null)
                 {
-                    await _googleMapService.GetGoogleMaps(current.Latitude.ToString(), current.Longitude.ToString());
+                    await GoogleMapService.GetGoogleMaps(current.Latitude.ToString(), current.Longitude.ToString());
                 }
                 // Get user location
-                await _googleMapService.GetGoogleMaps("52.663857", "-8.639021");
+                await GoogleMapService.GetGoogleMaps("52.663857", "-8.639021");
 
             }
             catch (Exception ex)
@@ -174,6 +174,22 @@ namespace L00177804_Project.ViewModel
 
             await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
         }
+
+
+        // Method to calculate carbon emissions
+        private int CalculateCarbonEmissions(int distance, int fuelConsumption)
+        {
+            return 0;
+        }
+
+        // Method to calculate average fuel used on journey
+        private int CalculateAverageFuelUsed(int distance, int fuelConsumption)
+        {
+            return 0;
+        }
+
+
+        
 
     }
 }
