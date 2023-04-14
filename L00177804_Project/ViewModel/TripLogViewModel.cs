@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace L00177804_Project.ViewModel
 {
-    internal class TripLogViewModel
+    public partial class TripLogViewModel: ParentViewModel
     {
+        public TripLogViewModel()
+        {
+            Heading = "Trip Log";
+        }
+
+
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<<<<<<< Updated upstream
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="L00177804_Project.View.TripView"
@@ -10,3 +11,14 @@
             HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>
+=======
+<ContentPage
+    x:Class="L00177804_Project.View.TripView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:DataType="viewmodel:TripLogViewModel"
+    xmlns:model="clr-namespace:L00177804_Project.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
+    Title="{Binding Heading}" />
+>>>>>>> Stashed changes

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="L00177804_Project.Resources.Styles.Dark"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="BackgroundColor">#333333</Color>
+    <Color x:Key="TextColor">Gold</Color>
+    <Color x:Key="InputBackgroundColor">#666666</Color>
+</ResourceDictionary>

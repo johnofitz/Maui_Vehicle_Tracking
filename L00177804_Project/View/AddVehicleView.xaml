@@ -7,6 +7,19 @@
     xmlns:model="clr-namespace:L00177804_Project.Models"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     Title="Add Vehicle">
+<<<<<<< Updated upstream
+=======
+
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>
+
+>>>>>>> Stashed changes
     <ScrollView>
         <!--  *,* makes coloumns as big as needed  -->
         <Grid>

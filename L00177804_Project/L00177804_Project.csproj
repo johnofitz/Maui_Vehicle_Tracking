@@ -60,6 +60,7 @@
 	  <None Remove="Resources\Images\Flyout\remind.png" />
 	  <None Remove="Resources\Images\Flyout\settings.png" />
 	  <None Remove="Resources\Images\Flyout\stats.png" />
+	  <None Remove="Resources\Images\Flyout\theme.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,6 +72,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Resources\Styles\Blue.xaml.cs">
+	    <DependentUpon>Blue.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\Blue.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\Dark.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\Light.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\Red.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\AddVehicleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

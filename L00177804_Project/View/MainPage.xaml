@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<<<<<<< Updated upstream
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="L00177804_Project.MainPage">
@@ -7,5 +8,313 @@
     <!--<maps:Map x:Name="map"
               IsTrafficEnabled="True"
               MapType="Hybrid"/>-->
+=======
+<ContentPage
+    x:Class="L00177804_Project.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+    xmlns:models="clr-namespace:L00177804_Project.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}"
+    x:DataType="viewmodel:MainPageViewModel">
+
+    
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent"/>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}">
+        </toolkit:EventToCommandBehavior>
+    </ContentPage.Behaviors>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout Padding="5">
+            <Border
+                Margin="0,0,0,0"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                Stroke="GhostWhite"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="6"
+                VerticalOptions="Center"
+                WidthRequest="130">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Image column  -->
+                        <ColumnDefinition Width="*" />
+                        <!--  Text column  -->
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Margin="20,0,0,0"
+                        Aspect="AspectFill"
+                        HeightRequest="20"
+                        HorizontalOptions="StartAndExpand"
+                        Source="car.png"
+                        WidthRequest="25" />
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="10,0,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="CenterAndExpand">
+                        <!--  Set HorizontalOptions to "StartAndExpand" to align the StackLayout to the left  -->
+                        <Label
+                            FontSize="Micro"
+                            Text="Vehicles"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Grid>
+            </Border>
+
+            <Frame
+                Margin="10"
+                BackgroundColor="GhostWhite"
+                BorderColor="Gainsboro"
+                CornerRadius="15"
+                HasShadow="True"
+                HeightRequest="110">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Set the first column to Auto to allow for image width  -->
+                        <ColumnDefinition Width="*" />
+                        <!--  Set the second column to take up remaining space  -->
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Margin="20,0,0,0"
+                        HeightRequest="50"
+                        HorizontalOptions="Start"
+                        Source="car.png"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="50" />
+                    <!--  Set the image to the start of the grid (left)  -->
+                    <StackLayout
+                        Grid.Column="1"
+                        Margin="-50,0,0,0"
+                        HorizontalOptions="CenterAndExpand"
+                        VerticalOptions="CenterAndExpand">
+                        <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
+                        <Picker ItemsSource="{Binding VehiclesCollection}" SelectedItem="{Binding SelectVehicle, Mode=TwoWay}"
+                                TextColor="{DynamicResource TextColor}"/>
+                        <!--  Set Mode=TwoWay for two-way binding  -->
+                        <StackLayout>
+                            <!--  Bind Label's Text property to SelectedVehicle properties  -->
+                            <Label Text="{Binding SelectVehicle.Odometer, StringFormat='{0} km'}" 
+                                   TextColor="{DynamicResource TextColor}"/>
+                            <!--  Add additional properties as needed  -->
+                        </StackLayout>
+                    </StackLayout>
+
+                </Grid>
+            </Frame>
+
+            <Border
+                Margin="0,0,0,0"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                Stroke="GhostWhite"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="6"
+                VerticalOptions="Center"
+                WidthRequest="130">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Image column  -->
+                        <ColumnDefinition Width="*" />
+                        <!--  Text column  -->
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Margin="20,0,0,0"
+                        Aspect="AspectFill"
+                        HeightRequest="25"
+                        HorizontalOptions="StartAndExpand"
+                        Source="mapnear.png"
+                        WidthRequest="25" />
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="10,0,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="CenterAndExpand">
+                        <!--  Set HorizontalOptions to "StartAndExpand" to align the StackLayout to the left  -->
+                        <Label
+                            FontSize="Micro"
+                            Text="Nearby"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Grid>
+            </Border>
+
+            <Frame
+                Margin="10"
+                BackgroundColor="GhostWhite"
+                BorderColor="Gainsboro"
+                CornerRadius="15"
+                HasShadow="False"
+                HeightRequest="140">
+                <StackLayout>
+                    <!--  Title  -->
+                    <Label
+                        Margin="10,0,0,0"
+                        FontAttributes="Bold"
+                        FontSize="Micro"
+                        HorizontalOptions="Center"
+                        Text="{Binding Item.Count, StringFormat='{0} Fuel Stations Nearby'}"
+                        TextColor="BlueViolet" />
+
+                    <CollectionView ItemsSource="{Binding Item}" SelectionMode="None">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:NearBy">
+                                <Frame
+                                    Margin="0,-20,0,0"
+                                    BackgroundColor="GhostWhite"
+                                    BorderColor="GhostWhite"
+                                    HasShadow="False"
+                                    HeightRequest="130">
+                                    <StackLayout Orientation="Horizontal" Spacing="0">
+                                        <Border
+                                            Margin="0,0,0,0"
+                                            HeightRequest="60"
+                                            HorizontalOptions="Center"
+                                            Stroke="GhostWhite"
+                                            StrokeShape="RoundRectangle 40"
+                                            StrokeThickness="6"
+                                            VerticalOptions="Center"
+                                            WidthRequest="50">
+                                            <Image
+                                                Aspect="AspectFill"
+                                                HeightRequest="15"
+                                                Source="{Binding Icon}"
+                                                WidthRequest="15" />
+                                        </Border>
+
+                                        <StackLayout Padding="20">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Micro"
+                                                Text="{Binding Name}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Micro"
+                                                Text="{Binding Rating, StringFormat='Rating: {0}'}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                            <Label
+                                                Margin="0,0,0,0"
+                                                FontAttributes="Bold"
+                                                FontSize="Micro"
+                                                Text="{Binding Vicinity}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+
+
+            <Border
+                Margin="0,0,0,0"
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                Stroke="GhostWhite"
+                StrokeShape="RoundRectangle 40"
+                StrokeThickness="6"
+                VerticalOptions="Center"
+                WidthRequest="130">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Image column  -->
+                        <ColumnDefinition Width="*" />
+                        <!--  Text column  -->
+                    </Grid.ColumnDefinitions>
+
+                    <Image
+                        Margin="20,0,0,0"
+                        Aspect="AspectFill"
+                        HeightRequest="25"
+                        HorizontalOptions="StartAndExpand"
+                        Source="euro.png"
+                        WidthRequest="25" />
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="10,0,0,0"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="CenterAndExpand">
+                        <!--  Set HorizontalOptions to "StartAndExpand" to align the StackLayout to the left  -->
+                        <Label
+                            FontSize="Micro"
+                            Text="Costs"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Grid>
+            </Border>
+
+            <Frame
+                Margin="10"
+                BackgroundColor="GhostWhite"
+                BorderColor="Gainsboro"
+                CornerRadius="15"
+                HasShadow="True"
+                HeightRequest="250">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Set the first column to Auto to allow for image width  -->
+                        <ColumnDefinition Width="*" />
+                        <!--  Set the second column to take up remaining space  -->
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Set the image to the start of the grid (left)  -->
+                    <StackLayout Grid.Column="1" Margin="0,0,0,0">
+                        <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
+                        <chart:SfCartesianChart>
+                            <chart:SfCartesianChart.XAxes>
+                                <chart:CategoryAxis />
+                            </chart:SfCartesianChart.XAxes>
+                            <chart:SfCartesianChart.YAxes>
+                                <chart:NumericalAxis />
+                            </chart:SfCartesianChart.YAxes>
+                        </chart:SfCartesianChart>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+            <Button
+                Margin="0,20,0,0"
+                Command="{Binding GetDirectionCommand}"
+                CornerRadius="20"
+                HorizontalOptions="Center"
+                Text="Get directions using Maps"
+                VerticalOptions="EndAndExpand"
+                WidthRequest="150" />
+            <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
+        </StackLayout>
+    </ScrollView>
+>>>>>>> Stashed changes
 
 </ContentPage>
