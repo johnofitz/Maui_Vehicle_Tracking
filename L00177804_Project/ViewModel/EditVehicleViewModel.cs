@@ -184,7 +184,7 @@ namespace L00177804_Project.ViewModel
                     }
 
                     // Route to previous page
-                    await Shell.Current.GoToAsync($"..//..//{nameof(VehicleView)}");
+                    await Shell.Current.GoToAsync($"//{nameof(VehicleView)}");
                 }
             }
             catch (Exception ex)

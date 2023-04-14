@@ -24,14 +24,10 @@ public partial class MainPage : ContentPage
 
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        var test = args.LoadFromXaml(typeof(MainPage));
-
+    {  
         // ViewModel = new MainPageViewModel(new Service.VehicleInfoService.VehicleDataService());
         //     BindingContext = ViewModel;
         //     base.OnNavigatedTo(args);
-
-
     }
 
 
