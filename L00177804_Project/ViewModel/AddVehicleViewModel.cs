@@ -1,5 +1,6 @@
 ﻿
 using L00177804_Project.Service.VehicleInfoService;
+using Microsoft.Maui.Controls;
 
 namespace L00177804_Project.ViewModel
 {
@@ -179,10 +180,10 @@ namespace L00177804_Project.ViewModel
                 }
                 finally
                 {
-                    VehicleViewModel vehicleViewModel = new(new VehicleDataService());
-                    MainPageViewModel mainPageViewModel = new(new VehicleDataService());
+                    MainPageViewModel mainPageViewModel = new( new VehicleDataService());
                     // Route to previous page
-                    await Shell.Current.GoToAsync("..//..");
+
+                    await Shell.Current.GoToAsync($"../../{nameof(VehicleView)}");
                 }
             }
         }

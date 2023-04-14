@@ -2,6 +2,7 @@
 using L00177804_Project.Service.LocationService;
 using L00177804_Project.Service.NearByService;
 using L00177804_Project.Service.VehicleInfoService;
+using System.Windows.Input;
 
 namespace L00177804_Project.ViewModel
 {
@@ -9,9 +10,7 @@ namespace L00177804_Project.ViewModel
     {
 
         private const string _vehicleFile = "vehicle.json";
-        // Create object from Class GeoLocationService
-        private readonly GoogleMapService _googleMapService = new();
-
+     
         // Create object from Class LocationTrackService
         private readonly LocationTrackService _locationTrackService = new();
 
@@ -52,7 +51,7 @@ namespace L00177804_Project.ViewModel
             AddVehiclesToMainAsync();
 
             // Get NearBy Fuel stations within 1.5km
-            _ = GetNearByItemsAsync();
+           // _ = GetNearByItemsAsync();
         }
         
         private Vehicle _selectVehicle;
@@ -65,7 +64,7 @@ namespace L00177804_Project.ViewModel
                 OnPropertyChanged(nameof(SelectVehicle));
             }
         }
- 
+        public ICommand PageAppearingCommand => new Command(() => AddVehiclesToMainAsync());
         // Access the Vehicles property
         public async void AddVehiclesToMainAsync()
         {
@@ -176,21 +175,27 @@ namespace L00177804_Project.ViewModel
         }
 
 
-        // Method to calculate carbon emissions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <param name="fuelConsumption"></param>
+        /// <returns></returns>
         private int CalculateCarbonEmissions(int distance, int fuelConsumption)
         {
             return 0;
         }
 
-        // Method to calculate average fuel used on journey
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <param name="fuelConsumption"></param>
+        /// <returns></returns>
         private int CalculateAverageFuelUsed(int distance, int fuelConsumption)
         {
             return 0;
         }
-
-
-        
-
     }
 }
 

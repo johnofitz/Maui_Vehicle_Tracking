@@ -4,9 +4,13 @@ namespace L00177804_Project;
 
 public partial class AppShell : Shell
 {
+
+  
     public AppShell()
     {
+
         InitializeComponent();
+        
         Routing.RegisterRoute(nameof(ReminderView), typeof(ReminderView));
         Routing.RegisterRoute(nameof(MapView), typeof(MapView));
         Routing.RegisterRoute(nameof(TripView), typeof(TripView));
@@ -18,7 +22,7 @@ public partial class AppShell : Shell
 
     }
 
-    // This method is called every time the user navigates to a new page in the Shell
+    ////// This method is called every time the user navigates to a new page in the Shell
     ShellContent _previousShellContent; // declare a variable to hold the previously viewed ShellContent
 
     protected override void OnNavigated(ShellNavigatedEventArgs args)
@@ -38,5 +42,9 @@ public partial class AppShell : Shell
 
         // Set the _previousShellContent variable to the currently viewed ShellContent for future reference
         _previousShellContent = CurrentItem?.CurrentItem?.CurrentItem;
+
+        
     }
+
+
 }

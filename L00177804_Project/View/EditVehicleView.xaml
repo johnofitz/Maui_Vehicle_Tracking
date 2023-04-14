@@ -62,6 +62,19 @@
                                         ValidStyle="{StaticResource ValidEntryStyle}" />
                                 </Entry.Behaviors>
                             </Entry>
+                            <Entry
+                                FontSize="Body"
+                                Placeholder="Average Fuel consumption"
+                                PlaceholderColor="DarkGray">
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="10"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>
@@ -231,21 +244,21 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
-                        Margin="0,0,10,0"
+                        Margin="70,0,0,0"
                         Command="{Binding EditVehicleDataCommand}"
                         HorizontalOptions="Center"
-                        Text="Save Vehicle"
+                        Text="Update"
                         VerticalOptions="EndAndExpand"
-                        WidthRequest="150" />
+                        WidthRequest="100" />
                     <!--  Add 10 units of margin to the right  -->
                     <Button
                         Grid.Column="1"
-                        Margin="10,0,0,0"
+                        Margin="0,0,45,0"
                         Command="{Binding DeleteVehicleCommand}"
                         HorizontalOptions="Center"
-                        Text="Delete Vehicle"
+                        Text="Delete"
                         VerticalOptions="EndAndExpand"
-                        WidthRequest="150" />
+                        WidthRequest="100" />
                     <!--  Add 10 units of margin to the left  -->
                 </Grid>
 

@@ -2,34 +2,32 @@
 namespace L00177804_Project.Models
 {
 
-    public class Vehicle
+    public partial class Vehicle:ObservableObject
     {
-     
-        public int Id { get; set; }
-        public string Name { get; set; }
+        [ObservableProperty] public int id;
 
-        public string Make { get; set; }
+        [ObservableProperty] public string name;
 
-        public string Model { get; set; }
+        [ObservableProperty] public string make;
 
-        public string FuelType { get; set; }
+        [ObservableProperty] public string model;
 
-        public double Odometer { get; set; }
+        [ObservableProperty] public string fuelType;
 
-        public string EngineSize { get; set; }
+        [ObservableProperty] public double odometer;
 
-        public string FuelConsumption { get; set; }
+        [ObservableProperty] public string engineSize;
 
-        public string InsurencePolicy { get; set; }
+        [ObservableProperty] public string fuelConsumption;
 
-        public string InsurenceCompany { get; set; }
+        [ObservableProperty] public string insurencePolicy;
 
-        public string Licence { get; set; }
+        [ObservableProperty] public string insurenceCompany;
 
-        public string Distance { get; set; }
+        [ObservableProperty] public string licence;
 
+        [ObservableProperty] public string distance;
 
-       
         public override string ToString()
         {
             return Name;

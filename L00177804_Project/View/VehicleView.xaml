@@ -3,16 +3,21 @@
     x:Class="L00177804_Project.View.VehicleView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:model="clr-namespace:L00177804_Project.Models"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
-    Title="Vehicles"
+    Title="My Vehicles"
     x:DataType="viewmodel:VehicleViewModel">
 
     <AbsoluteLayout>
         <!--  Content  -->
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <Grid>
-                <!--  CollectionView content  -->
+                <RefreshView
+                    Command="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsRefreshing}"
+                    RefreshColor="Blue">
+                    <!--  CollectionView content  -->
                 <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Vehicle">
@@ -64,6 +69,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                </RefreshView>
             </Grid>
         </ScrollView>
 

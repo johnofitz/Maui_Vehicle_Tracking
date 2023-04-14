@@ -34,6 +34,12 @@ namespace L00177804_Project.ViewModel
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
 
+        // Create object from Class VehicleViewModel for page redirection
+
+        private readonly VehicleViewModel vehicleViewModel = new(new VehicleDataService());
+
+        private readonly MainPageViewModel mainPageViewModel = new(new VehicleDataService());
+
         public EditVehicleViewModel(VehicleDataService vehicleDataService)
         {
 
@@ -135,8 +141,9 @@ namespace L00177804_Project.ViewModel
                 // Handle exceptions as needed
                 Console.WriteLine($"Error editing vehicle data: {ex.Message}");
             }
-            VehicleViewModel VehicleViewModel = new( new VehicleDataService());
-            await Shell.Current.GoToAsync("..//..");
+
+            // Route to previous page
+            await Shell.Current.GoToAsync($"//{nameof(VehicleView)}");
         }
 
         /// <summary>
@@ -176,9 +183,8 @@ namespace L00177804_Project.ViewModel
                         File.WriteAllText(targetFile, json);
                     }
 
-                    VehicleViewModel VehicleViewModel = new(new VehicleDataService());
                     // Route to previous page
-                    await Shell.Current.GoToAsync("..//..");
+                    await Shell.Current.GoToAsync($"..//..//{nameof(VehicleView)}");
                 }
             }
             catch (Exception ex)

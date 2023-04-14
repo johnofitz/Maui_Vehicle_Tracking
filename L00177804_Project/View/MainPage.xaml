@@ -9,8 +9,11 @@
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     x:DataType="viewmodel:MainPageViewModel">
 
+    
     <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent" />
+        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent"/>
+        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}">
+        </toolkit:EventToCommandBehavior>
     </ContentPage.Behaviors>
 
     <ScrollView>

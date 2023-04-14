@@ -1,9 +1,11 @@
 ﻿using L00177804_Project.Service.NearByService;
 using L00177804_Project.Service.VehicleInfoService;
+using Syncfusion.Maui.Core.Hosting;
 using CommunityToolkit.Maui;
 
 namespace L00177804_Project;
-using Syncfusion.Maui.Core.Hosting;
+
+
 
 public static class MauiProgram
 {
@@ -25,6 +27,7 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
+ 
         builder.Services.AddSingleton<MapViewModel>();
         builder.Services.AddTransient<MapView>();
 
@@ -52,6 +55,7 @@ public static class MauiProgram
         builder.Services.AddTransient<AddVehicleViewModel>();
 
         builder.Services.AddTransient<VehicleDataService>();
+
 
 
         builder.Services.AddTransient<EditVehicleView>();

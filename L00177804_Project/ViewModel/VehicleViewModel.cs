@@ -1,6 +1,7 @@
 ﻿
 using L00177804_Project.Service.VehicleInfoService;
 
+
 namespace L00177804_Project.ViewModel
 {
     /// <summary>
@@ -8,22 +9,29 @@ namespace L00177804_Project.ViewModel
     /// </summary>
     public partial class VehicleViewModel:ParentViewModel
     {
+
+        [ObservableProperty]
+        bool _isRefreshing;
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
 
         private const string _vehicleFile = "vehicle.json";
+
         // Create observable collection for vehicle 
-        public ObservableCollection<Vehicle> Vehicles { get; set; } = new();
+        [ObservableProperty]
+        private ObservableCollection<Vehicle> _vehicles;
 
         /// <summary>
         ///  Constructor for the VehicleViewModel class
         ///  accepts a VehicleDataService object
         /// </summary>
         /// <param name="vehicleData"></param>
+       
         public VehicleViewModel(VehicleDataService vehicleData) {
             
             VehicleDataService = vehicleData;
-            GetVehiclesAsync();
+            
+            _ = GetVehiclesAsync();
         }
 
         /// <summary>
@@ -54,33 +62,40 @@ namespace L00177804_Project.ViewModel
             });
         }
 
-
         /// <summary>
         ///  Method to get the vehicle data from the json file
         /// </summary>
-        public async void GetVehiclesAsync()
+        [RelayCommand]
+        public async Task GetVehiclesAsync()
         {
             try
             {
+                _vehicles = new ObservableCollection<Vehicle>();
+
+                // Get the vehicle data from the json file
                 var item = await VehicleDataService.GetVehiclesInfo(_vehicleFile);
 
                 // condition to clear menu for erroneous behaviour
-                if (Vehicles.Count != 0)
-                    Vehicles.Clear();
-                // Add the vehicle data to the observable collection
-                item.ForEach(Vehicles.Add);
-
-                // condition to check if the observable collection is empty
-                if(Vehicles is null)
-                {
-                    await GoToAddVehicle();
-                }
+                if (_vehicles.Count != 0)
+                    _vehicles.Clear();
+                // Add the vehicle data to the observable collection    
+                item.ForEach(_vehicles.Add);
             }
             // Catch errors
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
+        }
+
+        [RelayCommand]
+        public async Task Refresh()
+        {
+            await Task.Delay(100);
+            IsRefreshing = true;
+            _ = GetVehiclesAsync();
+       
+            IsRefreshing = false;
         }
     }
 }
