@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace L00177804_Project.ViewModel
 {
-    public partial class PersonalInfoViewModel: ParentViewModel
+    internal class ReminderViewModel
     {
     }
 }

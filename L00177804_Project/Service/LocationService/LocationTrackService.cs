@@ -66,10 +66,10 @@ namespace L00177804_Project.Service.LocationService
                     // Wait for the location to be retrieved
                     while (location == null)
                     {
-                        Thread.Sleep(100);
+                        Thread.Sleep(2000);
                     }
                     // Wait for 3 seconds before requesting the next location
-                    await Task.Delay(3000, ct);
+                    await Task.Delay(10000, ct);
 
                 }
             }
