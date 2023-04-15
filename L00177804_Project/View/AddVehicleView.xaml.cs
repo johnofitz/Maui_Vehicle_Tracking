@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Behaviors;
 namespace L00177804_Project.View;
 
 public partial class AddVehicleView : ContentPage
@@ -6,5 +7,7 @@ public partial class AddVehicleView : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = viewModel;
-	}
+
+
+    }
 }

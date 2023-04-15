@@ -58,10 +58,10 @@ namespace L00177804_Project.ViewModel
 
                 if (current != null)
                 {
-                    await _googleMapService.GetGoogleMaps(current.Latitude.ToString(), current.Longitude.ToString());
+                    await GoogleMapService.GetGoogleMaps(current.Latitude.ToString(), current.Longitude.ToString());
                 }
                 // Get user location
-                await _googleMapService.GetGoogleMaps("52.663857", "-8.639021");
+                await GoogleMapService.GetGoogleMaps("52.663857", "-8.639021");
 
             }
             catch (Exception ex)

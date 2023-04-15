@@ -57,6 +57,9 @@
 	  <None Remove="Resources\Images\Flyout\head.jpg" />
 	  <None Remove="Resources\Images\Flyout\home.png" />
 	  <None Remove="Resources\Images\Flyout\mape.png" />
+	  <None Remove="Resources\Images\Flyout\mapnear.png" />
+	  <None Remove="Resources\Images\Flyout\multiVehicle.jpg" />
+	  <None Remove="Resources\Images\Flyout\petrol.png" />
 	  <None Remove="Resources\Images\Flyout\remind.png" />
 	  <None Remove="Resources\Images\Flyout\settings.png" />
 	  <None Remove="Resources\Images\Flyout\stats.png" />
@@ -64,11 +67,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+		<PackageReference Include="FontAwesome" Version="4.7.0" />
 		<PackageReference Include="Geolocator.Plugin" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.59" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="PureWeen.Maui.FixesAndWorkarounds" Version="1.3.1" />
+		<PackageReference Include="Syncfusion.Maui.Charts" Version="21.1.38" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -91,6 +98,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AddVehicleView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\EditVehicleView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ExpenseView.xaml">

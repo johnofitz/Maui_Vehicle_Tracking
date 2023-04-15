@@ -5,77 +5,137 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:L00177804_Project"
     xmlns:view="clr-namespace:L00177804_Project.View"
-    Shell.FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="GhostWhite"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    FlyoutBackgroundColor="GhostWhite">
-
+    Shell.FlyoutBehavior="Flyout">
 
     <Shell.FlyoutHeader>
-       
-            <Image Source="head.jpg"
-               Aspect="Fill"
-               HeightRequest="220"
-               Margin="0,0,0,10"
-               />
-
+        <Image
+            Margin="0,0,0,10"
+            Aspect="Fill"
+            HeightRequest="220"
+            Source="head.jpg" />
     </Shell.FlyoutHeader>
 
-
-    <ShellContent
+    <FlyoutItem
         Title="Home"
         Icon="home.png"
-        StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage"/>
-    
-    <ShellContent
+        Route="MainPage">
+
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Icon="home.png"
+            Route="MainPage"
+            StyleClass="FlyoutItemTitleStyle" />
+
+        <ShellContent
+            Title="Map Service"
+            ContentTemplate="{DataTemplate view:MapView}"
+            Icon="mape.png"
+            Route="MapView"
+            StyleClass="FlyoutItemTitleStyle" />
+
+        <ShellContent
+            Title="Trip Stats"
+            ContentTemplate="{DataTemplate view:TripView}"
+            Icon="stats.png"
+            Route="TripView"
+            StyleClass="FlyoutItemTitleStyle" />
+
+        <ShellContent
+            Title="Expenses"
+            ContentTemplate="{DataTemplate view:ExpenseView}"
+            Icon="euro.png"
+            Route="ExpenseView"
+            StyleClass="FlyoutItemTitleStyle" />
+    </FlyoutItem>
+
+    <FlyoutItem
         Title="Reminders"
         Icon="remind.png"
-        StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:ReminderView}"
-        Route="ReminderView"/>
+        Route="ReminderView">
+        <ShellContent
+            Title="Reminders"
+            ContentTemplate="{DataTemplate view:ReminderView}"
+            Icon="remind.png"
+            Route="ReminderView"
+            StyleClass="FlyoutItemTitleStyle" />
 
-    <ShellContent
-        Title="Map Service"
+    </FlyoutItem>
+
+    <FlyoutItem
+        Title="Map"
         Icon="mape.png"
-        StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:MapView}"
-        Route="MapView"/>
+        Route="MapView">
+        <ShellContent
+            Title="Map Service"
+            ContentTemplate="{DataTemplate view:MapView}"
+            Icon="mape.png"
+            Route="MapView"
+            StyleClass="FlyoutItemTitleStyle" />
 
-    <ShellContent
+    </FlyoutItem>
+
+    <FlyoutItem
         Title="Trip Stats"
         Icon="stats.png"
-        StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:TripView}"
-        Route="TripView"/>
+        Route="TripView">
+        <ShellContent
+            Title="Trip Stats"
+            ContentTemplate="{DataTemplate view:TripView}"
+            Icon="stats.png"
+            Route="TripView"
+            StyleClass="FlyoutItemTitleStyle" />
+    </FlyoutItem>
 
-    <ShellContent
+    <FlyoutItem
         Title="Expenses"
         Icon="euro.png"
-        StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:ExpenseView}"
-        Route="ExpenseView"/>
+        Route="ExpenseView">
 
-    <ShellContent
+        <ShellContent
+            Title="Expenses"
+            ContentTemplate="{DataTemplate view:ExpenseView}"
+            Icon="euro.png"
+            Route="ExpenseView"
+            StyleClass="FlyoutItemTitleStyle" />
+    </FlyoutItem>
+
+
+    <FlyoutItem
         Title="Vehicle"
         Icon="car.png"
-        StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:VehicleView}"
-        Route="VehicleView"/>
+        Route="VehicleView">
 
-    <ShellContent
+        <ShellContent
+            Title="Vehicle"
+            ContentTemplate="{DataTemplate view:VehicleView}"
+            Icon="car.png"
+            Route="VehicleView"
+            StyleClass="FlyoutItemTitleStyle" />
+    </FlyoutItem>
+
+    <FlyoutItem
         Title="Settings"
         Icon="settings.png"
-        StyleClass="FlyoutItemTitleStyle"
-        ContentTemplate="{DataTemplate view:SettingsView}"
-        Route="SettingsView"/>
+        Route="SettingsView">
+        <ShellContent
+            Title="Settings"
+            ContentTemplate="{DataTemplate view:SettingsView}"
+            Icon="settings.png"
+            Route="SettingsView"
+            StyleClass="FlyoutItemTitleStyle" />
+
+    </FlyoutItem>
 
     <Shell.FlyoutFooter>
-        <Label Text="About"
-               TextColor="DarkSlateGrey"
-               FontAttributes="Bold"
-               FontSize="Medium"
-               HorizontalOptions="Center" />
+        <Label
+            FontAttributes="Bold"
+            FontSize="Medium"
+            HorizontalOptions="Center"
+            Text="About"
+            TextColor="DarkSlateGrey" />
     </Shell.FlyoutFooter>
 
 
