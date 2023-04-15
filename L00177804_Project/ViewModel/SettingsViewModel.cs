@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-
 using L00177804_Project.Service.ThemeService;
 using L00177804_Project.Service.VehicleInfoService;
 using L00177804_Project.Service.VehicleStoreService;
@@ -38,6 +37,7 @@ namespace L00177804_Project.ViewModel
             VehicleDataService = dataService;
             AddThemes();
             AddVehiclesToMainAsync();
+           
         }
 
         /// <summary>
@@ -106,6 +106,7 @@ namespace L00177804_Project.ViewModel
                 Debug.WriteLine(ex);
             }
         }
+
 
         partial void OnPreferedVehicleChanged(Vehicle value)
         {

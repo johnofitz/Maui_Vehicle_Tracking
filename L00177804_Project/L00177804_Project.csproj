@@ -57,6 +57,7 @@
 	  <None Remove="Resources\Images\Flyout\head.jpg" />
 	  <None Remove="Resources\Images\Flyout\home.png" />
 	  <None Remove="Resources\Images\Flyout\mape.png" />
+	  <None Remove="Resources\Images\Flyout\mapnear.png" />
 	  <None Remove="Resources\Images\Flyout\remind.png" />
 	  <None Remove="Resources\Images\Flyout\settings.png" />
 	  <None Remove="Resources\Images\Flyout\stats.png" />

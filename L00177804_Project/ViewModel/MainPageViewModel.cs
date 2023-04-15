@@ -1,4 +1,5 @@
-﻿using L00177804_Project.Service.GoogleMapService;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using L00177804_Project.Service.GoogleMapService;
 using L00177804_Project.Service.LocationService;
 using L00177804_Project.Service.NearByService;
 using L00177804_Project.Service.VehicleInfoService;
@@ -13,9 +14,6 @@ namespace L00177804_Project.ViewModel
      
         // Create object from Class LocationTrackService
         private readonly LocationTrackService _locationTrackService = new();
-
-        // Create object from Class VehicleViewModel for page redirection
-        private readonly VehicleViewModel _vehicleViewModel = new( new VehicleDataService());
 
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
@@ -51,19 +49,11 @@ namespace L00177804_Project.ViewModel
             AddVehiclesToMainAsync();
 
             // Get NearBy Fuel stations within 1.5km
-           // _ = GetNearByItemsAsync();
+            _ = GetNearByItemsAsync();
         }
-        
+        [ObservableProperty]
         private Vehicle _selectVehicle;
-        public Vehicle SelectVehicle
-        {
-            get { return _selectVehicle; }
-            set
-            {
-                _selectVehicle = value;
-                OnPropertyChanged(nameof(SelectVehicle));
-            }
-        }
+
        
         // Access the Vehicles property
         public async void AddVehiclesToMainAsync()
@@ -81,12 +71,14 @@ namespace L00177804_Project.ViewModel
                 // Add the vehicle data to the observable collection
                 item.ForEach(VehiclesCollection.Add);
 
-                SelectVehicle = VehiclesCollection.FirstOrDefault();
-                // condition to check if the observable collection is empty
-                if (VehiclesCollection is null)
-                {
-                    await _vehicleViewModel.GoToAddVehicle();
-                }
+                var cars = Preferences.Get("cars", "Work");
+
+
+                SelectVehicle = VehiclesCollection.Single(x => x.Name == cars);
+
+                vehicleName = SelectVehicle.Name;
+
+                vehicleKm = SelectVehicle.Odometer;
             }
             // Catch errors
             catch (Exception ex)
@@ -172,6 +164,13 @@ namespace L00177804_Project.ViewModel
             }
 
             await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
+        }
+
+        [RelayCommand]
+        public async Task GoToFuelStation()
+        {
+
+
         }
 
 

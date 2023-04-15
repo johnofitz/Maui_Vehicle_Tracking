@@ -1,4 +1,4 @@
-
+using L00177804_Project.Service.VehicleInfoService;
 ﻿namespace L00177804_Project;
 
 
@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
-        ViewModel = new MainPageViewModel(new Service.VehicleInfoService.VehicleDataService());
+        ViewModel = new MainPageViewModel(new VehicleDataService());
 
         BindingContext = ViewModel;
     }

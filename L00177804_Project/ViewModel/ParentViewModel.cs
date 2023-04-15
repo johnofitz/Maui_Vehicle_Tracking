@@ -15,5 +15,13 @@ namespace L00177804_Project.ViewModel
         // Lambda function to check if not busy
         public bool IsNotBusy => !IsBusy;
 
+
+
+        [ObservableProperty]
+        public string vehicleName;
+
+        [ObservableProperty]
+        public double vehicleKm;
+
     }
 }
