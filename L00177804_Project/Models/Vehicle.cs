@@ -4,6 +4,7 @@ namespace L00177804_Project.Models
 
     public partial class Vehicle:ObservableObject
     {
+
         public Vehicle(){}
 
         public Vehicle(string name)
@@ -30,6 +31,7 @@ namespace L00177804_Project.Models
         [ObservableProperty] public string insurencePolicy;
 
         [ObservableProperty] public string insurenceCompany;
+
 
         [ObservableProperty] public string licence;
 
