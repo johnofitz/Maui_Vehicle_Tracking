@@ -1,11 +1,9 @@
 ﻿using L00177804_Project.Service.NearByService;
 using L00177804_Project.Service.VehicleInfoService;
-<<<<<<< Updated upstream
-=======
 using Syncfusion.Maui.Core.Hosting;
 using CommunityToolkit.Maui;
 using L00177804_Project.Service.ThemeService;
->>>>>>> Stashed changes
+
 
 namespace L00177804_Project;
 
@@ -21,26 +19,28 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
-			.UseMauiMaps();
+            .UseMauiMaps()
+            .UseMauiCommunityToolkit()
+            .ConfigureSyncfusionCore();
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
-<<<<<<< Updated upstream
+
 		builder.Services.AddSingleton<MapViewModel>();
 		builder.Services.AddTransient<MapView>();
 
 		builder.Services.AddTransient<MainPageViewModel>();
 		builder.Services.AddTransient<MainPage>();
-=======
+
  
         builder.Services.AddTransient<MapViewModel>();
         builder.Services.AddTransient<MapView>();
 
         builder.Services.AddTransient<MainPageViewModel>();
         builder.Services.AddTransient<MainPage>();
->>>>>>> Stashed changes
+
 
 		builder.Services.AddTransient<NearByRestService>();
 
@@ -53,15 +53,15 @@ public static class MauiProgram
 		builder.Services.AddTransient<VehicleView>();
 		builder.Services.AddTransient<VehicleViewModel>();
 
-<<<<<<< Updated upstream
+
 		builder.Services.AddTransient<SettingsView>();
 		//builder.Services.AddTransient<SettingsViewModel>();
-=======
+
         builder.Services.AddTransient<SettingsView>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<ThemeAddMessage>();
         builder.Services.AddTransient<ThemeChangedMessage>();
->>>>>>> Stashed changes
+
 
 		builder.Services.AddTransient<ReminderView>();
 		//builder.Services.AddTransient<ReminderViewModel>();

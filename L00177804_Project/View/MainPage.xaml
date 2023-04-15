@@ -1,14 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<<<<<<< Updated upstream
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="L00177804_Project.MainPage">
-    
-    
-    <!--<maps:Map x:Name="map"
-              IsTrafficEnabled="True"
-              MapType="Hybrid"/>-->
-=======
+
 <ContentPage
     x:Class="L00177804_Project.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -17,16 +8,15 @@
     xmlns:models="clr-namespace:L00177804_Project.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
-    BackgroundColor="{DynamicResource BackgroundColor}"
-    x:DataType="viewmodel:MainPageViewModel">
+    x:DataType="viewmodel:MainPageViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}">
 
-    
+
     <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent"/>
-        <toolkit:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}">
-        </toolkit:EventToCommandBehavior>
+        <toolkit:StatusBarBehavior StatusBarStyle="DarkContent" />
+        <toolkit:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Label">
@@ -105,13 +95,14 @@
                         HorizontalOptions="CenterAndExpand"
                         VerticalOptions="CenterAndExpand">
                         <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
-                        <Picker ItemsSource="{Binding VehiclesCollection}" SelectedItem="{Binding SelectVehicle, Mode=TwoWay}"
-                                TextColor="{DynamicResource TextColor}"/>
+                        <Picker
+                            ItemsSource="{Binding VehiclesCollection}"
+                            SelectedItem="{Binding SelectVehicle, Mode=TwoWay}"
+                            TextColor="{DynamicResource TextColor}" />
                         <!--  Set Mode=TwoWay for two-way binding  -->
                         <StackLayout>
                             <!--  Bind Label's Text property to SelectedVehicle properties  -->
-                            <Label Text="{Binding SelectVehicle.Odometer, StringFormat='{0} km'}" 
-                                   TextColor="{DynamicResource TextColor}"/>
+                            <Label Text="{Binding SelectVehicle.Odometer, StringFormat='{0} km'}" TextColor="{DynamicResource TextColor}" />
                             <!--  Add additional properties as needed  -->
                         </StackLayout>
                     </StackLayout>
@@ -315,6 +306,4 @@
             <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
         </StackLayout>
     </ScrollView>
->>>>>>> Stashed changes
-
 </ContentPage>

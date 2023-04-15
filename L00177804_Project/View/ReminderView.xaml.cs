@@ -7,6 +7,4 @@ public partial class ReminderView : ContentPage
 		InitializeComponent();
        
     }
-
-
 }

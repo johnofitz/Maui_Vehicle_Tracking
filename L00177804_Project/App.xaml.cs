@@ -10,9 +10,7 @@ public partial class App : Application
 	{
 		InitializeComponent();
 		MainPage = new AppShell();
-<<<<<<< Updated upstream
-	}
-=======
+
         WeakReferenceMessenger.Default.Register<ThemeChangedMessage>(this, (r, m) =>
         {
             LoadTheme(m.Value);
@@ -69,5 +67,5 @@ public partial class App : Application
 
     //    return dictionary;
     //}
->>>>>>> Stashed changes
+
 }

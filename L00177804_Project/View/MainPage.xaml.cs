@@ -1,9 +1,6 @@
-<<<<<<< Updated upstream
-﻿
-namespace L00177804_Project;
-=======
+
 ﻿namespace L00177804_Project;
->>>>>>> Stashed changes
+
 
 public partial class MainPage : ContentPage
 {
@@ -13,8 +10,6 @@ public partial class MainPage : ContentPage
 
     }
 
-<<<<<<< Updated upstream
-=======
     protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
     {
         base.OnNavigatedFrom(args);
@@ -26,7 +21,7 @@ public partial class MainPage : ContentPage
         //     BindingContext = ViewModel;
         //     base.OnNavigatedTo(args);
     }
->>>>>>> Stashed changes
+
 
 }
 
