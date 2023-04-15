@@ -64,7 +64,7 @@ namespace L00177804_Project.ViewModel
                 OnPropertyChanged(nameof(SelectVehicle));
             }
         }
-        public ICommand PageAppearingCommand => new Command(() => AddVehiclesToMainAsync());
+       
         // Access the Vehicles property
         public async void AddVehiclesToMainAsync()
         {

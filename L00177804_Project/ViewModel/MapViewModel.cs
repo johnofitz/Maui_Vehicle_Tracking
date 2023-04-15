@@ -11,17 +11,15 @@ namespace L00177804_Project.ViewModel
     /// </summary>
     public partial class MapViewModel : ParentViewModel
     {
-        // Create object from Class GeoLocationService
-        private readonly GoogleMapService _googleMapService = new();
+        // User Location
+        [ObservableProperty]
+        public bool run = true;
 
         // Create object from Class LocationTrackService
         private readonly LocationTrackService _locationTrackService = new();
 
-        
         CancellationTokenSource tokenSource;
         CancellationToken token;
-
-        
 
         // Create object from Class NearByRestService
         public ObservableCollection<NearBy> Item { get; } = new();
@@ -36,12 +34,6 @@ namespace L00177804_Project.ViewModel
         {
             //_ = GetNearByItemsAsync();
         }
-
-
-        // User Location
-        [ObservableProperty]
-        public bool run = true;
-
 
         /// <summary>
         /// Relay Command that accesses GoogleServce to redirect to route application
@@ -98,8 +90,6 @@ namespace L00177804_Project.ViewModel
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
         }
-
-
 
         [RelayCommand]
         public async Task StartTracking()

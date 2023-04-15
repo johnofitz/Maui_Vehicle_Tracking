@@ -161,12 +161,12 @@
                         <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
                         <Picker
                             ItemsSource="{Binding VehiclesCollection}"
-                            SelectedItem="{Binding SelectVehicle, Mode=TwoWay}"
+                            SelectedItem="{Binding PreferedVehicle, Mode=TwoWay}"
                             TextColor="{DynamicResource TextColor}" />
                         <!--  Set Mode=TwoWay for two-way binding  -->
                         <StackLayout>
                             <!--  Bind Label's Text property to SelectedVehicle properties  -->
-                            <Label Text="{Binding SelectVehicle.Odometer, StringFormat='{0} km'}" TextColor="{DynamicResource TextColor}" />
+                            <Label Text="{Binding PreferedVehicle.Odometer, StringFormat='{0} km'}" TextColor="{DynamicResource TextColor}" />
                             <!--  Add additional properties as needed  -->
                         </StackLayout>
                     </StackLayout>

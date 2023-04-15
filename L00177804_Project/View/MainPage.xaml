@@ -12,10 +12,10 @@
     BackgroundColor="{DynamicResource BackgroundColor}">
 
 
-    <ContentPage.Behaviors>
+    <!--<ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarStyle="DarkContent" />
         <toolkit:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing" />
-    </ContentPage.Behaviors>
+    </ContentPage.Behaviors>-->
 
     <ContentPage.Resources>
         <ResourceDictionary>

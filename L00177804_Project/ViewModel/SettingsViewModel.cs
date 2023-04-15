@@ -1,19 +1,38 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+
 using L00177804_Project.Service.ThemeService;
 using L00177804_Project.Service.VehicleInfoService;
+using L00177804_Project.Service.VehicleStoreService;
 
 namespace L00177804_Project.ViewModel
 {
 
     public partial class SettingsViewModel : ParentViewModel
     {
+      
+
+        [ObservableProperty]
+        private List<Theme> themes;
+
+        [ObservableProperty]
+        private Theme selectedTheme;
+
+        [ObservableProperty]
+        private Vehicle preferedVehicle;
+
+        // File name for vehicle.json
         private const string _vehicleFile = "vehicle.json";
+
         // Create observable collection for vehicle
         public ObservableCollection<Vehicle> VehiclesCollection { get; set; } = new();
+
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
 
-
+        /// <summary>
+        ///  Constructor for the SettingsViewModel class
+        /// </summary>
+        /// <param name="dataService"></param>
         public SettingsViewModel( VehicleDataService dataService)
         {
             VehicleDataService = dataService;
@@ -21,6 +40,9 @@ namespace L00177804_Project.ViewModel
             AddVehiclesToMainAsync();
         }
 
+        /// <summary>
+        ///  Method to add the themes to the observable collection
+        /// </summary>
         public void AddThemes()
         {
             var defaultThemes = new List<Theme>()
@@ -31,46 +53,18 @@ namespace L00177804_Project.ViewModel
                 new Theme("Blue","Blue"),
                 new Theme("Red", "Red")
             };
-
             Themes = new List<Theme>(defaultThemes);
-
-            var hasCustom = Preferences.ContainsKey("CustomTheme");
-
-            if (hasCustom)
-            {
-                Themes.Add(new Theme("Custom theme", "Custom"));
-            }
 
             var theme = Preferences.Get("theme", "System");
 
             SelectedTheme = Themes.Single(x => x.Key == theme);
-
-            WeakReferenceMessenger.Default.Register<ThemeAddMessage>(this, (r, m) =>
-            {
-                SelectedTheme = null;
-
-                if (m.Value == "Custom")
-                {
-                    var customTheme = Themes.SingleOrDefault(x => x.Key == "Custom");
-
-                    if (customTheme == null)
-                    {
-                        customTheme = new Theme("Custom theme", "Custom");
-
-                        Themes.Add(customTheme);
-                    }
-
-                    SelectedTheme = customTheme;
-                }
-            });
         }
 
-        [ObservableProperty]
-        private List<Theme> themes;
 
-        [ObservableProperty]
-        private Theme selectedTheme;
-
+        /// <summary>
+        ///  Method to set the Theme 
+        /// </summary>
+        /// <param name="value"></param>
         partial void OnSelectedThemeChanged(Theme value)
         {
             if (value == null)
@@ -83,7 +77,9 @@ namespace L00177804_Project.ViewModel
             WeakReferenceMessenger.Default.Send(new ThemeChangedMessage(value.Key));
         }
 
-
+        /// <summary>
+        ///  Method to get the vehicle data from the json file
+        /// </summary>
         public async void AddVehiclesToMainAsync()
         {
             try
@@ -99,9 +95,10 @@ namespace L00177804_Project.ViewModel
                 // Add the vehicle data to the observable collection
                 item.ForEach(VehiclesCollection.Add);
 
-                SelectVehicle = VehiclesCollection.FirstOrDefault();
-                // condition to check if the observable collection is empty
-                
+                var cars = Preferences.Get("cars", "Work");
+
+                PreferedVehicle = VehiclesCollection.Single(x => x.Name == cars);
+                // condition to check if the observable collection is empty    
             }
             // Catch errors
             catch (Exception ex)
@@ -110,15 +107,16 @@ namespace L00177804_Project.ViewModel
             }
         }
 
-        private Vehicle _selectVehicle;
-        public Vehicle SelectVehicle
+        partial void OnPreferedVehicleChanged(Vehicle value)
         {
-            get { return _selectVehicle; }
-            set
+            if (value == null)
             {
-                _selectVehicle = value;
-                OnPropertyChanged(nameof(SelectVehicle));
+                return;
             }
+
+            Preferences.Set("cars", value.Name);
+
+            WeakReferenceMessenger.Default.Send(new VehicleChangedMessage(value.Name));
         }
 
 

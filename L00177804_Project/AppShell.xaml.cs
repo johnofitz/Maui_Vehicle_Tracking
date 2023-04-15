@@ -14,6 +14,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(VehicleView), typeof(VehicleView));
         Routing.RegisterRoute(nameof(SettingsView), typeof(SettingsView));
         Routing.RegisterRoute(nameof(AddVehicleView), typeof(AddVehicleView));
+        Routing.RegisterRoute(nameof(EditVehicleView), typeof(EditVehicleView));
 
     }
 

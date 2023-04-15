@@ -7,7 +7,5 @@ public partial class SettingsView : ContentPage
 		InitializeComponent();
 
 		BindingContext = viewModel;
-	
-
 	}
 }

@@ -41,6 +41,9 @@ public static class MauiProgram
         builder.Services.AddTransient<MainPageViewModel>();
         builder.Services.AddTransient<MainPage>();
 
+		builder.Services.AddTransient<EditVehicleView>();
+		builder.Services.AddTransient<EditVehicleViewModel>();
+
 
 		builder.Services.AddTransient<NearByRestService>();
 
@@ -55,7 +58,7 @@ public static class MauiProgram
 
 
 		builder.Services.AddTransient<SettingsView>();
-		//builder.Services.AddTransient<SettingsViewModel>();
+		builder.Services.AddTransient<SettingsViewModel>();
 
         builder.Services.AddTransient<SettingsView>();
         builder.Services.AddTransient<SettingsViewModel>();
