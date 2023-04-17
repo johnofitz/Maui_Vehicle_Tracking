@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+using CommunityToolkit.Mvvm.ComponentModel;
 using L00177804_Project.Service.GoogleMapService;
+
 using L00177804_Project.Service.LocationService;
 using L00177804_Project.Service.NearByService;
 using L00177804_Project.Service.VehicleInfoService;
@@ -49,12 +51,14 @@ namespace L00177804_Project.ViewModel
             AddVehiclesToMainAsync();
 
             // Get NearBy Fuel stations within 1.5km
+
             _ = GetNearByItemsAsync();
         }
         [ObservableProperty]
         private Vehicle _selectVehicle;
 
-       
+      
+  
         // Access the Vehicles property
         public async void AddVehiclesToMainAsync()
         {
@@ -71,6 +75,7 @@ namespace L00177804_Project.ViewModel
                 // Add the vehicle data to the observable collection
                 item.ForEach(VehiclesCollection.Add);
 
+
                 var cars = Preferences.Get("cars", "Work");
 
 
@@ -79,6 +84,13 @@ namespace L00177804_Project.ViewModel
                 vehicleName = SelectVehicle.Name;
 
                 vehicleKm = SelectVehicle.Odometer;
+
+                SelectVehicle = VehiclesCollection.FirstOrDefault();
+                // condition to check if the observable collection is empty
+                if (VehiclesCollection is null)
+                {
+                    await _vehicleViewModel.GoToAddVehicle();
+                }
             }
             // Catch errors
             catch (Exception ex)
@@ -166,12 +178,14 @@ namespace L00177804_Project.ViewModel
             await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
         }
 
+
         [RelayCommand]
         public async Task GoToFuelStation()
         {
 
 
         }
+
 
 
         /// <summary>
