@@ -168,32 +168,32 @@ namespace L00177804_Project.ViewModel
         [RelayCommand]
         public async Task GoToFuelStation()
         {
-
-
+            await Task.Delay(1000);
+            
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="distance"></param>
-        /// <param name="fuelConsumption"></param>
-        /// <returns></returns>
-        private int CalculateCarbonEmissions(int distance, int fuelConsumption)
-        {
-            return 0;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="distance"></param>
+        ///// <param name="fuelConsumption"></param>
+        ///// <returns></returns>
+        //private int CalculateCarbonEmissions(int distance, int fuelConsumption)
+        //{
+        //    return 0;
+        //}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="distance"></param>
-        /// <param name="fuelConsumption"></param>
-        /// <returns></returns>
-        private int CalculateAverageFuelUsed(int distance, int fuelConsumption)
-        {
-            return 0;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="distance"></param>
+        ///// <param name="fuelConsumption"></param>
+        ///// <returns></returns>
+        //private int CalculateAverageFuelUsed(int distance, int fuelConsumption)
+        //{
+        //    return 0;
+        //}
     }
 }
 

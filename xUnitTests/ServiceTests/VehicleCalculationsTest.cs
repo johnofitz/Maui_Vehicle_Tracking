@@ -1,7 +1,4 @@
 ﻿
-using L00177804_Project.Service.VehicleCalculationService;
-using NSubstitute;
-using System.Threading.Tasks;
 
 namespace xUnitTests.ServiceTests
 {

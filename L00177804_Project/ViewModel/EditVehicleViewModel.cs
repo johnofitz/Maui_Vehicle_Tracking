@@ -62,8 +62,7 @@ namespace L00177804_Project.ViewModel
             {
                 VehicleViewModel.consumptionUnit.Consumption1,
                 VehicleViewModel.consumptionUnit.Consumption2,
-                VehicleViewModel.consumptionUnit.Consumption3,
-                VehicleViewModel.consumptionUnit.Consumption4
+                VehicleViewModel.consumptionUnit.Consumption3
             };
         }
 
@@ -87,9 +86,7 @@ namespace L00177804_Project.ViewModel
             FuelTypes = new ObservableCollection<string>
             {
                 VehicleViewModel.fuelTypes.Type1,
-                VehicleViewModel.fuelTypes.Type2,
-                VehicleViewModel.fuelTypes.Type3,
-                VehicleViewModel.fuelTypes.Type4
+                VehicleViewModel.fuelTypes.Type2
             };
         }
 

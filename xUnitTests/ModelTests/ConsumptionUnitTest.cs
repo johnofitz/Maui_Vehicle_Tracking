@@ -47,18 +47,7 @@ namespace xUnitTests.ModelTests
             Assert.Equal("mpg", type3);
         }
 
-        [Fact]
-        public void Consumption4_ShouldBeKmGal()
-        {
-            // Arrange
-            var consump = new ConsumptionUnit();
-
-            // Act
-            var type3 = consump.Consumption4;
-
-            // Assert
-            Assert.Equal("km/gal", type3);
-        }
+    
 
     }
 }

@@ -89,9 +89,7 @@ namespace L00177804_Project.ViewModel
         {
             FuelTypes.Add(fuelTypes.Type1);
             FuelTypes.Add(fuelTypes.Type2);
-            FuelTypes.Add(fuelTypes.Type3);
-            FuelTypes.Add(fuelTypes.Type4);
-            FuelTypes.Add(fuelTypes.Type5);
+    
         }
 
         /// <summary>
@@ -102,7 +100,7 @@ namespace L00177804_Project.ViewModel
             ConsumptionUnit.Add(consumptionUnit.Consumption1);
             ConsumptionUnit.Add(consumptionUnit.Consumption2);
             ConsumptionUnit.Add(consumptionUnit.Consumption3);
-            ConsumptionUnit.Add(consumptionUnit.Consumption4);
+  
         }
 
         /// <summary>
