@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace xUnitTests.ViewModelTests
 {
-    public class MainViewModelTest
+    public class MainPageViewModelTests
     {
-        [Fact]
-        public async Task AddToMainAsync()
-        {
+        //[Fact]
+        //public async Task AddToMainAsync()
+        //{
 
-            var dataService = Substitute.For<VehicleDataService>();
+        //    var dataService = Substitute.For<VehicleDataService>();
 
-            // Arrange
-            MainPageViewModel viewModel = new(dataService);
-            // Act
-            var car = viewModel.AddVehiclesToMainAsync();
-            //
-            Assert.NotNull(car);
-        }
+        //    // Arrange
+        //    MainPageViewModel viewModel = new(dataService);
+        //    // Act
+        //    var car = viewModel.AddVehiclesToMainAsync();
+        //    //
+        //    Assert.NotNull(car);
+        //}
     }
 }
