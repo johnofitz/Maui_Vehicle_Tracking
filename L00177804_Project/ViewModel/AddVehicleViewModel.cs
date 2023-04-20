@@ -23,6 +23,7 @@ namespace L00177804_Project.ViewModel
         /// </summary>
         public AddVehicleViewModel()
         {
+
             AddFuelTypes();
             SelectedFuelType = fuelTypes.Type1; // set Type1 as the default selected item
        
@@ -178,6 +179,7 @@ namespace L00177804_Project.ViewModel
                 }
                 finally
                 {
+
                     await Shell.Current.GoToAsync($"../../{nameof(VehicleView)}");
                 }
             }
@@ -202,7 +204,9 @@ namespace L00177804_Project.ViewModel
         /// </summary>
         /// <param name="value"></param>
         /// <returns> Boolean true/false</returns>
+
         public async Task<bool> IsDoubleAsync(string value)
+
         {
             if(double.TryParse(value, out _) == false)
             {

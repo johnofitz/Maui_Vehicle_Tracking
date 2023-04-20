@@ -1,4 +1,4 @@
-﻿using L00177804_Project.Service.VehicleInfoService;
+using L00177804_Project.Service.VehicleInfoService;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;

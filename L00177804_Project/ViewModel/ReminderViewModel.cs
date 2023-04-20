@@ -1,13 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace xUnitTests.ViewModelTests
+namespace L00177804_Project.ViewModel
 {
-    public class VehicleViewModelTest
+    internal class ReminderViewModel
     {
     }
 }
-

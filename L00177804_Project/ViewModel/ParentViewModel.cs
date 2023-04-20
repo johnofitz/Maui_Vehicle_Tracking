@@ -1,4 +1,4 @@
-﻿
+
 namespace L00177804_Project.ViewModel
 {
     public partial class ParentViewModel:ObservableObject
