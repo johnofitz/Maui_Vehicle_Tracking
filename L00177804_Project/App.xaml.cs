@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using L00177804_Project.Service.ThemeService;
 using L00177804_Project.Service.VehicleStoreService;
-using System.Resources;
+
 
 namespace L00177804_Project;
 

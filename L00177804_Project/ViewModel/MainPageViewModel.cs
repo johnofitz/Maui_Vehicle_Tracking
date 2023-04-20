@@ -71,14 +71,13 @@ namespace L00177804_Project.ViewModel
                 // Add the vehicle data to the observable collection
                 item.ForEach(VehiclesCollection.Add);
 
-                var cars = Preferences.Get("cars", "Work");
+                string check = VehiclesCollection.Select(x => x.Name).FirstOrDefault();
+
+                var cars = Preferences.Get("cars", check);
 
 
                 SelectVehicle = VehiclesCollection.Single(x => x.Name == cars);
 
-                vehicleName = SelectVehicle.Name;
-
-                vehicleKm = SelectVehicle.Odometer;
             }
             // Catch errors
             catch (Exception ex)

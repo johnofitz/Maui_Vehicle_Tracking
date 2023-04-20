@@ -21,5 +21,8 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty]
         public double vehicleKm;
 
+        [ObservableProperty]
+        public string defaultName;
+
     }
 }
