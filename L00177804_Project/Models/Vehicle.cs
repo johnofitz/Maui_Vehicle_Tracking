@@ -1,9 +1,16 @@
-﻿
+
 namespace L00177804_Project.Models
 {
 
     public partial class Vehicle:ObservableObject
     {
+        public Vehicle(){}
+
+        public Vehicle(string name)
+        {
+            Name = name;
+        }
+
         [ObservableProperty] public int id;
 
         [ObservableProperty] public string name;

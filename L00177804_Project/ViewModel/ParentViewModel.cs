@@ -1,4 +1,4 @@
-﻿
+
 namespace L00177804_Project.ViewModel
 {
     public partial class ParentViewModel:ObservableObject
@@ -9,15 +9,17 @@ namespace L00177804_Project.ViewModel
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         public bool isBusy;
 
+        [ObservableProperty]
+        public string heading;
 
         // Lambda function to check if not busy
         public bool IsNotBusy => !IsBusy;
 
-
-        
+        [ObservableProperty]
+        public string vehicleName;
 
         [ObservableProperty]
-        public string heading;
+        public double vehicleKm;
 
     }
 }

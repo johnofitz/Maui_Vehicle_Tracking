@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Johns",
+    "make": "Volvo",
+    "model": "V40",
+    "fuelType": "Petrol",
+    "odometer": 242.0,
+    "engineSize": "1865",
+    "fuelConsumption": "L/100km",
+    "insurencePolicy": null,
+    "insurenceCompany": null,
+    "licence": "142-CN606",
+    "distance": "km"
+  },
+  {
+    "id": 2,
+    "name": "Lesiure",
+    "make": "Ford",
+    "model": "Escort",
+    "fuelType": "Petrol",
+    "odometer": 34544.0,
+    "engineSize": "1678",
+    "fuelConsumption": "L/100km",
+    "insurencePolicy": null,
+    "insurenceCompany": null,
+    "licence": "96-Ky-123",
+    "distance": "km"
+  }
+]

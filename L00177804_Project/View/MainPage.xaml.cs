@@ -1,32 +1,34 @@
-<<<<<<< Updated upstream
-﻿
-namespace L00177804_Project;
-=======
+using L00177804_Project.Service.VehicleInfoService;
 ﻿namespace L00177804_Project;
->>>>>>> Stashed changes
+
 
 public partial class MainPage : ContentPage
 {
+    public MainPageViewModel ViewModel;
     public MainPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
+        ViewModel = new MainPageViewModel(new VehicleDataService());
+
+        BindingContext = ViewModel;
     }
 
-<<<<<<< Updated upstream
-=======
     protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
     {
+
         base.OnNavigatedFrom(args);
     }
 
+
+
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {  
+    {
         // ViewModel = new MainPageViewModel(new Service.VehicleInfoService.VehicleDataService());
         //     BindingContext = ViewModel;
         //     base.OnNavigatedTo(args);
     }
->>>>>>> Stashed changes
+
 
 }
 

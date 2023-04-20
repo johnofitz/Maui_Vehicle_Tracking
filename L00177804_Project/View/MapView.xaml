@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
-             xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
-             x:Class="L00177804_Project.View.MapView"
-             x:DataType="viewmodel:MapViewModel"
-             xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel" 
-             Title="{Binding Heading}">
+<ContentPage
+    x:Class="L00177804_Project.View.MapView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+    xmlns:sensors="clr-namespace:Microsoft.Maui.Devices.Sensors;assembly=Microsoft.Maui.Essentials"
+    xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
+    Title="{Binding Heading}"
+    x:DataType="viewmodel:MapViewModel">
 
     <StackLayout Margin="10">
-        <Button Text="Get directions using Maps"
-                TextColor="Black"
-                Command="{Binding GetDirectionCommand}" 
-                Margin="0,0,0,20"/>
-        <Button Text="Start Tracking"
-                TextColor="Black"
-                Command="{Binding StartTrackingCommand}" />
-        
+        <Button
+            Margin="0,0,0,20"
+            Command="{Binding GetDirectionCommand}"
+            Text="Get directions using Maps"
+            TextColor="Black" />
+        <Button
+            Command="{Binding StartTrackingCommand}"
+            Text="Start Tracking"
+            TextColor="Black" />
+
         <!--<maps:Map
              IsShowingUser="true" >
             <x:Arguments>
@@ -34,7 +37,7 @@
                 </MapSpan>
             </x:Arguments>
         </maps:Map>-->
-        
+
     </StackLayout>
 
 </ContentPage>

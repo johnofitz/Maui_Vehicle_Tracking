@@ -5,9 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:L00177804_Project"
     xmlns:view="clr-namespace:L00177804_Project.View"
-    FlyoutBackgroundColor="GhostWhite"
+    Shell.FlyoutBehavior="Flyout"
     FlyoutHeaderBehavior="CollapseOnScroll"
-    Shell.FlyoutBehavior="Flyout">
+    FlyoutBackgroundColor="{DynamicResource BackgroundColor}">
+
+
 
     <Shell.FlyoutHeader>
         <Image

@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<<<<<<< Updated upstream
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="L00177804_Project.View.SettingsView"
-             Title="SettingsView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-=======
+
 <ContentPage
     x:Class="L00177804_Project.View.SettingsView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -163,7 +152,7 @@
                         Text="Select Vehicle:"
                         TextColor="{DynamicResource TextColor}"
                         VerticalOptions="Center" />
-                        <!--  Set the image to the start of the grid (left)  -->
+                    <!--  Set the image to the start of the grid (left)  -->
                     <StackLayout
                         Grid.Column="1"
                         Margin="-50,0,0,0"
@@ -172,12 +161,12 @@
                         <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
                         <Picker
                             ItemsSource="{Binding VehiclesCollection}"
-                            SelectedItem="{Binding SelectVehicle, Mode=TwoWay}"
+                            SelectedItem="{Binding PreferedVehicle, Mode=TwoWay}"
                             TextColor="{DynamicResource TextColor}" />
                         <!--  Set Mode=TwoWay for two-way binding  -->
                         <StackLayout>
                             <!--  Bind Label's Text property to SelectedVehicle properties  -->
-                            <Label Text="{Binding SelectVehicle.Odometer, StringFormat='{0} km'}" TextColor="{DynamicResource TextColor}" />
+                            <Label Text="{Binding PreferedVehicle.Odometer, StringFormat='{0} km'}" TextColor="{DynamicResource TextColor}" />
                             <!--  Add additional properties as needed  -->
                         </StackLayout>
                     </StackLayout>
@@ -185,5 +174,4 @@
             </Frame>
         </StackLayout>
     </ScrollView>
->>>>>>> Stashed changes
 </ContentPage>

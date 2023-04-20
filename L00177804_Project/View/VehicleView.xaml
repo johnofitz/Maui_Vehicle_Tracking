@@ -7,64 +7,8 @@
     xmlns:model="clr-namespace:L00177804_Project.Models"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     Title="Vehicles">
-    <ScrollView>
-        <Grid
-            ColumnDefinitions="*,*"
-            ColumnSpacing="5"
-            RowDefinitions="*,Auto"
-            RowSpacing="0">
-
-<<<<<<< Updated upstream
-            <CollectionView
-                Grid.ColumnSpan="2"
-                BackgroundColor="Transparent"
-                ItemsSource="{Binding Vehicles}"
-                SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Vehicle">
-                        <Grid Padding="10">
-                            <Frame BackgroundColor="Gainsboro" HeightRequest="165">
-                                <Grid Padding="0">
-                                    <Label
-                                        Padding="20"
-                                        FontSize="Header"
-                                        HorizontalOptions="Center"
-                                        Text="{Binding Name}" />
-                                    <VerticalStackLayout Padding="30">
-                                        <Label
-                                            Margin="20,0,0,10"
-                                            FontAttributes="Bold"
-                                            FontSize="Small"
-                                            Text="{Binding Odometer}" />
-                                        <Label
-                                            Margin="20,0,0,10"
-                                            FontAttributes="Bold"
-                                            Text="{Binding Make}" />
-                                        <Label
-                                            Margin="20,0,0,0"
-                                            FontAttributes="Bold"
-                                            Text="{Binding Model}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <Button
-                Margin="0,0,0,20"
-                BackgroundColor="Black"
-                Command="{Binding GoToAddVehicleCommand}"
-                HorizontalOptions="CenterAndExpand"
-                Text="Add Vehicle"
-                VerticalOptions="End"
-                WidthRequest="200" />
-
-            <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
-        </Grid>
-    </ScrollView>
-=======
+   
+  
     <AbsoluteLayout>
         <!--  Content  -->
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -142,5 +86,5 @@
             TextColor="GhostWhite"
             WidthRequest="60" />
     </AbsoluteLayout>
->>>>>>> Stashed changes
+
 </ContentPage>
