@@ -25,6 +25,7 @@
     </ContentPage.Resources>
 
 
+
     <AbsoluteLayout>
         <!--  Content  -->
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
@@ -284,16 +285,6 @@
                         </StackLayout>
                     </Grid>
                 </Frame>
-
-                <Button
-                    Margin="0,20,0,0"
-                    Command="{Binding GetDirectionCommand}"
-                    CornerRadius="20"
-                    HorizontalOptions="Center"
-                    Text="Get directions using Maps"
-                    VerticalOptions="EndAndExpand"
-                    WidthRequest="150" />
-                <ActivityIndicator HorizontalOptions="Fill" VerticalOptions="Center" />
             </StackLayout>
         </ScrollView>
 
@@ -302,6 +293,7 @@
             AbsoluteLayout.LayoutBounds="1,1,100,90"
             AbsoluteLayout.LayoutFlags="PositionProportional"
             BackgroundColor="#9eb2e0"
+            Command="{Binding GoToSelectionCommand}"
             CornerRadius="30"
             FontSize="Large"
             HeightRequest="60"

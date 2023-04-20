@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<mopups:PopupPage
+    x:Class="L00177804_Project.View.PopUpView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
+    xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    Title="PopUpView"
+    CloseWhenBackgroundIsClicked="True">
+    <mopups:PopupPage.Animation>
+        <mopupsanim:ScaleAnimation
+            DurationIn="700"
+            EasingIn="BounceOut"
+            PositionIn="Bottom"
+            PositionOut="Center"
+            ScaleIn="1"
+            ScaleOut="0.7" />
+    </mopups:PopupPage.Animation>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
+        <Border
+            BackgroundColor="DarkGrey"
+            HeightRequest="240"
+            HorizontalOptions="Center"
+            WidthRequest="300">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="40" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Padding="40" Spacing="3">
+                <Button
+                    Margin="10,5"
+                    BackgroundColor="#9eb2e0"
+                    CornerRadius="20"
+                    HorizontalOptions="Fill"
+                    Text="Record Trip"
+                    VerticalOptions="EndAndExpand" />
+
+                <Button
+                    Margin="10,5"
+                    BackgroundColor="#9eb2e0"
+                    CornerRadius="20"
+                    HorizontalOptions="Fill"
+                    Text="Add Manual Trip"
+                    VerticalOptions="EndAndExpand" />
+
+                <Button
+                    Margin="10,5"
+                    BackgroundColor="#9eb2e0"
+                    CornerRadius="20"
+                    HorizontalOptions="Fill"
+                    Text="Add Expense"
+                    VerticalOptions="EndAndExpand" />
+            </VerticalStackLayout>
+        </Border>
+    </ScrollView>
+</mopups:PopupPage>

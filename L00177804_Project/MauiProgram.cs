@@ -3,6 +3,8 @@ using L00177804_Project.Service.VehicleInfoService;
 using Syncfusion.Maui.Core.Hosting;
 using CommunityToolkit.Maui;
 using L00177804_Project.Service.ThemeService;
+using Mopups.Hosting;
+
 
 
 namespace L00177804_Project;
@@ -19,9 +21,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
-            .UseMauiMaps()
-            .UseMauiCommunityToolkit()
-            .ConfigureSyncfusionCore();
+			.UseMauiMaps()
+			.UseMauiCommunityToolkit()
+			.ConfigureSyncfusionCore()
+			.ConfigureMopups();
 
 #if DEBUG
         builder.Logging.AddDebug();
@@ -43,6 +46,8 @@ public static class MauiProgram
 
 		builder.Services.AddTransient<EditVehicleView>();
 		builder.Services.AddTransient<EditVehicleViewModel>();
+
+		builder.Services.AddTransient<PopUpView>();
 
 
 		builder.Services.AddTransient<NearByRestService>();
@@ -73,6 +78,9 @@ public static class MauiProgram
 		builder.Services.AddTransient<AddVehicleViewModel>();
 
 		builder.Services.AddTransient<VehicleDataService>();
+
+		builder.Services.AddTransient<AddTripView>();
+		builder.Services.AddTransient<AddTripViewModel>();
 
 
 
