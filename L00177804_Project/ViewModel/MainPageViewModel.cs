@@ -46,17 +46,17 @@ namespace L00177804_Project.ViewModel
             VehicleDataService = vehicleData;
 
             // Get Vehicle data from json file
-            AddVehiclesToMainAsync();
+            _ = AddVehiclesToMainAsync();
 
             // Get NearBy Fuel stations within 1.5km
-            _ = GetNearByItemsAsync();
+            //_ = GetNearByItemsAsync();
         }
         [ObservableProperty]
         private Vehicle _selectVehicle;
 
        
         // Access the Vehicles property
-        public async void AddVehiclesToMainAsync()
+        public async Task AddVehiclesToMainAsync()
         {
             try
             {

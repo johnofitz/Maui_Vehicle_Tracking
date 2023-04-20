@@ -8,5 +8,8 @@ namespace xUnitTests.ViewModelTests
 {
     public class AddTripViewModelTest
     {
+       
+
+        
     }
 }
