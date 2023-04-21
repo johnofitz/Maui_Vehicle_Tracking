@@ -12,7 +12,6 @@ public partial class AppShell : Shell
         InitializeComponent();
         
         Routing.RegisterRoute(nameof(ReminderView), typeof(ReminderView));
-        Routing.RegisterRoute(nameof(MapView), typeof(MapView));
         Routing.RegisterRoute(nameof(TripView), typeof(TripView));
         Routing.RegisterRoute(nameof(ExpenseView), typeof(ExpenseView));
         Routing.RegisterRoute(nameof(VehicleView), typeof(VehicleView));
@@ -20,6 +19,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(AddVehicleView), typeof(AddVehicleView));
         Routing.RegisterRoute(nameof(EditVehicleView), typeof(EditVehicleView));
         Routing.RegisterRoute(nameof(AddTripView), typeof(AddTripView));
+
 
     }
 

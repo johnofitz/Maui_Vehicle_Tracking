@@ -1,8 +1,9 @@
+using L00177804_Project.Service.VehicleInfoService;
 using L00177804_Project.Service.GoogleMapService;
 using L00177804_Project.Service.LocationService;
 using L00177804_Project.Service.NearByService;
-using L00177804_Project.Service.VehicleInfoService;
 using Mopups.Services;
+
 
 namespace L00177804_Project.ViewModel
 {
@@ -11,19 +12,15 @@ namespace L00177804_Project.ViewModel
 
         private const string _vehicleFile = "vehicle.json";
 
-        // Create object from Class LocationTrackService
-        private readonly LocationTrackService _locationTrackService = new();
 
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
 
+        // Create an instance of the GoogleMapService class
+        private readonly PopUpViewModel popUp = new();
 
         private CancellationTokenSource tokenSource;
         private CancellationToken token;
-
-        // User Location
-        [ObservableProperty]
-        public bool run = true;
 
 
         // Create object from Class NearByRestService
@@ -90,39 +87,6 @@ namespace L00177804_Project.ViewModel
         }
 
 
-        /// <summary>
-        /// Relay Command that accesses GoogleServce to redirect to route application
-        /// </summary>
-        /// <returns></returns>
-        [RelayCommand]
-        public async Task GetDirection()
-        {
-            // Create a new cancellation token source and token.
-            tokenSource = new();
-            token = tokenSource.Token;
-
-            try
-            {
-                // Get the current location using the LocationTrackService.
-                var current = await LocationTrackService.CurrentLocation(token);
-
-                // If the current location is not null, get directions from Google Maps
-                // by passing the current latitude and longitude to the GetGoogleMaps method.
-                if (current != null)
-                {
-                    await GoogleMapService.GetGoogleMaps(current.Latitude.ToString(), current.Longitude.ToString());
-                }
-
-                // Get directions from Google Maps using a fallback location (52.663857, -8.639021)
-                // in case the current location could not be retrieved or is null.
-                await GoogleMapService.GetGoogleMaps("52.663857", "-8.639021");
-            }
-            catch (Exception ex)
-            {
-                // If an exception is thrown, print the error message to the debug console.
-                Debug.WriteLine(ex);
-            }
-        }
 
         /// <summary>
         ///  Relay Command that accesses NearByRestService to get nearby fuel stations
@@ -144,7 +108,6 @@ namespace L00177804_Project.ViewModel
                 {
                     Item.Clear();
                 }
-
                 // Add nearby objects to observable collection
                 near.ForEach(Item.Add);
             }
@@ -156,28 +119,7 @@ namespace L00177804_Project.ViewModel
             }
         }
 
-        /// <summary>
-        ///  Relay Command that accesses LocationTrackService to start tracking user location
-        /// </summary>
-        /// <returns></returns>
 
-        [RelayCommand]
-        public async Task StartTracking()
-        {
-            // Create a new cancellation token source and token.
-            tokenSource = new();
-            token = tokenSource.Token;
-
-            // Request the LocationAlways permission from the user.
-            // If the permission is not granted, return from the method.
-            if (await Permissions.RequestAsync<Permissions.LocationAlways>() != PermissionStatus.Granted)
-            {
-                return;
-            }
-            // Start a new background task that updates the device's location.
-            // The task takes a delegate (method) to run and the cancellation token.
-            await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
-        }
 
 
         /// <summary>
@@ -186,8 +128,7 @@ namespace L00177804_Project.ViewModel
         /// <returns></returns>
         [RelayCommand]
         public async Task GoToFuelStation(NearBy nearBy)
-        {
-           
+        {      
             // Create a new cancellation token source and token.
             tokenSource = new();
             token = tokenSource.Token;
@@ -200,7 +141,7 @@ namespace L00177804_Project.ViewModel
 
                 if (answer)
                 {
-                    await StartTracking();
+                    await popUp.StartTracking();
                 }
                 // If the current location is not null, get directions from Google Maps
                 // by passing the current latitude and longitude to the GetGoogleMaps method.
@@ -217,33 +158,16 @@ namespace L00177804_Project.ViewModel
             
         }
 
+        /// <summary>
+        ///  Command that instantiates a Modal pop up
+        /// </summary>
         [RelayCommand]
         public static void GoToSelection()
         {
-            MopupService.Instance.PushAsync(new PopUpView());
+            // Push a new PopUpView to the navigation stack.
+            MopupService.Instance.PushAsync(new PopUpView(new PopUpViewModel()));
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="distance"></param>
-        ///// <param name="fuelConsumption"></param>
-        ///// <returns></returns>
-        //private int CalculateCarbonEmissions(int distance, int fuelConsumption)
-        //{
-        //    return 0;
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="distance"></param>
-        ///// <param name="fuelConsumption"></param>
-        ///// <returns></returns>
-        //private int CalculateAverageFuelUsed(int distance, int fuelConsumption)
-        //{
-        //    return 0;
-        //}
     }
 }
 

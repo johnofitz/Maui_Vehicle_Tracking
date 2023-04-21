@@ -3,10 +3,14 @@
     x:Class="L00177804_Project.View.PopUpView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:L00177804_Project.Models"
     xmlns:mopups="clr-namespace:Mopups.Pages;assembly=Mopups"
     xmlns:mopupsanim="clr-namespace:Mopups.Animations;assembly=Mopups"
+    xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
+    x:DataType="viewmodel:PopUpViewModel"
     Title="PopUpView"
     CloseWhenBackgroundIsClicked="True">
+
     <mopups:PopupPage.Animation>
         <mopupsanim:ScaleAnimation
             DurationIn="700"
@@ -27,9 +31,11 @@
 
     <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
         <Border
-            BackgroundColor="DarkGrey"
+            BackgroundColor="GhostWhite"
             HeightRequest="240"
             HorizontalOptions="Center"
+            Stroke="Gray"
+            StrokeThickness="6"
             WidthRequest="300">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="40" />
@@ -40,24 +46,27 @@
                     BackgroundColor="#9eb2e0"
                     CornerRadius="20"
                     HorizontalOptions="Fill"
+                    
                     Text="Record Trip"
                     VerticalOptions="EndAndExpand" />
-
+                
                 <Button
                     Margin="10,5"
                     BackgroundColor="#9eb2e0"
+                    CornerRadius="20"
+                    HorizontalOptions="Fill"
+                    Text="Route Navigation"
+                    Command="{Binding GetDirectionCommand}"
+                    VerticalOptions="EndAndExpand" />
+                
+                <Button
+                    Margin="10,5"
+                    BackgroundColor="#9eb2e0"       
                     CornerRadius="20"
                     HorizontalOptions="Fill"
                     Text="Add Manual Trip"
                     VerticalOptions="EndAndExpand" />
 
-                <Button
-                    Margin="10,5"
-                    BackgroundColor="#9eb2e0"
-                    CornerRadius="20"
-                    HorizontalOptions="Fill"
-                    Text="Add Expense"
-                    VerticalOptions="EndAndExpand" />
             </VerticalStackLayout>
         </Border>
     </ScrollView>
