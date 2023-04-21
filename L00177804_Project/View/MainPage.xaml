@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage
     x:Class="L00177804_Project.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -23,8 +22,6 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-
-
 
     <AbsoluteLayout>
         <!--  Content  -->
@@ -163,7 +160,7 @@
                                         BackgroundColor="GhostWhite"
                                         BorderColor="GhostWhite"
                                         HasShadow="False"
-                                        HeightRequest="130">
+                                        HeightRequest="140">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=GoToFuelStationCommand}" CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
@@ -203,6 +200,13 @@
                                                     FontAttributes="Bold"
                                                     FontSize="Micro"
                                                     Text="{Binding Vicinity}"
+                                                    VerticalOptions="CenterAndExpand" />
+
+                                                <Label
+                                                    Margin="0,0,0,0"
+                                                    FontAttributes="Bold"
+                                                    FontSize="Micro"
+                                                    Text="{Binding Distance, StringFormat='{0:F2} Km'}"
                                                     VerticalOptions="CenterAndExpand" />
                                             </StackLayout>
                                         </StackLayout>

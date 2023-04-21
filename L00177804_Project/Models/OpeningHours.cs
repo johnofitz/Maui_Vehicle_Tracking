@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace L00177804_Project.Models
 {
-    public class Geometry
+    public class OpeningHours
     {
-    public Locations Location { get; set; }
-
-
-
+        [JsonProperty("open_now")]
+        public bool OpenNow { get; set; }
     }
 }

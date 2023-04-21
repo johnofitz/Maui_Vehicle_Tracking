@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace L00177804_Project.Models
 {
-    public class Geometry
+    public class GoogleGeo
     {
-    public Locations Location { get; set; }
 
-
-
+        [JsonProperty("location")]
+        public LocationNear Location { get; set; }
     }
 }

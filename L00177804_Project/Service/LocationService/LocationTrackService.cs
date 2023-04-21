@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Maui;
+﻿using Microsoft.Maui;
 
 namespace L00177804_Project.Service.LocationService
 {
@@ -122,7 +121,7 @@ namespace L00177804_Project.Service.LocationService
             return location;
         }
 
-    
+
 
     }
 }

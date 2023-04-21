@@ -185,9 +185,35 @@ namespace L00177804_Project.ViewModel
         /// </summary>
         /// <returns></returns>
         [RelayCommand]
-        public async Task GoToFuelStation()
+        public async Task GoToFuelStation(NearBy nearBy)
         {
-            await Task.Delay(1000);
+           
+            // Create a new cancellation token source and token.
+            tokenSource = new();
+            token = tokenSource.Token;
+            try
+            {
+                bool answer = await Shell.Current.DisplayAlert("Track Journey", "Would you like to track this trip", "Yes", "No");
+
+                // Get the current location using the LocationTrackService.
+                var current = await LocationTrackService.CurrentLocation(token);
+
+                if (answer)
+                {
+                    await StartTracking();
+                }
+                // If the current location is not null, get directions from Google Maps
+                // by passing the current latitude and longitude to the GetGoogleMaps method.
+                if (current != null)
+                {
+                    await GoogleMapService.GetGoogleMapsRoute(current.Latitude.ToString(), current.Longitude.ToString(),nearBy.Geometry.Location.Latitiude.ToString(), nearBy.Geometry.Location.Longitude.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                // If an exception is thrown, print the error message to the debug console.
+                Debug.WriteLine(ex);
+            }
             
         }
 

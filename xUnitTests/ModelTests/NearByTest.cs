@@ -19,27 +19,29 @@ namespace xUnitTests.ModelTests
             var expectedUserRating = 100;
             var expectedVicinity = "123 Main St";
             var expectedPriceLevel = 2;
-            var nearBy = new NearBy();
 
-            // Act
-            nearBy.BuisnessStatus = expectedBusinessStatus;
-            nearBy.Icon = expectedIcon;
-            nearBy.IconbackgroundColour = expectedIconBackgroundColour;
-            nearBy.IconMaskUri = expectedIconMaskUri;
-            nearBy.Name = expectedName;
-            nearBy.PlaceId = expectedPlaceId;
-            nearBy.Rating = expectedRating;
-            nearBy.Reference = expectedReference;
-            nearBy.Scope = expectedScope;
-            nearBy.UserRating = expectedUserRating;
-            nearBy.Vicinity = expectedVicinity;
-            nearBy.PriceLevel = expectedPriceLevel;
+            var nearBy = new NearBy
+            {
+                // Act
+                BusinessStatus = expectedBusinessStatus,
+                Icon = expectedIcon,
+                IconBackgroundColor = expectedIconBackgroundColour,
+                IconMaskBaseUri = expectedIconMaskUri,
+                Name = expectedName,
+                PlaceId = expectedPlaceId,
+                Rating = expectedRating,
+                Reference = expectedReference,
+                Scope = expectedScope,
+                UserRating = expectedUserRating,
+                Vicinity = expectedVicinity,
+                PriceLevel = expectedPriceLevel
+            };
 
             // Assert
-            Assert.Equal(expectedBusinessStatus, nearBy.BuisnessStatus);
+            Assert.Equal(expectedBusinessStatus, nearBy.BusinessStatus);
             Assert.Equal(expectedIcon, nearBy.Icon);
-            Assert.Equal(expectedIconBackgroundColour, nearBy.IconbackgroundColour);
-            Assert.Equal(expectedIconMaskUri, nearBy.IconMaskUri);
+            Assert.Equal(expectedIconBackgroundColour, nearBy.IconBackgroundColor);
+            Assert.Equal(expectedIconMaskUri, nearBy.IconMaskBaseUri);
             Assert.Equal(expectedName, nearBy.Name);
             Assert.Equal(expectedPlaceId, nearBy.PlaceId);
             Assert.Equal(expectedRating, nearBy.Rating);
