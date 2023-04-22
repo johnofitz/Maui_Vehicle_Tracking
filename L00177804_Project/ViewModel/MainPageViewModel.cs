@@ -22,7 +22,6 @@ namespace L00177804_Project.ViewModel
         private CancellationTokenSource tokenSource;
         private CancellationToken token;
 
-
         // Create object from Class NearByRestService
         public ObservableCollection<NearBy> Item { get; } = new();
 
@@ -41,6 +40,7 @@ namespace L00177804_Project.ViewModel
         /// <param name="vehicleData"></param>
         public MainPageViewModel(VehicleDataService vehicleData)
         {
+           
             // Create an instance of the VehicleDataService class
             VehicleDataService = vehicleData;
 

@@ -1,6 +1,5 @@
-﻿
-using L00177804_Project.Service.LocationService;
-using Microsoft.Maui.Devices.Sensors;
+﻿using L00177804_Project.Service.LocationService;
+
 
 namespace L00177804_Project.Service.NearByService
 {
@@ -15,11 +14,10 @@ namespace L00177804_Project.Service.NearByService
         private CancellationToken token;
         // Inatialize http client
         private readonly HttpClient _client = new();
-    
+
         // List to hold nearby objects
         private List<NearBy> items = new();
 
-        private LocationTrackService locationTrackService = new();
         // Always response on data
         private readonly string resp = "results";
 
@@ -50,8 +48,7 @@ namespace L00177804_Project.Service.NearByService
 
             string fullUrl = url + lat + "%2C" + lng + "&radius=" + radius + "&types=" + types + "&keyword=" + keyword + "&key=" + apiKey;
             // Url to get nearby fuel stations
-            //string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.663857%2C-8.639021&radius=1500&types=gas_station&keyword=fuel&key=AIzaSyCisbhXpngbhbhJSq_ykG8a6HljIFvFhjc";
-
+      
             // pass url and return response as a stream
             var response = await _client.GetStreamAsync(fullUrl);
 

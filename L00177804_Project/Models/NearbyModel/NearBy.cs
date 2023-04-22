@@ -1,4 +1,7 @@
 ﻿
+using L00177804_Project.Models.NearbyModel;
+using L00177804_Project.Models.RouteModel;
+
 namespace L00177804_Project.Models
 {
     public class NearBy

@@ -1,4 +1,5 @@
 ﻿
+using L00177804_Project.Models.UnitModel;
 using L00177804_Project.Service.VehicleInfoService;
 using Microsoft.Maui.Controls;
 
@@ -203,7 +204,7 @@ namespace L00177804_Project.ViewModel
         /// <param name="value"></param>
         /// <returns> Boolean true/false</returns>
 
-        public async Task<bool> IsDoubleAsync(string value)
+        public static async Task<bool> IsDoubleAsync(string value)
 
         {
             if(double.TryParse(value, out _) == false)

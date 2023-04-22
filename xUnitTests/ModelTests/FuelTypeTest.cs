@@ -1,5 +1,7 @@
 ﻿
 
+using L00177804_Project.Models.UnitModel;
+
 namespace xUnitTests.ModelTests
 {
 

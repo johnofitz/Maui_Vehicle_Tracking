@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui;
+﻿using L00177804_Project.Models.LocationModel;
+using Microsoft.Maui;
 
 namespace L00177804_Project.Service.LocationService
 {

@@ -17,9 +17,9 @@ namespace L00177804_Project.Service.VehicleCalculationService
         /// <param name="distance"></param>
         /// <param name="fuel"></param>
         /// <returns></returns>
-        public Task<double> CalculateFuelConsumption(double distance, double fuel)
+        public Task<double> CalculateFuelConsumption(int distance, double fuel)
         {
-            double fuelConsumption = distance / fuel;
+            double fuelConsumption = distance * (fuel/100);
 
             return Task.FromResult(fuelConsumption);
         }
@@ -30,7 +30,7 @@ namespace L00177804_Project.Service.VehicleCalculationService
         /// <param name="fuelConsumption"></param>
         /// <param name="averageSpeed"></param>
         /// <returns></returns>
-        public Task<double> CalculateCO2Emissions(double fuelConsumption, double averageSpeed, string fuelType)
+        public Task<double> CalculateCO2Emissions(double fuelConsumption, string fuelType)
         {
     
             if (fuelType == "gasoline")
@@ -43,7 +43,7 @@ namespace L00177804_Project.Service.VehicleCalculationService
             }
 
             // Calculate CO2 emissions based on the fuel consumption and average speed
-            double co2Emissions = fuelConsumption * co2Factor * (averageSpeed / 60.0);
+            double co2Emissions = fuelConsumption * co2Factor*3.664 ;
 
             // Return the CO2 emissions as a double
             return Task.FromResult(co2Emissions);

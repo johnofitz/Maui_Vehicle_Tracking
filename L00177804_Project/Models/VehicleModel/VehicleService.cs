@@ -1,6 +1,4 @@
-﻿
-
-namespace L00177804_Project.Models
+﻿namespace L00177804_Project.Models.VehicleModel
 {
     public class VehicleService
     {
