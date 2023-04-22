@@ -14,23 +14,28 @@ namespace L00177804_Project.ViewModel
         public string tripDate;
 
         [ObservableProperty]
-        public double odemeterStart;
+        public string odemeterStart;
 
         [ObservableProperty]
-        public double odemeterEnd;
+        public string odemeterEnd;
 
         [ObservableProperty]
-        public double tripDistance;
+        public string tripDistance;
 
         [ObservableProperty]
-        public double tripCost;
+        public string tripCost;
 
         [ObservableProperty]
         public string tripNotes;
 
         [ObservableProperty]
-        public double tripConsumption;
+        public string tripConsumption;
 
+        [ObservableProperty]
+        public string origin;
+
+        [ObservableProperty]
+        public string destination;
 
         [RelayCommand]
         public Task AddTrip()

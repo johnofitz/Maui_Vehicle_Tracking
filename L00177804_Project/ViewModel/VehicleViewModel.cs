@@ -123,7 +123,7 @@ namespace L00177804_Project.ViewModel
                 //var cars = Preferences.Get("cars", check);
 
                 //// Set the SelectVehicle property to the default vehicle.
-                ///
+           
                 //preferedVehicle = VehiclesCollection.Single(x => x.Name == cars);
                 var cars = Preferences.Get("cars", "Work");
 
