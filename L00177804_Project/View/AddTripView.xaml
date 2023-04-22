@@ -21,10 +21,7 @@
     </ContentPage.Resources>
 
     <ScrollView>
-
-
         <!--  *,* makes coloumns as big as needed  -->
-
         <StackLayout>
             <Frame
                 Margin="20"
