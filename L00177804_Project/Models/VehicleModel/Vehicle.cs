@@ -35,6 +35,8 @@ namespace L00177804_Project.Models
 
         [ObservableProperty] public string distance;
 
+        [ObservableProperty] public double averageFuelConsumption;
+
         public override string ToString()
         {
             return Name;

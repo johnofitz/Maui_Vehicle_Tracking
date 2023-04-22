@@ -1,11 +1,17 @@
-﻿
+﻿using L00177804_Project.Service.LocationService;
+
+
 namespace L00177804_Project.Service.NearByService
 {
     public class NearByRestService
     {
         // Constructor 
-        public NearByRestService(){}
+        public NearByRestService(){
+            
+        }
 
+        private CancellationTokenSource tokenSource;
+        private CancellationToken token;
         // Inatialize http client
         private readonly HttpClient _client = new();
 
@@ -33,10 +39,16 @@ namespace L00177804_Project.Service.NearByService
         /// <returns> A List of Nearby fuel stations</returns>
         public async Task<List<NearBy>> GetNearByAsync(string lat, string lng)
         {
+            // Create a new cancellation token source and token.
+            tokenSource = new();
+            token = tokenSource.Token;
+
+            var current = await LocationTrackService.CurrentLocation(token);
+            var currentloc = new Location(current.Latitude, current.Longitude);
+
             string fullUrl = url + lat + "%2C" + lng + "&radius=" + radius + "&types=" + types + "&keyword=" + keyword + "&key=" + apiKey;
             // Url to get nearby fuel stations
-            //string url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=52.663857%2C-8.639021&radius=1500&types=gas_station&keyword=fuel&key=AIzaSyCisbhXpngbhbhJSq_ykG8a6HljIFvFhjc";
-
+      
             // pass url and return response as a stream
             var response = await _client.GetStreamAsync(fullUrl);
 
@@ -58,6 +70,14 @@ namespace L00177804_Project.Service.NearByService
                 {
                     // Deserialize and pass objects to list
                     items = JsonConvert.DeserializeObject<List<NearBy>>(responseData);
+                }
+                foreach (var item in items)
+                {
+                    var nearloc = new Location(item.Geometry.Location.Latitiude, item.Geometry.Location.Longitude);
+                    // Calculate distance between current location and nearby object
+                    if (item != null) {
+                        item.Distance = Location.CalculateDistance(currentloc, nearloc, DistanceUnits.Kilometers);
+                    }
                 }
             }
             // return list

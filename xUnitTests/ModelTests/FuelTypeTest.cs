@@ -1,5 +1,7 @@
 ﻿
 
+using L00177804_Project.Models.UnitModel;
+
 namespace xUnitTests.ModelTests
 {
 
@@ -17,9 +19,6 @@ namespace xUnitTests.ModelTests
             // Assert
             Assert.Equal("Petrol", fuelTypes.Type1);
             Assert.Equal("Diesel", fuelTypes.Type2);
-            Assert.Equal("Electric", fuelTypes.Type3);
-            Assert.Equal("Hybrid", fuelTypes.Type4);
-            Assert.Equal("LPG", fuelTypes.Type5);
         }
     }
 

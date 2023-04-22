@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using L00177804_Project.Models.UnitModel;
 
 namespace xUnitTests.ModelTests
 {
@@ -47,18 +43,7 @@ namespace xUnitTests.ModelTests
             Assert.Equal("mpg", type3);
         }
 
-        [Fact]
-        public void Consumption4_ShouldBeKmGal()
-        {
-            // Arrange
-            var consump = new ConsumptionUnit();
-
-            // Act
-            var type3 = consump.Consumption4;
-
-            // Assert
-            Assert.Equal("km/gal", type3);
-        }
+    
 
     }
 }

@@ -1,4 +1,6 @@
 ﻿
+using L00177804_Project.Models.LocationModel;
+
 namespace xUnitTests.ModelTests
 {
     public class GeometryTest

@@ -1,6 +1,4 @@
-﻿
-
-namespace L00177804_Project.Models
+﻿namespace L00177804_Project.Models.UnitModel
 {
     public record ConsumptionUnit
     {
@@ -10,6 +8,5 @@ namespace L00177804_Project.Models
 
         public string Consumption3 = "mpg";
 
-        public string Consumption4 = "km/gal";
     }
 }

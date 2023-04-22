@@ -9,7 +9,7 @@ global using System.Text;
 global using L00177804_Project.ViewModel;
 global using L00177804_Project.Models;
 global using L00177804_Project.Service.VehicleInfoService;
-
+global using L00177804_Project.Service.VehicleCalculationService;
 global using CommunityToolkit.Mvvm.ComponentModel;
 global using System.Runtime.CompilerServices;
 global using CommunityToolkit.Mvvm.Input;

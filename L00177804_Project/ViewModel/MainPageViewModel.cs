@@ -1,9 +1,9 @@
-using CommunityToolkit.Mvvm.ComponentModel;
+using L00177804_Project.Service.VehicleInfoService;
 using L00177804_Project.Service.GoogleMapService;
 using L00177804_Project.Service.LocationService;
 using L00177804_Project.Service.NearByService;
-using L00177804_Project.Service.VehicleInfoService;
-using System.Windows.Input;
+using Mopups.Services;
+
 
 namespace L00177804_Project.ViewModel
 {
@@ -12,20 +12,15 @@ namespace L00177804_Project.ViewModel
 
         private const string _vehicleFile = "vehicle.json";
 
-        // Create object from Class LocationTrackService
-        private readonly LocationTrackService _locationTrackService = new();
 
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
 
+        // Create an instance of the GoogleMapService class
+        private readonly PopUpViewModel popUp = new();
 
         private CancellationTokenSource tokenSource;
         private CancellationToken token;
-
-        // User Location
-        [ObservableProperty]
-        public bool run = true;
-
 
         // Create object from Class NearByRestService
         public ObservableCollection<NearBy> Item { get; } = new();
@@ -36,12 +31,16 @@ namespace L00177804_Project.ViewModel
         // Create observable collection for vehicle
         public ObservableCollection<Vehicle> VehiclesCollection { get; set; } = new();
 
+        [ObservableProperty]
+        private Vehicle _selectVehicle;
+
         /// <summary>
         /// Constructor for the MainPageViewModel class
         /// </summary>
         /// <param name="vehicleData"></param>
         public MainPageViewModel(VehicleDataService vehicleData)
         {
+           
             // Create an instance of the VehicleDataService class
             VehicleDataService = vehicleData;
 
@@ -49,71 +48,45 @@ namespace L00177804_Project.ViewModel
             _ = AddVehiclesToMainAsync();
 
             // Get NearBy Fuel stations within 1.5km
-            //_ = GetNearByItemsAsync();
+            _ = GetNearByItemsAsync();
         }
-        [ObservableProperty]
-        private Vehicle _selectVehicle;
-
-
-        // Access the Vehicles property
+    
+        /// <summary>
+        /// This method adds vehicle information to a collection 
+        /// and selects a default vehicle.
+        /// </summary>
+        /// <returns></returns>
         public async Task AddVehiclesToMainAsync()
         {
             try
             {
-                // Get the vehicle data from the json file
+                // Get the vehicle information from a file using the VehicleDataService.
                 var item = await VehicleDataService.GetVehiclesInfo(_vehicleFile);
 
-                // condition to clear menu for erroneous behaviour
+                // If the VehiclesCollection already has items, clear them out.
                 if (VehiclesCollection.Count != 0)
                 {
                     VehiclesCollection.Clear();
                 }
-                // Add the vehicle data to the observable collection
+
+                // Add each vehicle in the item list to the VehiclesCollection.
                 item.ForEach(VehiclesCollection.Add);
 
+                // Get the name of the default vehicle from the user's preferences.
                 string check = VehiclesCollection.Select(x => x.Name).FirstOrDefault();
-
                 var cars = Preferences.Get("cars", check);
 
-
+                // Set the SelectVehicle property to the default vehicle.
                 SelectVehicle = VehiclesCollection.Single(x => x.Name == cars);
-
             }
-            // Catch errors
             catch (Exception ex)
             {
+                // If an exception is thrown, print the error message to the debug console.
                 Debug.WriteLine(ex);
             }
         }
 
 
-        /// <summary>
-        /// Relay Command that accesses GoogleServce to redirect to route application
-        /// </summary>
-        /// <returns></returns>
-        [RelayCommand]
-        public async Task GetDirection()
-        {
-            tokenSource = new();
-            token = tokenSource.Token;
-            try
-            {
-                var current = await LocationTrackService.CurrentLocation(token);
-
-                if (current != null)
-                {
-                    await GoogleMapService.GetGoogleMaps(current.Latitude.ToString(), current.Longitude.ToString());
-                }
-                // Get user location
-                await GoogleMapService.GetGoogleMaps("52.663857", "-8.639021");
-
-            }
-            catch (Exception ex)
-            {
-                // exception
-                Debug.WriteLine(ex);
-            }
-        }
 
         /// <summary>
         ///  Relay Command that accesses NearByRestService to get nearby fuel stations
@@ -135,7 +108,6 @@ namespace L00177804_Project.ViewModel
                 {
                     Item.Clear();
                 }
-
                 // Add nearby objects to observable collection
                 near.ForEach(Item.Add);
             }
@@ -147,53 +119,55 @@ namespace L00177804_Project.ViewModel
             }
         }
 
+
+
+
         /// <summary>
-        ///  Relay Command that accesses LocationTrackService to start tracking user location
+        /// Command to go to fuel station via google maps service
         /// </summary>
         /// <returns></returns>
-
         [RelayCommand]
-        public async Task StartTracking()
-        {
+        public async Task GoToFuelStation(NearBy nearBy)
+        {      
+            // Create a new cancellation token source and token.
             tokenSource = new();
             token = tokenSource.Token;
-            if (await Permissions.RequestAsync<Permissions.LocationAlways>() != PermissionStatus.Granted)
+            try
             {
-                return;
+                bool answer = await Shell.Current.DisplayAlert("Track Journey", "Would you like to track this trip", "Yes", "No");
+
+                // Get the current location using the LocationTrackService.
+                var current = await LocationTrackService.CurrentLocation(token);
+
+                if (answer)
+                {
+                    await popUp.StartTracking();
+                }
+                // If the current location is not null, get directions from Google Maps
+                // by passing the current latitude and longitude to the GetGoogleMaps method.
+                if (current != null)
+                {
+                    await GoogleMapService.GetGoogleMapsRoute(current.Latitude.ToString(), current.Longitude.ToString(),nearBy.Geometry.Location.Latitiude.ToString(), nearBy.Geometry.Location.Longitude.ToString());
+                }
             }
-
-            await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
+            catch (Exception ex)
+            {
+                // If an exception is thrown, print the error message to the debug console.
+                Debug.WriteLine(ex);
+            }
+            
         }
 
+        /// <summary>
+        ///  Command that instantiates a Modal pop up
+        /// </summary>
         [RelayCommand]
-        public async Task GoToFuelStation()
+        public static void GoToSelection()
         {
-
-
+            // Push a new PopUpView to the navigation stack.
+            MopupService.Instance.PushAsync(new PopUpView(new PopUpViewModel()));
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="distance"></param>
-        /// <param name="fuelConsumption"></param>
-        /// <returns></returns>
-        private int CalculateCarbonEmissions(int distance, int fuelConsumption)
-        {
-            return 0;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="distance"></param>
-        /// <param name="fuelConsumption"></param>
-        /// <returns></returns>
-        private int CalculateAverageFuelUsed(int distance, int fuelConsumption)
-        {
-            return 0;
-        }
     }
 }
 

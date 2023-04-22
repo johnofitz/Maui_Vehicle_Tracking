@@ -3,6 +3,7 @@ using L00177804_Project.Service.VehicleInfoService;
 using Syncfusion.Maui.Core.Hosting;
 using CommunityToolkit.Maui;
 using L00177804_Project.Service.ThemeService;
+using Mopups.Hosting;
 
 
 namespace L00177804_Project;
@@ -19,30 +20,23 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			})
-            .UseMauiMaps()
-            .UseMauiCommunityToolkit()
-            .ConfigureSyncfusionCore();
+			.UseMauiMaps()
+			.UseMauiCommunityToolkit()
+			.ConfigureSyncfusionCore()
+			.ConfigureMopups();
 
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
-
-
-		builder.Services.AddSingleton<MapViewModel>();
-		builder.Services.AddTransient<MapView>();
-
-		builder.Services.AddTransient<MainPageViewModel>();
-		builder.Services.AddTransient<MainPage>();
-
- 
-        builder.Services.AddTransient<MapViewModel>();
-        builder.Services.AddTransient<MapView>();
 
         builder.Services.AddTransient<MainPageViewModel>();
         builder.Services.AddTransient<MainPage>();
 
 		builder.Services.AddTransient<EditVehicleView>();
 		builder.Services.AddTransient<EditVehicleViewModel>();
+
+		builder.Services.AddTransient<PopUpView>();
+		builder.Services.AddTransient<PopUpViewModel>();
 
 
 		builder.Services.AddTransient<NearByRestService>();
@@ -60,8 +54,7 @@ public static class MauiProgram
 		builder.Services.AddTransient<SettingsView>();
 		builder.Services.AddTransient<SettingsViewModel>();
 
-        builder.Services.AddTransient<SettingsView>();
-        builder.Services.AddTransient<SettingsViewModel>();
+
         builder.Services.AddTransient<ThemeAddMessage>();
         builder.Services.AddTransient<ThemeChangedMessage>();
 
@@ -74,7 +67,10 @@ public static class MauiProgram
 
 		builder.Services.AddTransient<VehicleDataService>();
 
+		builder.Services.AddTransient<AddTripView>();
+		builder.Services.AddTransient<AddTripViewModel>();
 
+		//builder.Services.AddSingleton<IPopupNavigation>(MopupService.Instance);
 
 		return builder.Build();
 	}

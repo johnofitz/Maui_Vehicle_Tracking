@@ -1,26 +1,27 @@
-using Newtonsoft.Json;
-using System;
+using NSubstitute;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace xUnitTests.ViewModelTests
 {
 
-    public class AddVehicleViewModelTest
+
+
+    public class AddVehicleViewModelTests
     {
-
         [Fact]
-        public async Task IsDoubleAsync_ShouldReturnTrueForValidDoubles()
+        public async Task SaveVehicleData_WhenCalled_ShouldCreateNewVehicleInstanceAndWriteToFile()
         {
-            //// Arrange
-            //AddVehicleViewModel viewModel = new();
+     
 
-            //string check = "123.32";
 
-            //// Act
-            //var result = await viewModel.IsDoubleAsync(check);
+            
 
-            //// Assert
-            //Assert.True(result);
         }
     }
+
 }

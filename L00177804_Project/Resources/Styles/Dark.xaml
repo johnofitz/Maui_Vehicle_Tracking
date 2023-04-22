@@ -6,5 +6,6 @@
 
     <Color x:Key="BackgroundColor">#333333</Color>
     <Color x:Key="TextColor">Gold</Color>
+    <Color x:Key="Button">#9eb2e0</Color>
     <Color x:Key="InputBackgroundColor">#666666</Color>
 </ResourceDictionary>

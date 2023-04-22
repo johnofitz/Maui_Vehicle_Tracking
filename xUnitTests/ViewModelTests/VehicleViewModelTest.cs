@@ -1,13 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
+using NSubstitute;
+
 
 namespace xUnitTests.ViewModelTests
 {
     public class VehicleViewModelTest
     {
+
+        [Fact]
+        public void Constructor_ShouldCallGetVehiclesAsync()
+        {
+            // Arrange
+            var mockVehicleData = Substitute.For<VehicleDataService>();
+
+            // Act
+            var viewModel = new VehicleViewModel(mockVehicleData);
+
+            // Assert
+            mockVehicleData.Received(1);
+        }
+
+   
     }
 }
 

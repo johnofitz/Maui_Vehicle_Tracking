@@ -16,14 +16,14 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty]
         private Theme selectedTheme;
 
-        [ObservableProperty]
-        private Vehicle preferedVehicle;
+        //[ObservableProperty]
+        //private Vehicle preferedVehicle;
 
         // File name for vehicle.json
-        private const string _vehicleFile = "vehicle.json";
+        //private const string _vehicleFile = "vehicle.json";
 
         // Create observable collection for vehicle
-        public ObservableCollection<Vehicle> VehiclesCollection { get; set; } = new();
+        //public ObservableCollection<Vehicle> VehiclesCollection { get; set; } = new();
 
         // Create an instance of the VehicleDataService class
         private readonly VehicleDataService VehicleDataService;
@@ -36,7 +36,7 @@ namespace L00177804_Project.ViewModel
         {
             VehicleDataService = dataService;
             AddThemes();
-            AddVehiclesToMainAsync();
+            //AddVehiclesToMainAsync();
            
         }
 
@@ -76,50 +76,5 @@ namespace L00177804_Project.ViewModel
 
             WeakReferenceMessenger.Default.Send(new ThemeChangedMessage(value.Key));
         }
-
-        /// <summary>
-        ///  Method to get the vehicle data from the json file
-        /// </summary>
-        public async void AddVehiclesToMainAsync()
-        {
-            try
-            {
-                // Get the vehicle data from the json file
-                var item = await VehicleDataService.GetVehiclesInfo(_vehicleFile);
-
-                // condition to clear menu for erroneous behaviour
-                if (VehiclesCollection.Count != 0)
-                {
-                    VehiclesCollection.Clear();
-                }
-                // Add the vehicle data to the observable collection
-                item.ForEach(VehiclesCollection.Add);
-
-                var cars = Preferences.Get("cars", "Work");
-
-                PreferedVehicle = VehiclesCollection.Single(x => x.Name == cars);
-                // condition to check if the observable collection is empty    
-            }
-            // Catch errors
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-        }
-
-
-        partial void OnPreferedVehicleChanged(Vehicle value)
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            Preferences.Set("cars", value.Name);
-
-            WeakReferenceMessenger.Default.Send(new VehicleChangedMessage(value.Name));
-        }
-
-
     }
 }

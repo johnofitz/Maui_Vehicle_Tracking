@@ -52,7 +52,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\Flyout\calendar.png" />
 	  <None Remove="Resources\Images\Flyout\car.png" />
+	  <None Remove="Resources\Images\Flyout\clock.png" />
 	  <None Remove="Resources\Images\Flyout\euro.png" />
 	  <None Remove="Resources\Images\Flyout\head.jpg" />
 	  <None Remove="Resources\Images\Flyout\home.png" />
@@ -61,7 +63,9 @@
 	  <None Remove="Resources\Images\Flyout\remind.png" />
 	  <None Remove="Resources\Images\Flyout\settings.png" />
 	  <None Remove="Resources\Images\Flyout\stats.png" />
+	  <None Remove="Resources\Images\Flyout\suitcase.png" />
 	  <None Remove="Resources\Images\Flyout\theme.png" />
+	  <None Remove="Resources\Images\pointer.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,7 +74,9 @@
 		<PackageReference Include="Geolocator.Plugin" Version="1.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.59" />
+		<PackageReference Include="Mopups" Version="1.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Syncfusion.Maui.Calendar" Version="21.1.39" />
 		<PackageReference Include="Syncfusion.Maui.Charts" Version="21.1.39" />
 		<PackageReference Include="Syncfusion.Maui.Core" Version="21.1.39" />
 	</ItemGroup>
@@ -106,7 +112,7 @@
 	  <MauiXaml Update="View\ExpenseView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\MapView.xaml">
+	  <MauiXaml Update="View\PopUpView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ReminderView.xaml">

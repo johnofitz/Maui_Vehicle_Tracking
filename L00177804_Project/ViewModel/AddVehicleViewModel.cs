@@ -1,4 +1,5 @@
 ﻿
+using L00177804_Project.Models.UnitModel;
 using L00177804_Project.Service.VehicleInfoService;
 using Microsoft.Maui.Controls;
 
@@ -89,9 +90,7 @@ namespace L00177804_Project.ViewModel
         {
             FuelTypes.Add(fuelTypes.Type1);
             FuelTypes.Add(fuelTypes.Type2);
-            FuelTypes.Add(fuelTypes.Type3);
-            FuelTypes.Add(fuelTypes.Type4);
-            FuelTypes.Add(fuelTypes.Type5);
+    
         }
 
         /// <summary>
@@ -102,7 +101,7 @@ namespace L00177804_Project.ViewModel
             ConsumptionUnit.Add(consumptionUnit.Consumption1);
             ConsumptionUnit.Add(consumptionUnit.Consumption2);
             ConsumptionUnit.Add(consumptionUnit.Consumption3);
-            ConsumptionUnit.Add(consumptionUnit.Consumption4);
+  
         }
 
         /// <summary>
@@ -205,7 +204,7 @@ namespace L00177804_Project.ViewModel
         /// <param name="value"></param>
         /// <returns> Boolean true/false</returns>
 
-        public async Task<bool> IsDoubleAsync(string value)
+        public static async Task<bool> IsDoubleAsync(string value)
 
         {
             if(double.TryParse(value, out _) == false)

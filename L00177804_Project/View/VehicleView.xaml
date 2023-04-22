@@ -3,20 +3,65 @@
     x:Class="L00177804_Project.View.VehicleView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:DataType="viewmodel:VehicleViewModel"
     xmlns:model="clr-namespace:L00177804_Project.Models"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
-    Title="Vehicles">
-   
-  
+    Title="Vehicles"
+    x:DataType="viewmodel:VehicleViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}">
+
+
     <AbsoluteLayout>
         <!--  Content  -->
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <Grid>
+            <StackLayout>
+
+                <Frame
+                    Margin="20"
+                    WidthRequest="300"
+                    Padding="0"
+                    BackgroundColor="GhostWhite"
+                    CornerRadius="25"
+                    HeightRequest="75">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <!--  Set the first column to Auto to allow for image width  -->
+                            <ColumnDefinition Width="*" />
+                            <!--  Set the second column to take up remaining space  -->
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label
+                            Margin="30,0,0,0"
+                            HorizontalOptions="End"
+                            Text="Select Vehicle:"
+                            TextColor="{DynamicResource TextColor}"
+                            VerticalOptions="Center" />
+                        <!--  Set the image to the start of the grid (left)  -->
+                        <StackLayout
+                            Grid.Column="1"
+                            Margin="-50,0,0,0"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand">
+                            <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
+                            <Picker
+                                ItemsSource="{Binding VehiclesCollection}"
+                                SelectedItem="{Binding PreferedVehicle, Mode=TwoWay}"
+                                TextColor="{DynamicResource TextColor}" />
+                            <!--  Set Mode=TwoWay for two-way binding  -->
+                            <StackLayout>
+                                <!--  Bind Label's Text property to SelectedVehicle properties  -->
+                                <Label Text="{Binding PreferedVehicle.Odometer, StringFormat='{0} km'}" TextColor="{DynamicResource TextColor}" />
+                                <!--  Add additional properties as needed  -->
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
                 <RefreshView
                     Command="{Binding RefreshCommand}"
                     IsRefreshing="{Binding IsRefreshing}"
                     RefreshColor="Blue">
+
+
                     <!--  CollectionView content  -->
                     <CollectionView ItemsSource="{Binding Vehicles}" SelectionMode="None">
                         <CollectionView.ItemTemplate>
@@ -70,7 +115,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </RefreshView>
-            </Grid>
+            </StackLayout>
         </ScrollView>
 
         <!--  Floating Button  -->
