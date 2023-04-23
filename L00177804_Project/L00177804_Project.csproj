@@ -60,6 +60,7 @@
 	  <None Remove="Resources\Images\Flyout\home.png" />
 	  <None Remove="Resources\Images\Flyout\mape.png" />
 	  <None Remove="Resources\Images\Flyout\mapnear.png" />
+	  <None Remove="Resources\Images\Flyout\note.png" />
 	  <None Remove="Resources\Images\Flyout\remind.png" />
 	  <None Remove="Resources\Images\Flyout\settings.png" />
 	  <None Remove="Resources\Images\Flyout\stats.png" />
@@ -90,6 +91,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\Blue.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\CustomControls.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\Dark.xaml">
