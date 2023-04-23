@@ -17,7 +17,7 @@ namespace xUnitTests.ServiceTests
         public async Task CalculateFuelConsumption_ReturnsCorrectValue()
         {
             // Arrange
-            double distance = 100.0;
+            int distance = 100;
             double fuel = 10.0;
 
             // Act
@@ -32,11 +32,11 @@ namespace xUnitTests.ServiceTests
         {
             // Arrange
             double fuelConsumption = 10.0;
-            double averageSpeed = 60.0;
+          
             string fuelType = "gasoline";
 
             // Act
-            double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, averageSpeed, fuelType);
+            double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, fuelType);
 
             // Assert
             Assert.Equal(23.1, co2Emissions, 1);
@@ -47,11 +47,10 @@ namespace xUnitTests.ServiceTests
         {
             // Arrange
             double fuelConsumption = 10.0;
-            double averageSpeed = 60.0;
             string fuelType = "diesel";
 
             // Act
-            double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, averageSpeed, fuelType);
+            double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, fuelType);
 
             // Assert
             Assert.Equal(26.8, co2Emissions, 1);

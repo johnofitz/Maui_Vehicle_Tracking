@@ -69,12 +69,10 @@ public partial class App : Application
     private void LoadCarHandler(object recipient, VehicleChangedMessage message)
     {
         LoadCar(message.Value);
-        // Additional logic for LoadCar
     }
 
     private void LoadThemeHandler(object recipient, ThemeChangedMessage message)
     {
-        // Additional logic for LoadTheme
         LoadTheme(message.Value);
     }
 }
