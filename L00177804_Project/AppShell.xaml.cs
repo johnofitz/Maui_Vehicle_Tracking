@@ -1,16 +1,18 @@
-﻿using System.Reflection;
+﻿using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Concurrent;
+using System.Reflection;
 
 namespace L00177804_Project;
 
 public partial class AppShell : Shell
 {
+   
 
-  
     public AppShell()
     {
-
         InitializeComponent();
-        
+
+        Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         Routing.RegisterRoute(nameof(ReminderView), typeof(ReminderView));
         Routing.RegisterRoute(nameof(TripView), typeof(TripView));
         Routing.RegisterRoute(nameof(ExpenseView), typeof(ExpenseView));
@@ -19,8 +21,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(AddVehicleView), typeof(AddVehicleView));
         Routing.RegisterRoute(nameof(EditVehicleView), typeof(EditVehicleView));
         Routing.RegisterRoute(nameof(AddTripView), typeof(AddTripView));
-
-
     }
 
     ////// This method is called every time the user navigates to a new page in the Shell
@@ -44,8 +44,7 @@ public partial class AppShell : Shell
         // Set the _previousShellContent variable to the currently viewed ShellContent for future reference
         _previousShellContent = CurrentItem?.CurrentItem?.CurrentItem;
 
-        
+
     }
-
-
 }
+
