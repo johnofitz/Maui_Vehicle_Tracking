@@ -28,7 +28,6 @@ namespace L00177804_Project.Service.VehicleCalculationService
         /// Calculate the CO2 emissions based on the fuel consumption and average speed
         /// </summary>
         /// <param name="fuelConsumption"></param>
-        /// <param name="averageSpeed"></param>
         /// <returns></returns>
         public Task<double> CalculateCO2Emissions(double fuelConsumption, string fuelType)
         {
