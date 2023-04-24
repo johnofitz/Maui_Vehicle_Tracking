@@ -21,9 +21,9 @@
     
     jobs:
     # MAUI Android Build
-      Build-Test-android:
+      Build-android:
         runs-on: windows-latest
-        name: Android Build and Test
+        name: Android Build
         steps:
     
           - name: Checkout
@@ -47,7 +47,7 @@
             run: dotnet test --no-build --verbosity normal
 
       deploy-android:
-        needs: [Build-Test-android, xUnitTests]
+        needs: [Build-android, xUnitTests]
         runs-on: windows-latest
         # display output message
         steps:
@@ -55,9 +55,9 @@
             run: echo "Deploying to Azure App Service"
 
     # MAUI iOS Build
-      Build-Test-ios:
+      Build-ios:
         runs-on: macos-12
-        name: iOS Build and Test
+        name: iOS Build
         steps:
     
           - name: Checkout
@@ -81,7 +81,7 @@
             run: dotnet test --no-build --verbosity normal
 
       Deploy-ios:
-        needs: [Build-Test-ios, xUnitTests]
+        needs: [Build-ios, xUnitTests]
         runs-on: windows-latest
         # display output message
         steps:
