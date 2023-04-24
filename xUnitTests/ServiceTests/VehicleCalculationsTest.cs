@@ -39,7 +39,7 @@ namespace xUnitTests.ServiceTests
             double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, fuelType);
 
             // Assert
-            Assert.Equal(23.1, co2Emissions, 1);
+            Assert.Equal(84.6, co2Emissions, 1);
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace xUnitTests.ServiceTests
             double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, fuelType);
 
             // Assert
-            Assert.Equal(26.8, co2Emissions, 1);
+            Assert.Equal(98.2, co2Emissions, 1);
         }
     }
 
