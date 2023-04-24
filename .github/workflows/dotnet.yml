@@ -23,7 +23,7 @@
     # MAUI Android Build
       Build-Test-android:
         runs-on: windows-latest
-        name: Android Build and Test
+        name: Android Build
         steps:
     
           - name: Checkout
@@ -57,7 +57,7 @@
     # MAUI iOS Build
       Build-Test-ios:
         runs-on: macos-12
-        name: iOS Build and Test
+        name: iOS Build
         steps:
     
           - name: Checkout
