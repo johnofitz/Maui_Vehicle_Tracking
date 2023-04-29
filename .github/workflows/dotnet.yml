@@ -1,73 +1,55 @@
-name: CI Build
+name: MAUI Build
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
     paths-ignore:
       - '**/*.md'
-      - '**/*.gitignore'
-      - '**/*.gitattributes'
+      - '**/*.git*'
   pull_request:
-    branches: [ master ]
+    branches:
+      - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 env:
-  DOTNET_NOLOGO: true                     # Disable the .NET logo
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
-  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  # MAUI Android Build
-  Build-android:
+  build-android:
+    name: Build MAUI for Android
     runs-on: windows-latest
-    name: Android Build
     steps:
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup .NET 7
-        uses: actions/setup-dotnet@v3
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 7.0.x
-          
       - name: Install MAUI Workload
         run: dotnet workload install maui --ignore-failed-sources
-
       - name: Restore Dependencies
         run: dotnet restore L00177804_Project/L00177804_Project.csproj
-
       - name: Build MAUI Android
         run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
-          # xunit test build for android
-      - name: Run tests
+      - name: Run tests for Android
         run: dotnet test --no-build --verbosity normal
 
-  # MAUI iOS Build
-  Build-ios:
+  build-ios:
+    name: Build MAUI for iOS
     runs-on: macos-12
-    name: iOS Build
     steps:
-
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup .NET 7
-        uses: actions/setup-dotnet@v3
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 7.0.x
-
       - name: Install MAUI Workload
         run: dotnet workload install maui --ignore-failed-sources
-
       - name: Restore Dependencies
         run: dotnet restore L00177804_Project/L00177804_Project.csproj
-
       - name: Build MAUI iOS
         run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
-          # xunit test build for ios
-      - name: Run tests
+      - name: Run tests for iOS
         run: dotnet test --no-build --verbosity normal
