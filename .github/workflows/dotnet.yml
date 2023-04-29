@@ -42,9 +42,6 @@ jobs:
           dotnet-version: 7.0.x
 
       # Dependency scanning step
-      - name: Scan for dependency vulnerabilities
-        uses: whitesource/foss-2025-action@v1.5
-
       - name: Restore NuGet packages
         uses: actions/cache@v2
         with:
