@@ -29,11 +29,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Sonar Scan
-        # You may pin to the exact commit or the version.
-        # uses: sijomc/sonarscan-action@5a3a0c0eacbe76ac7c3e3513696f7449f4f914a5
-        uses: sijomc/sonarscan-action@1.1
-
       - name: Setup .NET 7
         uses: actions/setup-dotnet@v1
         with:
