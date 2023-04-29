@@ -60,9 +60,8 @@ jobs:
       - name: Build MAUI
         run: dotnet build ${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -f ${{ matrix.target-framework }} --no-restore
 
-      - name: Run dynamic security testing
-        uses: owasp/zap-full-scan@v1
-        with:
-            target: http://localhost:8080
-            policy: Default Policy
+      - name: OWASP ZAP Full Scan
+        # You may pin to the exact commit or the version.
+        # uses: zaproxy/action-full-scan@1f35897c4c11af6b1203c36b67a5ba99c3c5b5f4
+        uses: zaproxy/action-full-scan@v0.3.0
 
