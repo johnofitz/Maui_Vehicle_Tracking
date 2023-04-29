@@ -39,9 +39,6 @@ jobs:
         with:
           dotnet-version: 7.0.x
 
-      - name: Scan for dependency vulnerabilities
-        uses: fossa/scan-action@master
-
       - name: Restore NuGet packages
         uses: actions/cache@v2
         with:
