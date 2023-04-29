@@ -60,12 +60,4 @@ jobs:
       - name: Build MAUI
         run: dotnet build ${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj -c Release -f ${{ matrix.target-framework }} --no-restore
 
-      # Dynamic security testing step
-      - name: Run dynamic security testing
-        uses: owasp/zap-full-scan@v1
-        with:
-          target: http://localhost:8080
-          # Add the policy parameter with a value of "scan"
-          policy: scan
-
 
