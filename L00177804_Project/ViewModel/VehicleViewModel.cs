@@ -73,7 +73,7 @@ namespace L00177804_Project.ViewModel
         ///  Method to get the vehicle data from the json file
         /// </summary>
         [RelayCommand]
-        public virtual async Task GetVehiclesAsync()
+        public async Task GetVehiclesAsync()
         {
             try
             {
