@@ -1,3 +1,4 @@
+
 name: MAUI
 on:
   push:
@@ -8,7 +9,7 @@ on:
       - '**/*.git*'
   pull_request:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 env:
@@ -22,6 +23,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache dependencies
+        uses: actions/cache@v1.2.1
+        with:
+          path: |
+            ~/.nuget/packages
+            ~/.local/share/NuGet
+          key: ${{ runner.os }}-maui-android-${{ hashFiles('**/L00177804_Project.csproj') }}
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
@@ -45,6 +53,13 @@ jobs:
     runs-on: macos-12
     steps:
       - uses: actions/checkout@v2
+      - name: Cache dependencies
+        uses: actions/cache@v1.2.1
+        with:
+          path: |
+            ~/.nuget/packages
+            ~/.local/share/NuGet
+          key: ${{ runner.os }}-maui-ios-${{ hashFiles('**/L00177804_Project.csproj') }}
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
@@ -62,6 +77,3 @@ jobs:
         with:
           name: MAUI-iOS-artifacts
           path: L00177804_Project/bin/Release/net7.0-ios/
-
-        
-        
