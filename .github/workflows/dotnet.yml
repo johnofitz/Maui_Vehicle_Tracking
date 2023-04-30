@@ -1,5 +1,3 @@
-name: MAUI Build
-
 on:
   push:
     branches:
@@ -35,6 +33,11 @@ jobs:
         run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
       - name: Run tests for Android
         run: dotnet test --no-build --verbosity normal
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: MAUI-Android-artifacts
+          path: L00177804_Project/bin/Release/net7.0-android/
 
   build-ios:
     name: Build MAUI for iOS
@@ -53,3 +56,11 @@ jobs:
         run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
       - name: Run tests for iOS
         run: dotnet test --no-build --verbosity normal
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: MAUI-iOS-artifacts
+          path: L00177804_Project/bin/Release/net7.0-ios/
+
+        
+        
