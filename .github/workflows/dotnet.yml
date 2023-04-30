@@ -1,3 +1,4 @@
+name: MAUI
 on:
   push:
     branches:
@@ -34,7 +35,7 @@ jobs:
       - name: Run tests for Android
         run: dotnet test --no-build --verbosity normal
       - name: Publish artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: MAUI-Android-artifacts
           path: L00177804_Project/bin/Release/net7.0-android/
@@ -57,7 +58,7 @@ jobs:
       - name: Run tests for iOS
         run: dotnet test --no-build --verbosity normal
       - name: Publish artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: MAUI-iOS-artifacts
           path: L00177804_Project/bin/Release/net7.0-ios/
