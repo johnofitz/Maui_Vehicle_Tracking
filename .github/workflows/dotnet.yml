@@ -1,107 +1,84 @@
-    name: CI Build
 
-    on:
-      push:
-        branches: [ master ]
-        paths-ignore:
-          - '**/*.md'
-          - '**/*.gitignore'
-          - '**/*.gitattributes'
-      pull_request:
-        branches: [ master ]
-      workflow_dispatch:
-    
-    permissions:
-      contents: read
-    
-    env:
-      DOTNET_NOLOGO: true                     # Disable the .NET logo
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
-      DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
-    
-    jobs:
-    # MAUI Android Build
-      Build-android:
-        runs-on: windows-latest
-        name: Android Build
-        steps:
-    
-          - name: Checkout
-            uses: actions/checkout@v3
-    
-          - name: Setup .NET 7
-            uses: actions/setup-dotnet@v3
-            with:
-              dotnet-version: 7.0.x
-              
-          - name: Install MAUI Workload
-            run: dotnet workload install maui --ignore-failed-sources
-    
-          - name: Restore Dependencies
-            run: dotnet restore L00177804_Project/L00177804_Project.csproj
-    
-          - name: Build MAUI Android
-            run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
-              # xunit test build for android
-          - name: Run tests
-            run: dotnet test --no-build --verbosity normal
+name: MAUI
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.git*'
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
 
-      deploy-android:
-        needs: [Build-android, xUnitTests]
-        runs-on: windows-latest
-        # display output message
-        steps:
-          - name: Display message
-            run: echo "Deploying to Azure App Service"
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
 
-    # MAUI iOS Build
-      Build-ios:
-        runs-on: macos-12
-        name: iOS Build
-        steps:
-    
-          - name: Checkout
-            uses: actions/checkout@v3
-    
-          - name: Setup .NET 7
-            uses: actions/setup-dotnet@v3
-            with:
-              dotnet-version: 7.0.x
-    
-          - name: Install MAUI Workload
-            run: dotnet workload install maui --ignore-failed-sources
-    
-          - name: Restore Dependencies
-            run: dotnet restore L00177804_Project/L00177804_Project.csproj
-    
-          - name: Build MAUI iOS
-            run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
-              # xunit test build for ios
-          - name: Run tests
-            run: dotnet test --no-build --verbosity normal
+jobs:
+  build-android:
+    name: Build MAUI for Android
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.nuget/packages
+            !~/.nuget/packages/unwanted
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+      - name: Restore Dependencies
+        run: dotnet restore L00177804_Project/L00177804_Project.csproj
+      - name: Build MAUI Android
+        run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-android --no-restore
+      - name: Run tests for Android
+        run: dotnet test --no-build --verbosity normal
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: MAUI-Android-artifacts
+          path: L00177804_Project/bin/Release/net7.0-android/
 
-      Deploy-ios:
-        needs: [Build-ios, xUnitTests]
-        runs-on: windows-latest
-        # display output message
-        steps:
-          - name: Display message
-            run: echo "Deploying to Azure App Service"
-
-      xUnitTests:
-        runs-on: windows-latest
-    
-        steps:
-        - uses: actions/checkout@v3
-    
-        - name: Setup .NET 7
-          uses: actions/setup-dotnet@v3
-          with:
-            dotnet-version: 7.0.x
-    
-        - name: Restore NuGet packages
-          run: dotnet restore
-    
-        - name: Build and Test
-          run: dotnet test xUnitTests/xUnitTests.csproj --filter "TestCategory!=Smoke"
-    
+  build-ios:
+    name: Build MAUI for iOS
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.nuget/packages
+            !~/.nuget/packages/unwanted
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+      - name: Restore Dependencies
+        run: dotnet restore L00177804_Project/L00177804_Project.csproj
+      - name: Build MAUI iOS
+        run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f net7.0-ios --no-restore
+      - name: Run tests for iOS
+        run: dotnet test --no-build --verbosity normal
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: MAUI-iOS-artifacts
+          path: L00177804_Project/bin/Release/net7.0-ios/
