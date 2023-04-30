@@ -23,15 +23,17 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v1.2.1
+      - name: Cache
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.nuget/packages
-            ~/.local/share/NuGet
-          key: ${{ runner.os }}-maui-android-${{ hashFiles('**/L00177804_Project.csproj') }}
+            !~/.nuget/packages/unwanted
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
       - name: Install MAUI Workload
@@ -53,15 +55,17 @@ jobs:
     runs-on: macos-12
     steps:
       - uses: actions/checkout@v2
-      - name: Cache dependencies
-        uses: actions/cache@v1.2.1
+      - name: Cache
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.nuget/packages
-            ~/.local/share/NuGet
-          key: ${{ runner.os }}-maui-ios-${{ hashFiles('**/L00177804_Project.csproj') }}
+            !~/.nuget/packages/unwanted
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
       - name: Install MAUI Workload
