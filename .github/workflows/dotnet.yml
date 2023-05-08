@@ -35,7 +35,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macos-12]
+        os: [windows-latest]
         dotnet-version: [7.0.x]
         maui-version: [7.0.x]
     steps:
@@ -49,7 +49,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macos-12]
+        os: [windows-latest]
         dotnet-version: [7.0.x]
         maui-version: [7.0.x]
     steps:
@@ -105,7 +105,7 @@ jobs:
       - run: dotnet test L00177804_Project/L00177804_Project.csproj
 
   analyze:
-    needs: [test]
+    needs: [build-android, build-ios, test]
     name: Analyze
     runs-on: ubuntu-latest
 
