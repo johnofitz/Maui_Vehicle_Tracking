@@ -69,7 +69,7 @@ jobs:
     # Define the jobs that this job depends on
     needs: [setup]
     name: Build MAUI for iOS
-    runs-on: macos-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         os: [macos-latest]
