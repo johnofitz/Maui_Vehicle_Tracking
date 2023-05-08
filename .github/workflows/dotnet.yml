@@ -73,6 +73,7 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
 
+
   build-ios:
     needs: [cache, setup, restore]
     name: Build MAUI for iOS
@@ -88,6 +89,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
+
 
   test:
     needs: [build-android, build-ios]
