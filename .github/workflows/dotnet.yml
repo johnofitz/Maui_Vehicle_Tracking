@@ -42,7 +42,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet workload install maui --ignore-failed-sources --version
+      - run: dotnet workload install maui --ignore-failed-sources
 
   restore:
     runs-on: ${{ matrix.os }}
