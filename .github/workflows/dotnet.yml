@@ -103,7 +103,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
-      - run: dotnet test L00177804_Project/L00177804_Project.csproj
+      - run: dotnet test --no-build --verbosity normal
 
   analyze:
     needs: [build-android, build-ios, test]
