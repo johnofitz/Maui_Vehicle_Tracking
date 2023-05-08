@@ -71,7 +71,8 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} --no-restore
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
+
 
   build-ios:
     needs: [cache, setup, restore]
@@ -87,7 +88,8 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} --no-restore
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
+
 
   test:
     needs: [build-android, build-ios]
