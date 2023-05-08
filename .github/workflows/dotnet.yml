@@ -37,13 +37,12 @@ jobs:
       matrix:
         os: [windows-latest, macos-12]
         dotnet-version: [7.0.x]
-        maui-version: [8.0.0-preview.3.8149]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet workload install maui --ignore-failed-sources --version ${{ matrix.maui-version }}
+      - run: dotnet workload install maui --ignore-failed-sources
 
   restore:
     runs-on: ${{ matrix.os }}
@@ -51,7 +50,6 @@ jobs:
       matrix:
         os: [windows-latest, macos-12]
         dotnet-version: [7.0.x]
-        maui-version: [8.0.0-preview.3.8149]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
@@ -67,7 +65,6 @@ jobs:
       matrix:
         os: [windows-latest]
         dotnet-version: [7.0.x]
-        maui-version: [8.0.0-preview.3.8149]
         target-framework: [net7.0-android]
     steps:
       - uses: actions/checkout@v3
@@ -84,7 +81,6 @@ jobs:
       matrix:
         os: [macos-12]
         dotnet-version: [7.0.x]
-        maui-version: [8.0.0-preview.3.8149]
         target-framework: [net7.0-ios]
     steps:
       - uses: actions/checkout@v3
