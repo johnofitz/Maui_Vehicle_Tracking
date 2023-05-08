@@ -35,7 +35,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macos-12]
         dotnet-version: [7.0.x]
     steps:
       - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macos-12]
         dotnet-version: [7.0.x]
     steps:
       - uses: actions/checkout@v3
