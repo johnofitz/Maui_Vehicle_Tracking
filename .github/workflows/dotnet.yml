@@ -101,7 +101,7 @@ jobs:
 
 
   test-mac:
-      runs-on: self-hosted
+      runs-on: windows-latest
       steps:
         - uses: actions/checkout@v3
         - uses: actions/setup-dotnet@v3
