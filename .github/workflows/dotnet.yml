@@ -35,7 +35,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macos-12]
         dotnet-version: [7.0.x]
     steps:
       - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macos-12]
         dotnet-version: [7.0.x]
     steps:
       - uses: actions/checkout@v3
@@ -88,7 +88,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }} -p:Platform=iPhoneSimulator -p:Configuration=Debug
 
 
   test:
