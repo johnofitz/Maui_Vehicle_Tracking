@@ -42,7 +42,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet workload install maui --ignore-failed-sources
+      - run: dotnet workload install maui --ignore-failed-sources --version
 
   restore:
     runs-on: ${{ matrix.os }}
@@ -71,7 +71,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} --no-restore
 
   build-ios:
     needs: [cache, setup, restore]
@@ -87,7 +87,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} --no-restore
 
   test:
     needs: [build-android, build-ios]
