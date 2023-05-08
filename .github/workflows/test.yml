@@ -1,7 +1,7 @@
 ###### CANT RUN UNTIL MINUTES ARE BACK ON GITHUB ACTIONS
 
 # Name of the Github Actions workflow
-name: MAUI
+name: Testing
 # Define the events that trigger the Github Actions workflow
 on:
 #  push:
