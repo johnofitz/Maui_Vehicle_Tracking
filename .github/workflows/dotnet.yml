@@ -35,7 +35,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macos-12]
+        os: [windows-latest, macos-latest]
         dotnet-version: [7.0.x]
     steps:
       - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macos-12]
+        os: [windows-latest, macos-latest]
         dotnet-version: [7.0.x]
     steps:
       - uses: actions/checkout@v3
@@ -77,10 +77,10 @@ jobs:
   build-ios:
     needs: [cache, setup, restore]
     name: Build MAUI for iOS
-    runs-on: macos-12
+    runs-on: macos-latest
     strategy:
       matrix:
-        os: [macos-12]
+        os: [macos-latest]
         dotnet-version: [7.0.x]
         target-framework: [net7.0-ios]
     steps:
@@ -88,7 +88,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }} -p:Platform=iPhoneSimulator -p:Configuration=Debug
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
 
 
   test:
