@@ -92,7 +92,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
-      
+
   test:
     needs: [build-android, build-ios]
     name: Test MAUI
@@ -129,6 +129,8 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
 
+
+
   publish:
     needs: [cache, build-android, build-ios, test]
     name: Publish MAUI App
@@ -138,14 +140,17 @@ jobs:
       - uses: actions/upload-artifact@v3.1.2
         with:
           name: maui-artifact
-          path: | 
+          path: |
             L00177804_Project/bin/Release/net7.0-android/
             L00177804_Project/bin/Release/net7.0-ios/
-
+            
   deploy:
     needs: [publish]
     name: Deploy MAUI App
     runs-on: ubuntu-latest
-      echo "Deploying to Playstore in works"
+    steps:
+      - name: Deploy to Playstore
+        run: echo "Deploying to Playstore in progress"
+            
       
     
