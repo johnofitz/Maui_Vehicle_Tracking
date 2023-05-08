@@ -90,6 +90,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet workload install maui --ignore-failed-sources
+      - run: dotnet restore L00177804_Project/L00177804_Project.csproj
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }} --no-restore
 
 
@@ -133,7 +134,7 @@ jobs:
 
   publish:
     needs: [cache, build-android, build-ios, test]
-    name: Publish MAUI App
+    name: Publish MAUI App Artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
