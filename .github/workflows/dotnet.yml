@@ -70,6 +70,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
         with:
+          
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }}
 
@@ -88,6 +89,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
+      - run: dotnet workload install maui --ignore-failed-sources
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -f ${{ matrix.target-framework }} --no-restore
 
 
