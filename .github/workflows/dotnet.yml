@@ -55,6 +55,12 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
+
+      - name: Create Android artifacts
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: MAUI-Android-artifacts
+          path: L00177804_Project/bin/Release/net7.0-android/
       
  # Build job to build the MAUI app for iOS
   build-ios:
@@ -73,20 +79,13 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
-    
-  # Publish job to publish the MAUI app artifacts
-  publish:
-    needs: [build-android, build-ios]
-    name: Publish MAUI App Artifacts
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/upload-artifact@v3.1.2
+
+      - name: Create IOS artifacts
+        uses: actions/upload-artifact@v3.1.2
         with:
-          name: Maui-artifact
-          path: |
-            L00177804_Project/bin/Release/net7.0-android/
-            L00177804_Project/bin/Release/net7.0-ios/
+          name: MAUI-iOS-artifacts
+          path: L00177804_Project/bin/Release/net7.0-ios/
+    
 
   # Test job to test the MAUI app
   test:
@@ -102,12 +101,14 @@ jobs:
       
   # Deploy job to deploy the MAUI app         
   deploy:
-    needs: [publish]
+    needs: test
+    if: ${{ needs.test.result == 'success' }}
     name: Deploy MAUI App
     runs-on: self-hosted
     steps:
       - name: Deploy to Playstore
         run: echo "Deploying to Playstore in progress"
+  
             
       
     
