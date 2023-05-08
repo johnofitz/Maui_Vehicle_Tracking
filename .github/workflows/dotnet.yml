@@ -111,15 +111,10 @@ jobs:
         run: dotnet restore
 
       - name: Test
-        run: dotnet test xUnitTests/xUnitTests.csproj --logger "trx;LogFileName=test-results.trx" || true
-      - name: est Report
-        uses: dorny/test-reporter@v1
-        if: always()
+        run: dotnet test xUnitTests/xUnitTests.csproj
+      - uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          name: DotNET Tests
-          path: "**/test-results.trx"                            
-          reporter: dotnet-trx
-          fail-on-error: true
+          files: '**/TEST-*.xml'
 
 
 
