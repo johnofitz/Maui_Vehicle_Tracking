@@ -44,7 +44,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest,ubuntu-latest]
+        os: [windows-latest]
     permissions:
         contents: read
         pull-requests: write
@@ -67,6 +67,14 @@ jobs:
       - name: Run tests
         run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test_results.xml" ./xUnitTests
         working-directory: ./xUnitTests
+        
+  publish-test-results:
+    name: "Publish Unit Tests Results"
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: always()
