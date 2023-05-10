@@ -63,10 +63,6 @@ jobs:
         working-directory: ./xUnitTests
       - name: Run tests
         run: dotnet test xUnitTests/xUnitTests.csproj
-        working-directory: ./xUnitTests
-      - name: Run tests
-        run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test_results.xml" ./xUnitTests
-        working-directory: ./xUnitTests
         
   publish-test-results:
     name: "Publish Unit Tests Results"
