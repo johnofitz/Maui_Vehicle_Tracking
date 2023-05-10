@@ -46,10 +46,10 @@ jobs:
       matrix:
         os: [windows-latest]
     permissions:
-        contents: read
-        pull-requests: write
-        checks: write
-        statuses: write
+      contents: read
+      pull-requests: write
+      checks: write
+      statuses: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
@@ -63,6 +63,13 @@ jobs:
         working-directory: ./xUnitTests
       - name: Run tests
         run: dotnet test xUnitTests/xUnitTests.csproj
+      - name: Upload Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Unit Test Results
+          path: '**/*.xml'
+
         
   publish-test-results:
     name: "Publish Unit Tests Results"
@@ -71,14 +78,17 @@ jobs:
     if: always()
 
     steps:
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
         with:
-          files: |
-            test-results/**/*.xml
-            test-results/**/*.trx
-            test-results/**/*.json
+          path: artifacts
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@master
+        with:
+          check_name: Unit Test Results
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: "artifacts/**/*.xml"
 
     
 
