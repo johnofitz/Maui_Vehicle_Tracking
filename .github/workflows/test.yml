@@ -38,24 +38,37 @@ jobs:
       - run: dotnet workload install maui --ignore-failed-sources
 
   # Test job to test the MAUI app
+
   test:
     needs: [setup]
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    permissions:
+        contents: read
+        pull-requests: write
+        checks: write
+        statuses: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: '7.0.x'
       - name: Restore NuGet packages
-        run: dotnet restore
+        run: dotnet restore ./xUnitTests
         working-directory: ./xUnitTests
       - name: Build solution
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore ./xUnitTests
         working-directory: ./xUnitTests
       - name: Run tests
         run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test_results.xml" ./xUnitTests
+        working-directory: ./xUnitTests
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.7.0
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
         with:
           files: |
-            **/test_results.xml
+            test-results/**/*.xml
+            test-results/**/*.trx
+            test-results/**/*.json
+
+    
+
