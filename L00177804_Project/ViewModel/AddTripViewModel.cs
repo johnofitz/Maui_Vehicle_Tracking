@@ -53,9 +53,6 @@ namespace L00177804_Project.ViewModel
 
         private double fuelCost = 0.0;
 
-        private readonly double tripDistanceconvert = 0.0;
-
-
         private string start;
 
         private string finish;
