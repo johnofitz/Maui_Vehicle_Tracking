@@ -21,7 +21,7 @@ namespace xUnitTests.ServiceTests
             double fuel = 10.0;
 
             // Act
-            double fuelConsumption = await VehicleCalculations.CalculateFuelConsumption(distance, fuel);
+            double fuelConsumption = await _vehicleCalculations.CalculateFuelConsumption(distance, fuel);
 
             // Assert
             Assert.Equal(10.0, fuelConsumption);
