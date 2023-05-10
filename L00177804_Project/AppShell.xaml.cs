@@ -25,17 +25,17 @@ public partial class AppShell : Shell
     ShellContent _previousShellContent; // declare a variable to hold the previously viewed ShellContent
 
     protected override void OnNavigated(ShellNavigatedEventArgs args)
-    { 
-            // Check if the user has navigated to a new ShellContent and that there was a previously viewed ShellContent
-            if (CurrentItem?.CurrentItem?.CurrentItem is not null && _previousShellContent is not null)
-            {
-                // Get the ContentCache property of the previously viewed ShellContent using reflection
-                var property = typeof(ShellContent)
-                    .GetProperty("ContentCache", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+    {
+        // Check if the user has navigated to a new ShellContent and that there was a previously viewed ShellContent
+        if (CurrentItem?.CurrentItem?.CurrentItem is not null && _previousShellContent is not null)
+        {
+            // Get the ContentCache property of the previously viewed ShellContent using reflection
+            var property = typeof(ShellContent)
+                .GetProperty("ContentCache", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
 
-                // Set the value of the ContentCache property to null to clear the cache
-                property.SetValue(_previousShellContent, null);
-            }
+            // Set the value of the ContentCache property to null to clear the cache
+            property.SetValue(_previousShellContent, null);
+        }
         base.OnNavigated(args);
         // Set the _previousShellContent variable to the currently viewed ShellContent for future reference
         _previousShellContent = CurrentItem?.CurrentItem?.CurrentItem;

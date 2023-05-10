@@ -33,7 +33,7 @@ namespace xUnitTests.ServiceTests
             // Arrange
             double fuelConsumption = 10.0;
           
-            string fuelType = "gasoline";
+            string fuelType = "Petrol";
 
             // Act
             double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, fuelType);
@@ -47,7 +47,7 @@ namespace xUnitTests.ServiceTests
         {
             // Arrange
             double fuelConsumption = 10.0;
-            string fuelType = "diesel";
+            string fuelType = "Diesel";
 
             // Act
             double co2Emissions = await _vehicleCalculations.CalculateCO2Emissions(fuelConsumption, fuelType);

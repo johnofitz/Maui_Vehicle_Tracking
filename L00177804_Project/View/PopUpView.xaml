@@ -65,6 +65,7 @@
                     CornerRadius="20"
                     HorizontalOptions="Fill"
                     Text="Add Manual Trip"
+                    Command="{Binding AddManualTripCommand}"
                     VerticalOptions="EndAndExpand" />
 
             </VerticalStackLayout>

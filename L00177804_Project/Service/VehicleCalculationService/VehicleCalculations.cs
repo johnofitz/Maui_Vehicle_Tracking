@@ -32,11 +32,11 @@ namespace L00177804_Project.Service.VehicleCalculationService
         public Task<double> CalculateCO2Emissions(double fuelConsumption, string fuelType)
         {
     
-            if (fuelType == "gasoline")
+            if (fuelType == "Petrol")
             {
                 co2Factor = 2.31; // Conversion factor for gasoline in kg of CO2 per gallon
             }
-            else if (fuelType == "diesel")
+            else if (fuelType == "Diesel")
             {
                 co2Factor = 2.68; // Conversion factor for diesel in kg of CO2 per liter
             }

@@ -23,36 +23,73 @@
 
     <ScrollView>
         <!--  *,* makes coloumns as big as needed  -->
-        <StackLayout>
+        <StackLayout Padding="20">
 
             <!--<customControl:CustomControls />-->
+            <StackLayout HorizontalOptions="Fill" VerticalOptions="Fill">
+                <Grid Margin="0,30">
+                    <!--  Trip name  -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Image column  -->
+                        <ColumnDefinition Width="*" />
 
-            <Frame
-                Margin="20"
-                Padding="20"
-                BackgroundColor="LightGray"
-                CornerRadius="10">
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                    <Grid Margin="0,30">
-                        <!--  Trip name  -->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <!--  Image column  -->
-                            <ColumnDefinition Width="*" />
+                        <!--  Text column  -->
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Margin="0,10,0,0"
+                        Aspect="AspectFit"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="suitcase.png"
+                        WidthRequest="35" />
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+                    <StackLayout Grid.Column="1">
 
-                            <!--  Text column  -->
-                        </Grid.ColumnDefinitions>
-                        <Image
-                            Margin="0,10,0,0"
-                            Aspect="AspectFit"
-                            HeightRequest="20"
-                            HorizontalOptions="End"
-                            Source="suitcase.png"
-                            WidthRequest="35" />
-                        <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
-                        <StackLayout Grid.Column="1">
+                        <!--  Set HorizontalOptions to "StartAndExpand" to align the StackLayout to the left  -->
+                        <Frame
+                            Grid.Row="0"
+                            Padding="0"
+                            BackgroundColor="GhostWhite"
+                            BorderColor="DarkGray"
+                            CornerRadius="10"
+                            HorizontalOptions="FillAndExpand">
+                            <Entry
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                FontSize="Body"
+                                Placeholder="Trip Name"
+                                PlaceholderColor="DarkGray"
+                                Text="{Binding TripName}" />
+                        </Frame>
+                    </StackLayout>
+                </Grid>
 
-                            <!--  Set HorizontalOptions to "StartAndExpand" to align the StackLayout to the left  -->
+                <Grid Margin="0,10">
+
+                    <!--  Trip name  -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Image column  -->
+                        <ColumnDefinition Width="*" />
+
+                        <!--  Text column  -->
+                    </Grid.ColumnDefinitions>
+                    <!--  Trip name  -->
+                    <Image
+                        Margin="0,10,0,0"
+                        Aspect="AspectFit"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="mapnear.png"
+                        WidthRequest="35" />
+
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+
+
+                    <StackLayout Grid.Column="1">
+
+                        <StackLayout Orientation="Horizontal" Spacing="10">
                             <Frame
                                 Grid.Row="0"
                                 Padding="0"
@@ -64,184 +101,188 @@
                                     Grid.Column="1"
                                     Margin="10,0,0,0"
                                     FontSize="Body"
-                                    Placeholder="Trip Name"
+                                    Placeholder="Origin"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding TripName}" />
+                                    Text="{Binding Origin}" />
                             </Frame>
                         </StackLayout>
-                    </Grid>
 
-                    <Grid Margin="0,10">
-
-                        <!--  Trip name  -->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <!--  Image column  -->
-                            <ColumnDefinition Width="*" />
-
-                            <!--  Text column  -->
-                        </Grid.ColumnDefinitions>
-                        <!--  Trip name  -->
-                        <Image
-                            Margin="0,10,0,0"
-                            Aspect="AspectFit"
-                            HeightRequest="20"
-                            HorizontalOptions="End"
-                            Source="mapnear.png"
-                            WidthRequest="35" />
-
-                        <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+                    </StackLayout>
+                </Grid>
 
 
-                        <StackLayout Grid.Column="1">
+                <Grid Margin="0,30">
 
-                            <StackLayout Orientation="Horizontal" Spacing="10">
-                                <Frame
-                                    Grid.Row="0"
-                                    Padding="0"
-                                    BackgroundColor="GhostWhite"
-                                    BorderColor="DarkGray"
-                                    CornerRadius="10"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Entry
-                                        Grid.Column="1"
-                                        Margin="10,0,0,0"
-                                        FontSize="Body"
-                                        Placeholder="Origin"
-                                        PlaceholderColor="DarkGray"
-                                        Text="{Binding Origin}" />
-                                </Frame>
-                            </StackLayout>
+                    <!--  Trip name  -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Image column  -->
+                        <ColumnDefinition Width="*" />
 
-                        </StackLayout>
-                    </Grid>
-                    <Grid Margin="0,30,0,10">
-                        <StackLayout Grid.Column="1">
+                        <!--  Text column  -->
+                    </Grid.ColumnDefinitions>
+                    <!--  Trip name  -->
+                    <Image
+                        Margin="0,10,0,0"
+                        Aspect="AspectFit"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="petrol.png"
+                        WidthRequest="35" />
 
-                            <StackLayout Orientation="Horizontal" Spacing="5">
-                                <Image
-                                    Margin="0,20,0,0"
-                                    HeightRequest="20"
-                                    Source="calendar.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="30" />
-                                <Frame
-                                    Grid.Row="0"
-                                    Padding="0"
-                                    BackgroundColor="GhostWhite"
-                                    BorderColor="DarkGray"
-                                    CornerRadius="10"
-                                    HorizontalOptions="FillAndExpand"
-                                    MinimumHeightRequest="60">
-                                    <DatePicker
-                                        Margin="0,20,0,0"
-                                        Date="06/21/2022"
-                                        MaximumDate="12/31/2050"
-                                        MinimumDate="01/01/2022" />
-                                </Frame>
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
 
 
-                                <Image
-                                    Margin="0,20,0,0"
-                                    HeightRequest="20"
-                                    Source="clock.png"
-                                    VerticalOptions="Center"
-                                    WidthRequest="20" />
-                                <Frame
-                                    Grid.Row="0"
-                                    Padding="0"
-                                    BackgroundColor="GhostWhite"
-                                    BorderColor="DarkGray"
-                                    CornerRadius="10"
-                                    HorizontalOptions="FillAndExpand"
-                                    MinimumHeightRequest="60">
-                                    <TimePicker Margin="0,20,0,0" Time="4:15:26" />
-                                </Frame>
-                            </StackLayout>
-                        </StackLayout>
-                    </Grid>
+                    <StackLayout Grid.Column="1">
 
-                    <Grid Margin="0,10">
-
-                        <!--  Trip name  -->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <!--  Image column  -->
-                            <ColumnDefinition Width="*" />
-
-                            <!--  Text column  -->
-                        </Grid.ColumnDefinitions>
-                        <!--  Trip name  -->
-                        <Image
-                            Margin="0,10,0,0"
-                            Aspect="AspectFit"
-                            HeightRequest="20"
-                            HorizontalOptions="End"
-                            Source="mapnear.png"
-                            WidthRequest="35" />
-
-                        <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
-                        <StackLayout Grid.Column="1">
-
-                            <StackLayout Orientation="Horizontal" Spacing="10">
-                                <Frame
-                                    Grid.Row="0"
-                                    Padding="0"
-                                    BackgroundColor="GhostWhite"
-                                    BorderColor="DarkGray"
-                                    CornerRadius="10"
-                                    HorizontalOptions="FillAndExpand">
-                                    <Entry
-                                        Grid.Column="1"
-                                        Margin="10,0,0,0"
-                                        FontSize="Body"
-                                        Placeholder="Destination"
-                                        PlaceholderColor="DarkGray"
-                                        Text="{Binding Destination}" />
-                                </Frame>
-
-                            </StackLayout>
-
-                        </StackLayout>
-                    </Grid>
-
-                    <Grid Margin="30,30,0,20">
-
-                        <Image
-                            Margin="0,10,0,0"
-                            Aspect="AspectFit"
-                            HeightRequest="20"
-                            HorizontalOptions="End"
-                            Source="note.png"
-                            WidthRequest="35" />
-                        <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
-                        <StackLayout Grid.Column="1">
-
-                            <!--  Set HorizontalOptions to "StartAndExpand" to align the StackLayout to the left  -->
+                        <StackLayout Orientation="Horizontal" Spacing="10">
                             <Frame
                                 Grid.Row="0"
-                                Padding="10"
+                                Padding="0"
                                 BackgroundColor="GhostWhite"
                                 BorderColor="DarkGray"
                                 CornerRadius="10"
-                                HorizontalOptions="FillAndExpand"
-                                MinimumHeightRequest="300">
+                                HorizontalOptions="FillAndExpand">
                                 <Entry
                                     Grid.Column="1"
                                     Margin="10,0,0,0"
                                     FontSize="Body"
-                                    Placeholder="Add Note"
+                                    Placeholder="Average Fuel per Litre"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding TripNotes}" />
+                                    Text="{Binding FuelPricePerLitre}" />
                             </Frame>
                         </StackLayout>
-                    </Grid>
 
-                </StackLayout>
+                    </StackLayout>
+                </Grid>
+                <Grid Margin="0,15,0,10">
+                    <StackLayout Grid.Column="1">
 
-            </Frame>
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <Image
+                                Margin="0,20,0,0"
+                                HeightRequest="20"
+                                Source="calendar.png"
+                                VerticalOptions="Center"
+                                WidthRequest="30" />
+                            <Frame
+                                Grid.Row="0"
+                                Padding="0"
+                                BackgroundColor="GhostWhite"
+                                BorderColor="DarkGray"
+                                CornerRadius="10"
+                                HorizontalOptions="FillAndExpand"
+                                MinimumHeightRequest="60">
+                                <DatePicker
+                                    Margin="0,20,0,0"
+                                    Date="{Binding CurrentDate}"
+                                    MaximumDate="12/31/2050"
+                                    MinimumDate="{Binding Mindate}" />
+                            </Frame>
+
+
+                            <Image
+                                Margin="0,20,0,0"
+                                HeightRequest="20"
+                                Source="clock.png"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                            <Frame
+                                Grid.Row="0"
+                                Padding="0"
+                                BackgroundColor="GhostWhite"
+                                BorderColor="DarkGray"
+                                CornerRadius="10"
+                                HorizontalOptions="FillAndExpand"
+                                MinimumHeightRequest="60">
+                                <TimePicker Margin="0,20,0,0" Time="{Binding CurrentTime.TimeOfDay}" />
+
+                            </Frame>
+                        </StackLayout>
+                    </StackLayout>
+                </Grid>
+
+                <Grid Margin="0,10">
+
+                    <!--  Trip name  -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <!--  Image column  -->
+                        <ColumnDefinition Width="*" />
+
+                        <!--  Text column  -->
+                    </Grid.ColumnDefinitions>
+                    <!--  Trip name  -->
+                    <Image
+                        Margin="0,10,0,0"
+                        Aspect="AspectFit"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="mapnear.png"
+                        WidthRequest="35" />
+
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+                    <StackLayout Grid.Column="1">
+
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Frame
+                                Grid.Row="0"
+                                Padding="0"
+                                BackgroundColor="GhostWhite"
+                                BorderColor="DarkGray"
+                                CornerRadius="10"
+                                HorizontalOptions="FillAndExpand">
+                                <Entry
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    FontSize="Body"
+                                    Placeholder="Destination"
+                                    PlaceholderColor="DarkGray"
+                                    Text="{Binding Destination}" />
+                            </Frame>
+
+                        </StackLayout>
+
+                    </StackLayout>
+                </Grid>
+
+                <Grid Margin="30,30,0,20">
+
+                    <Image
+                        Margin="0,10,0,0"
+                        Aspect="AspectFit"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="note.png"
+                        WidthRequest="35" />
+                    <!--  Set HorizontalOptions to "StartAndExpand" to align the image to the left  -->
+                    <StackLayout Grid.Column="1">
+
+                        <!--  Set HorizontalOptions to "StartAndExpand" to align the StackLayout to the left  -->
+                        <Frame
+                            Grid.Row="0"
+                            Padding="10"
+                            BackgroundColor="GhostWhite"
+                            BorderColor="DarkGray"
+                            CornerRadius="10"
+                            HorizontalOptions="FillAndExpand"
+                            >
+                            <Entry
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                FontSize="Body"
+                                Placeholder="Add Note"
+                                PlaceholderColor="DarkGray"
+                                Text="{Binding TripNotes}" />
+                        </Frame>
+                    </StackLayout>
+                </Grid>
+
+            </StackLayout>
+
+            <!--</Frame>-->
             <StackLayout
-                Margin="0,0,0,20"
+                Margin="20,0,0,20"
                 HorizontalOptions="CenterAndExpand"
                 VerticalOptions="End">
                 <Button

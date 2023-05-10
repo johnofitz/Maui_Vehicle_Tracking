@@ -23,7 +23,9 @@ namespace L00177804_Project.Service.LocationService
         {
             try
             {
+               
                 string apitok = await SecureStorage.GetAsync(apiKey);
+
                 string fullUrl = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origin}&destinations={dest}&key={apitok}";
                 // pass url and return response as a stream
                 var response = await _client.GetAsync(fullUrl);

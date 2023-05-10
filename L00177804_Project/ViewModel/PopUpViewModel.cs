@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Views;
 using L00177804_Project.Service.GoogleMapService;
 using L00177804_Project.Service.LocationService;
-
+using Mopups.Services;
 
 namespace L00177804_Project.ViewModel
 {
@@ -43,6 +43,8 @@ namespace L00177804_Project.ViewModel
             // Start a new background task that updates the device's location.
             // The task takes a delegate (method) to run and the cancellation token.
             await Task.Run(() => _locationTrackService.UpdateLocation(Run, token), token);
+
+            await MopupService.Instance.PopAsync(Run);
         }
 
 
@@ -59,7 +61,8 @@ namespace L00177804_Project.ViewModel
             try
             {
                 bool answer = await Shell.Current.DisplayAlert("Track Journey", "Would you like to track this trip", "Yes", "No");
-
+                // Clear the navigation stack.
+                await MopupService.Instance.PopAsync(Run);
                 // Get the current location using the LocationTrackService.
                 var current = await LocationTrackService.CurrentLocation(token);
 
@@ -77,6 +80,21 @@ namespace L00177804_Project.ViewModel
                 // Get directions from Google Maps using a fallback location (52.663857, -8.639021)
                 // in case the current location could not be retrieved or is null.
                 await GoogleMapService.GetGoogleMaps("52.663857", "-8.639021");
+            }
+            catch (Exception ex)
+            {
+                // If an exception is thrown, print the error message to the debug console.
+                Debug.WriteLine(ex);
+            }
+        }
+
+        [RelayCommand]
+        public async Task AddManualTrip()
+        {
+            try
+            {
+                await Shell.Current.GoToAsync(nameof(AddTripView));
+                await MopupService.Instance.PopAsync(Run);
             }
             catch (Exception ex)
             {
