@@ -1,18 +1,17 @@
-###### CANT RUN UNTIL MINUTES ARE BACK ON GITHUB ACTIONS
-
 # Name of the Github Actions workflow
 name: Testing
+
 # Define the events that trigger the Github Actions workflow
 on:
-#  push:
-#    branches:
-#      - master # Only trigger the workflow on the master branch
-#    paths-ignore:
-#      - '**/*.md' # Ignore markdown files
-#      - '**/*.git*' # Ignore git files
-#  pull_request:
-#    branches:
-#      - master # Only trigger the workflow on the master branch
+  push:
+    branches:
+      - master # Only trigger the workflow on the main branch
+    paths-ignore:
+      - '**/*.md' # Ignore markdown files
+      - '**/*.git*' # Ignore git files
+  pull_request:
+    branches:
+      - master # Only trigger the workflow on the main branch
   workflow_dispatch:
 
 # Define the environment variables to be used in the Github Actions workflow
@@ -20,7 +19,6 @@ env:
   DOTNET_NOLOGO: true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
-
 
 jobs:
   # Setup job to install .NET and MAUI workload
@@ -32,8 +30,8 @@ jobs:
         dotnet-version: [7.0.x]
     steps:
       # Checkout the repository
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       # Install the MAUI workload
@@ -44,8 +42,8 @@ jobs:
     needs: [setup]
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 7.0.x
       - name: Restore NuGet packages
@@ -60,4 +58,4 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2.7.0
         with:
           files: |
-           **/test_results.xml
+            **/test_results.xml
