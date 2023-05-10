@@ -1,0 +1,110 @@
+<assemblies timestamp="05/11/2023 07:33:04">
+  <assembly name="C:\Users\johnf\source\repos\L00177804_Project\xUnitTests\bin\Debug\net7.0\xUnitTests.dll" run-date="2023-05-11" run-time="07:33:04" total="25" passed="25" failed="0" skipped="0" time="4.421" errors="0">
+    <errors />
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.ConsumptionUnitTest" time="0.001">
+      <test name="xUnitTests.ModelTests.ConsumptionUnitTest.Consumption2_ShouldBeMpg" type="xUnitTests.ModelTests.ConsumptionUnitTest" method="Consumption2_ShouldBeMpg" time="0.0008045" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ModelTests.ConsumptionUnitTest.Consumption1_ShouldBeKm100" type="xUnitTests.ModelTests.ConsumptionUnitTest" method="Consumption1_ShouldBeKm100" time="0.0002034" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ModelTests.ConsumptionUnitTest.Consumption3_ShouldBeMpg" type="xUnitTests.ModelTests.ConsumptionUnitTest" method="Consumption3_ShouldBeMpg" time="0.0004130" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.FuelTypesTest" time="0.001">
+      <test name="xUnitTests.ModelTests.FuelTypesTest.FuelTypes_ShouldHaveCorrectDefaultValues" type="xUnitTests.ModelTests.FuelTypesTest" method="FuelTypes_ShouldHaveCorrectDefaultValues" time="0.0011604" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.FuelTypesTests" time="0.001">
+      <test name="xUnitTests.ModelTests.FuelTypesTests.Type2_ShouldBeDiesel" type="xUnitTests.ModelTests.FuelTypesTests" method="Type2_ShouldBeDiesel" time="0.0009500" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ModelTests.FuelTypesTests.Type1_ShouldBePetrol" type="xUnitTests.ModelTests.FuelTypesTests" method="Type1_ShouldBePetrol" time="0.0001856" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.GeometryTest" time="0.018">
+      <test name="xUnitTests.ModelTests.GeometryTest.GeometryModelTest" type="xUnitTests.ModelTests.GeometryTest" method="GeometryModelTest" time="0.0177344" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.NearByTest" time="0.027">
+      <test name="xUnitTests.ModelTests.NearByTest.NearBy_SetAndGetProperties_ShouldMatch" type="xUnitTests.ModelTests.NearByTest" method="NearBy_SetAndGetProperties_ShouldMatch" time="0.0265344" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.ThemeTests" time="0.001">
+      <test name="xUnitTests.ModelTests.ThemeTests.Theme_SetAndGetProperties_ShouldMatch" type="xUnitTests.ModelTests.ThemeTests" method="Theme_SetAndGetProperties_ShouldMatch" time="0.0010215" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.TripTest" time="0.002">
+      <test name="xUnitTests.ModelTests.TripTest.Trip_ShouldNotifyPropertyChanged" type="xUnitTests.ModelTests.TripTest" method="Trip_ShouldNotifyPropertyChanged" time="0.0016681" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for xUnitTests.ModelTests.VehicleModelTest" time="0.016">
+      <test name="xUnitTests.ModelTests.VehicleModelTest.Vehicle_ToString_ShouldReturnName" type="xUnitTests.ModelTests.VehicleModelTest" method="Vehicle_ToString_ShouldReturnName" time="0.0140089" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ModelTests.VehicleModelTest.Vehicle_WithDefaultConstructor_ShouldInitializeProperties" type="xUnitTests.ModelTests.VehicleModelTest" method="Vehicle_WithDefaultConstructor_ShouldInitializeProperties" time="0.0015471" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ModelTests.VehicleModelTest.Vehicle_WithParameterizedConstructor_ShouldSetValues" type="xUnitTests.ModelTests.VehicleModelTest" method="Vehicle_WithParameterizedConstructor_ShouldSetValues" time="0.0007469" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ServiceTests.LocationTrackServiceTest" time="0.016">
+      <test name="xUnitTests.ServiceTests.LocationTrackServiceTest.UpdateLocation_CancellationRequested_ReturnsCurrentLocation" type="xUnitTests.ServiceTests.LocationTrackServiceTest" method="UpdateLocation_CancellationRequested_ReturnsCurrentLocation" time="0.0164511" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ServiceTests.VehicleAddMessageTest" time="0.011">
+      <test name="xUnitTests.ServiceTests.VehicleAddMessageTest.VehicleAddMessage_ValueChangedMessageConstructor_SetsValueProperty" type="xUnitTests.ServiceTests.VehicleAddMessageTest" method="VehicleAddMessage_ValueChangedMessageConstructor_SetsValueProperty" time="0.0113370" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for xUnitTests.ServiceTests.VehicleCalculationsTests" time="0.024">
+      <test name="xUnitTests.ServiceTests.VehicleCalculationsTests.CalculateFuelConsumption_ReturnsCorrectValue" type="xUnitTests.ServiceTests.VehicleCalculationsTests" method="CalculateFuelConsumption_ReturnsCorrectValue" time="0.0178066" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ServiceTests.VehicleCalculationsTests.CalculateCO2Emissions_ReturnsCorrectValue_GivenDieselFuelType" type="xUnitTests.ServiceTests.VehicleCalculationsTests" method="CalculateCO2Emissions_ReturnsCorrectValue_GivenDieselFuelType" time="0.0042187" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ServiceTests.VehicleCalculationsTests.CalculateCO2Emissions_ReturnsCorrectValue_GivenGasolineFuelType" type="xUnitTests.ServiceTests.VehicleCalculationsTests" method="CalculateCO2Emissions_ReturnsCorrectValue_GivenGasolineFuelType" time="0.0015871" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ServiceTests.VehicleChangedMessageTest" time="0.011">
+      <test name="xUnitTests.ServiceTests.VehicleChangedMessageTest.VehicleChangedMessage_ValueChangedMessageConstructor_SetsValueProperty" type="xUnitTests.ServiceTests.VehicleChangedMessageTest" method="VehicleChangedMessage_ValueChangedMessageConstructor_SetsValueProperty" time="0.0109020" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ViewModelTests.AddVehicleViewModelTests" time="0.016">
+      <test name="xUnitTests.ViewModelTests.AddVehicleViewModelTests.SaveVehicleData_WhenCalled_ShouldCreateNewVehicleInstanceAndWriteToFile" type="xUnitTests.ViewModelTests.AddVehicleViewModelTests" method="SaveVehicleData_WhenCalled_ShouldCreateNewVehicleInstanceAndWriteToFile" time="0.0162741" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for xUnitTests.ViewModelTests.ParentViewModelTest" time="0.005">
+      <test name="xUnitTests.ViewModelTests.ParentViewModelTest.ParentViewModel_ShouldInitializeProperties" type="xUnitTests.ViewModelTests.ParentViewModelTest" method="ParentViewModel_ShouldInitializeProperties" time="0.0022994" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ViewModelTests.ParentViewModelTest.ParentViewModel_IsNotBusy_ShouldReturnCorrectValue" type="xUnitTests.ViewModelTests.ParentViewModelTest" method="ParentViewModel_IsNotBusy_ShouldReturnCorrectValue" time="0.0010597" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ViewModelTests.ParentViewModelTest.ParentViewModel_IsNotBusy_ShouldReturnTrueWhenIsBusyIsFalse" type="xUnitTests.ViewModelTests.ParentViewModelTest" method="ParentViewModel_IsNotBusy_ShouldReturnTrueWhenIsBusyIsFalse" time="0.0013074" result="Pass">
+        <traits />
+      </test>
+      <test name="xUnitTests.ViewModelTests.ParentViewModelTest.ParentViewModel_SetProperties_ShouldReflectChanges" type="xUnitTests.ViewModelTests.ParentViewModelTest" method="ParentViewModel_SetProperties_ShouldReflectChanges" time="0.0005435" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for xUnitTests.ViewModelTests.VehicleViewModelTest" time="0.245">
+      <test name="xUnitTests.ViewModelTests.VehicleViewModelTest.Constructor_ShouldCallGetVehiclesAsync" type="xUnitTests.ViewModelTests.VehicleViewModelTest" method="Constructor_ShouldCallGetVehiclesAsync" time="0.2449354" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

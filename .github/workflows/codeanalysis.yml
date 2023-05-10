@@ -3,16 +3,7 @@
 name: "CodeQL"
 
 on:
-  push:
-    branches: [master]
-    paths:
-    - '**.cs'
-    - '**.csproj'
-  pull_request:
-    branches: [master]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+ 
   workflow_dispatch:
 
 jobs:

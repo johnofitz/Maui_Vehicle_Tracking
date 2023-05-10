@@ -16,10 +16,8 @@ namespace xUnitTests.ViewModelTests
         [Fact]
         public async Task SaveVehicleData_WhenCalled_ShouldCreateNewVehicleInstanceAndWriteToFile()
         {
-     
 
-
-            
+            await Task.Delay(10);
 
         }
     }
