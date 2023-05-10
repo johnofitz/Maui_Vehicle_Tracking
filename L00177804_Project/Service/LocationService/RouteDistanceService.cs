@@ -18,12 +18,13 @@ namespace L00177804_Project.Service.LocationService
    
         private RouteData items = new();
 
-
+        private const string apiKey = "GoogleMap";
         public async Task<RouteData> GetRouteDistanceAsync(string origin, string dest)
         {
             try
             {
-                string fullUrl = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origin}&destinations={dest}&key=AIzaSyDs7Eq7iXI1U4e8bX_pWq-AW9-nA0U8znc";
+                string apitok = await SecureStorage.GetAsync(apiKey);
+                string fullUrl = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origin}&destinations={dest}&key={apitok}";
                 // pass url and return response as a stream
                 var response = await _client.GetAsync(fullUrl);
 
