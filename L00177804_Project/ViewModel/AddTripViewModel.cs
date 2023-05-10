@@ -1,18 +1,19 @@
 ﻿
 using L00177804_Project.Service.LocationService;
 using L00177804_Project.Service.VehicleCalculationService;
-using System.Reflection;
+using L00177804_Project.Service.VehicleInfoService;
 
 namespace L00177804_Project.ViewModel
 {
     public partial class AddTripViewModel : ParentViewModel
-    {   
+    {
+        private const string _vehicleFile = "vehicle.json";
 
         private readonly RouteDistanceService _routeDistanceService = new();
 
         private readonly VehicleCalculations _vehicleCalculations = new();
 
-
+        private readonly VehicleDataService _vehicleDataService = new();
         // Target File to save json data
         private readonly string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, "trips.json");
 
@@ -24,10 +25,6 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty] public string tripName;
 
         [ObservableProperty] public string tripDate;
-
-        [ObservableProperty] public string odemeterStart;
-
-        [ObservableProperty] public string odemeterEnd;
 
         [ObservableProperty] public string tripDistance;
 
@@ -41,17 +38,30 @@ namespace L00177804_Project.ViewModel
 
         [ObservableProperty] public string destination;
 
+        [ObservableProperty] public DateTime currentDate;
 
-        // Odometer convert to double
-        public double odeStartconvert = 0.0;
+        [ObservableProperty] public DateTime currentTime = DateTime.Now;
 
-        public double odeEndconvert = 0.0;
+        [ObservableProperty] public DateTime mindate = DateTime.Now;
 
-        public double tripDistanceconvert = 0.0;
+        [ObservableProperty] public string fuelPricePerLitre;
 
-        public double tripCostconvert = 0.0;
 
-        public double tripConsumptionconvert = 0.0;
+        [ObservableProperty] private Vehicle vehicle;
+
+        private double fuelPricePerLitreconvert = 0.0;
+
+        private double fuelCost = 0.0;
+
+        private double tripDistanceconvert = 0.0;
+
+        private double tripConsumptionconvert = 0.0;
+
+        private string start;
+
+        private string finish;
+
+        private int retDistint;
 
         /// <summary>
         ///  AddTrip method
@@ -63,12 +73,9 @@ namespace L00177804_Project.ViewModel
         {
             try
             {
-                if (await CanSaveTripDataAsync() && await IsDoubleAsync(odemeterStart) && await IsDoubleAsync(odemeterEnd))
+                if (await CanSaveTripDataAsync())
                 {
-
-                    odeStartconvert = double.Parse(odemeterStart);
-
-                    odeEndconvert = double.Parse(odemeterEnd);
+                    await GetPrefferedVehicle();
 
                     var getRouteDistance = await _routeDistanceService.GetRouteDistanceAsync(CapitalizeAddress(origin), CapitalizeAddress(destination));
 
@@ -76,23 +83,23 @@ namespace L00177804_Project.ViewModel
 
                     var retDurstring = getRouteDistance.Rows.SelectMany(row => row.Elements).Select(element => element.Duration.Text).FirstOrDefault();
 
-                    var retDistint = getRouteDistance.Rows.SelectMany(row => row.Elements).Select(element => element.Distance.Value).FirstOrDefault();
+                    retDistint = getRouteDistance.Rows.SelectMany(row => row.Elements).Select(element => element.Distance.Value).FirstOrDefault();
 
                     var retDurint = getRouteDistance.Rows.SelectMany(row => row.Elements).Select(element => element.Duration.Value).FirstOrDefault();
 
-                    string start = getRouteDistance.OriginAddresses.FirstOrDefault();
+                    start = getRouteDistance.OriginAddresses.FirstOrDefault();
 
-                    string finsh = getRouteDistance.DestinationAddresses.FirstOrDefault();
+                    finish = getRouteDistance.DestinationAddresses.FirstOrDefault();
 
-                    var fuelConsumed = _vehicleCalculations.CalculateFuelConsumption(retDistint / 1000, 4.5);
+                    var fuelConsumed = _vehicleCalculations.CalculateFuelConsumption(retDistint / 1000, vehicle.AverageFuelConsumption);
 
                     double fuels = fuelConsumed.Result;
 
-                    var carbonEmissions = _vehicleCalculations.CalculateCO2Emissions(fuelConsumed.Result, "diesel");
+                    var carbonEmissions = _vehicleCalculations.CalculateCO2Emissions(fuelConsumed.Result, vehicle.FuelType);
 
                     double carbons = carbonEmissions.Result;
 
-                    var summary = AddToModel(retDiststring,retDurstring,retDistint,retDurint,carbons,fuels,start,finsh);
+                    var summary = AddToModel(retDiststring,retDurstring,retDistint,retDurint,carbons,fuels, start, finish);
 
                     SaveTrip(summary);
                 }
@@ -100,6 +107,10 @@ namespace L00177804_Project.ViewModel
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                await Shell.Current.GoToAsync(nameof(MainPage));
             }
         }
 
@@ -126,26 +137,41 @@ namespace L00177804_Project.ViewModel
             }
 
         }
-
+        /// <summary>
+        /// Method used to add all trip parameters to the trip model
+        /// </summary>
+        /// <param name="dist"></param>
+        /// <param name="duration"></param>
+        /// <param name="distMeters"></param>
+        /// <param name="durationSeconds"></param>
+        /// <param name="carbons"></param>
+        /// <param name="fuels"></param>
+        /// <param name="start"></param>
+        /// <param name="finish"></param>
+        /// <returns></returns>
         private Trip AddToModel(string dist, string duration, int distMeters, int durationSeconds, double carbons, double fuels, string start, string finish)
         {
+            string time = currentTime.ToString("hh:mm:ss tt");
+            string dates = currentDate.Date.ToString("MM/dd/yyyy");
+            double cost = CalculateFuelCost(); 
             Trip trip = new()
             {
+               
+                Vehicle = vehicle.Name,
                 tripNames = tripName,
-                tripDates = tripDate,
-                odometerStarts = odeStartconvert,
-                odometerEnds = odeEndconvert,
+                Origins = start,
+                Destinations = finish,
+                tripDates = dates,
+                tripTimes = time,
                 tripDistances = dist,
                 tripDurations = duration,
                 DistInt = distMeters,
                 DurInt = durationSeconds,
-                tripCosts = tripCostconvert,
+                tripCosts = cost,
                 tripNote = tripNotes,
                 carbonEmissions = carbons,
                 fuelConsumed = fuels,
                 tripConsumptions = tripConsumptionconvert,
-                origins = start,
-                destinations = finish,
             };
             return trip;
         }
@@ -164,12 +190,28 @@ namespace L00177804_Project.ViewModel
             return true;
         }
 
+
+        private Double CalculateFuelCost()
+        {
+            double distanceInKm = retDistint / 1000; // convert distance from meters to kilometers
+            double litersPer100Km = vehicle.averageFuelConsumption; // assume fuel consumption is in liters per 100 km
+            fuelPricePerLitreconvert = double.Parse(fuelPricePerLitre); // assume fuel cost is in dollars per liter
+            if(fuelPricePerLitreconvert > 0)
+            {
+                fuelCost = (distanceInKm / 100) * litersPer100Km * fuelPricePerLitreconvert;
+            }
+            else
+            {
+                fuelCost = (distanceInKm / 100) * litersPer100Km * 1.67;
+            }
+            return fuelCost;
+        }
+
         /// <summary>
         ///  Method to check if the vehicle data can be saved for double information
         /// </summary>
         /// <param name="value"></param>
         /// <returns> Boolean true/false</returns>
-
         public static async Task<bool> IsDoubleAsync(string value)
 
         {
@@ -194,12 +236,35 @@ namespace L00177804_Project.ViewModel
             {
                 if (words[i].Length > 0)
                 {
-                    words[i] = char.ToUpper(words[i][0]) + words[i].Substring(1).ToLower();
+                    words[i] = char.ToUpper(words[i][0]) + words[i][1..].ToLower();
                 }
             }
 
             // Join the words back together to form the capitalized address
             return string.Join(" ", words);
         }
+
+        private async Task GetPrefferedVehicle()
+        {
+            try
+            {
+                // Get the vehicle information from a file using the VehicleDataService.
+                var item = await _vehicleDataService.GetVehiclesInfo(_vehicleFile);
+
+
+                // Get the name of the default vehicle from the user's preferences.
+                string check = item.Select(x => x.Name).FirstOrDefault();
+                var cars = Preferences.Get("cars", check);
+
+                // Set the SelectVehicle property to the default vehicle.
+                vehicle = item.Single(x => x.Name == cars);
+            }
+            catch (Exception ex)
+            {
+                // If an exception is thrown, print the error message to the debug console.
+                Debug.WriteLine(ex);
+            }
+        }
+
     }
 }
