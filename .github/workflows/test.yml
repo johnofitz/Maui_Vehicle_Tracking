@@ -28,7 +28,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [self-hosted]
+        os: [unbuntu-latest]
         dotnet-version: [7.0.x]
     steps:
       # Checkout the repository
