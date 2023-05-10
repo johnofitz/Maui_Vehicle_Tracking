@@ -1,4 +1,5 @@
-﻿using L00177804_Project.Service.LocationService;
+﻿
+using L00177804_Project.Service.LocationService;
 
 
 namespace L00177804_Project.Service.NearByService
@@ -6,9 +7,7 @@ namespace L00177804_Project.Service.NearByService
     public class NearByRestService
     {
         // Constructor 
-        public NearByRestService(){
-            
-        }
+        public NearByRestService(){}
 
         private CancellationTokenSource tokenSource;
         private CancellationToken token;
@@ -29,7 +28,7 @@ namespace L00177804_Project.Service.NearByService
 
         private readonly string keyword = "fuel";
 
-        private readonly string apiKey = "AIzaSyDs7Eq7iXI1U4e8bX_pWq-AW9-nA0U8znc";
+        private const string apiKey = "GoogleMap";
 
         /// <summary>
         /// Method used to Deserialize Json object
@@ -39,14 +38,19 @@ namespace L00177804_Project.Service.NearByService
         /// <returns> A List of Nearby fuel stations</returns>
         public async Task<List<NearBy>> GetNearByAsync(string lat, string lng)
         {
+           
+
+            string apitok = await SecureStorage.GetAsync(apiKey);
+
             // Create a new cancellation token source and token.
             tokenSource = new();
             token = tokenSource.Token;
+          
 
             var current = await LocationTrackService.CurrentLocation(token);
             var currentloc = new Location(current.Latitude, current.Longitude);
 
-            string fullUrl = url + lat + "%2C" + lng + "&radius=" + radius + "&types=" + types + "&keyword=" + keyword + "&key=" + apiKey;
+            string fullUrl = url + lat + "%2C" + lng + "&radius=" + radius + "&types=" + types + "&keyword=" + keyword + "&key=" + apitok;
             // Url to get nearby fuel stations
       
             // pass url and return response as a stream

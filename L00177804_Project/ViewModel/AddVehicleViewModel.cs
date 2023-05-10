@@ -80,6 +80,12 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty]
         public string selectedDistanceType;
 
+        [ObservableProperty]
+        public string fuelConsumptionKm;
+
+        public double fuelConsumptionKmConvert;
+
+
         public string ValidationCheck { get; set; }
 
 
@@ -129,6 +135,8 @@ namespace L00177804_Project.ViewModel
                 // Convert odometer to double
                 odeconvert = double.Parse(odometers);
 
+                fuelConsumptionKmConvert = double.Parse(fuelConsumptionKm);
+
                 try
                 {
                     // Create a new instance of the Vehicle class
@@ -144,6 +152,7 @@ namespace L00177804_Project.ViewModel
                         Distance = SelectedDistanceType,
                         InsurencePolicy = insurencePolicys,
                         InsurenceCompany = insurenceCompanys,
+                        AverageFuelConsumption = fuelConsumptionKmConvert,
                         Licence = licences,
                     };
 

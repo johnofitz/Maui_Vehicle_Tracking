@@ -25,7 +25,8 @@
                 <Frame
                     Margin="20"
                     Padding="10"
-                    BackgroundColor="LightGray">
+                    BackgroundColor="LightGray"
+                    CornerRadius="20">
                     <Grid>
                         <VerticalStackLayout Padding="20" BackgroundColor="LightGray">
                             <Label
@@ -64,7 +65,7 @@
                             </Entry>
                             <Entry
                                 FontSize="Body"
-                                Placeholder="Average Fuel consumption"
+                                Placeholder="{Binding Vehicle.AverageFuelConsumption}"
                                 PlaceholderColor="DarkGray">
                                 <Entry.Behaviors>
                                     <toolkit:TextValidationBehavior
@@ -82,7 +83,8 @@
                 <Frame
                     Margin="20"
                     Padding="20"
-                    BackgroundColor="LightGray">
+                    BackgroundColor="LightGray"
+                    CornerRadius="20">
                     <StackLayout Orientation="Vertical">
                         <Label
                             Margin="0,0,0,10"
@@ -139,7 +141,8 @@
                 <Frame
                     Margin="20"
                     Padding="20"
-                    BackgroundColor="LightGray">
+                    BackgroundColor="LightGray"
+                    CornerRadius="20">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -245,16 +248,21 @@
                     <Button
                         Grid.Column="0"
                         Margin="70,0,0,0"
+                        BackgroundColor="#9eb2e0"
                         Command="{Binding EditVehicleDataCommand}"
+                        CornerRadius="20"
                         HorizontalOptions="Center"
                         Text="Update"
                         VerticalOptions="EndAndExpand"
                         WidthRequest="100" />
+
                     <!--  Add 10 units of margin to the right  -->
                     <Button
                         Grid.Column="1"
                         Margin="0,0,45,0"
+                        BackgroundColor="#9eb2e0"
                         Command="{Binding DeleteVehicleCommand}"
+                        CornerRadius="20"
                         HorizontalOptions="Center"
                         Text="Delete"
                         VerticalOptions="EndAndExpand"

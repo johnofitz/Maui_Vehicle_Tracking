@@ -25,5 +25,6 @@ namespace L00177804_Project.Service.VehicleInfoService
 
             return _vehicles;
         }
+
     }
 }

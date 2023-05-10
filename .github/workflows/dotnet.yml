@@ -1,6 +1,6 @@
 
 # Name of the Github Actions workflow
-name: MAUI
+name: MAUI CI/CD
 # Define the events that trigger the Github Actions workflow
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
-
+      
       - name: Create Android artifacts
         uses: actions/upload-artifact@v3.1.2
         with:

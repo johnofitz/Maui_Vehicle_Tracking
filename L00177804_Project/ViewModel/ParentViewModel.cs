@@ -24,5 +24,6 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty]
         public string defaultName;
 
+        
     }
 }
