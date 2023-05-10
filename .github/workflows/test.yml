@@ -61,7 +61,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
         working-directory: ./xUnitTests
       - name: Run tests
-        run: dotnet test xUnitTests/xUnitTests.csproj
+        run: dotnet test -c Release --logger "trx;LogFileName=test_results.xml" xUnitTests/xUnitTests.csproj
 
   # Job 2: Publish Test Results
   publish-test-results:
