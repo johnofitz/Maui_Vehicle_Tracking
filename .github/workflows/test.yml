@@ -26,7 +26,7 @@ jobs:
         dotnet-version: [7.0.x]
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v2.2.1
+      - uses: actions/cache@v1.2.1
         with:
           path: |
             ~/.nuget/packages
@@ -52,7 +52,7 @@ jobs:
       statuses: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v2.2.1
+      - uses: actions/cache@v1.2.1
         with:
           path: |
             ~/.nuget/packages
