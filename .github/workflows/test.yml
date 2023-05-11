@@ -39,7 +39,7 @@ jobs:
 
 
   # Test job to test the MAUI app
-  test:
+  test-build-artifacts:
     needs: [setup]
     runs-on: ${{ matrix.os }}
     strategy:
@@ -63,10 +63,36 @@ jobs:
         working-directory: ./xUnitTests
       - name: Run tests
         run: dotnet test --logger:xunit
+
+      - name: Create IOS artifacts
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: MAUI-iOS-artifacts
+          path: L00177804_Project/bin/Release/net7.0-ios/
         
+   #   - name: Publish Test Results
+   #     uses: EnricoMi/publish-unit-test-result-action/composite@v2
+   #     if: always()
+   #     with:
+   #       files: |
+   #         **/TestResults.xml
+
+  publish-results:
+    needs: [setup,test-build-artifacts]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+      statuses: write
+    steps:
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
         with:
           files: |
             **/TestResults.xml
+  
