@@ -62,7 +62,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
         working-directory: ./xUnitTests
       - name: Run tests
-        run: dotnet test --logger:xunit
+        run: dotnet test --logger:xunit --results-directory:$GITHUB_WORKSPACE/test-results
 
   # Job 2: Publish Test Results
   publish-test-results:
@@ -74,6 +74,4 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
         with:
-          files: |
-            **/TestResults.xml
-
+          files: ${{ github.workspace }}/test-results/TestResults.xml
