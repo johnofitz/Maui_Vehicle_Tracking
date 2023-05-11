@@ -1,6 +1,15 @@
 name: "CodeQL"
 
 on:
+  push:
+    branches:
+      - master # Only trigger the workflow on the master branch
+    paths-ignore:
+      - '**/*.md' # Ignore markdown files
+      - '**/*.git*' # Ignore git files
+  pull_request:
+    branches:
+      - master # Only trigger the workflow on the master branch
   workflow_dispatch:
 
 jobs:
@@ -12,14 +21,14 @@ jobs:
       matrix:
         language: ['csharp']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: actions/cache@v1.2.1
       with:
         path: |
           ~/.nuget/packages
           ./bin
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/project.assets.json') }}-${{ matrix.language }}
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
     - run: dotnet workload install maui --ignore-failed-sources
