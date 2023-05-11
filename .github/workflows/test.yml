@@ -70,11 +70,6 @@ jobs:
         working-directory: ./xUnitTests
       - name: Run tests
         run: dotnet test --logger:xunit
-      - name: Create IOS artifacts
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: MAUI-iOS-artifacts
-          path: xUnitTests/bin/Release/net7.0-ios/
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
