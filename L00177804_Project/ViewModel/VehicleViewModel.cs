@@ -14,7 +14,7 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty]
         bool _isRefreshing;
         // Create an instance of the VehicleDataService class
-        private readonly VehicleDataService VehicleDataService;
+        private readonly VehicleDataService VehicleDataService = new();
 
         private const string _vehicleFile = "vehicle.json";
 
@@ -33,11 +33,10 @@ namespace L00177804_Project.ViewModel
         ///  Constructor for the VehicleViewModel class
         ///  accepts a VehicleDataService object
         /// </summary>
-        /// <param name="vehicleData"></param>
 
-        public VehicleViewModel(VehicleDataService vehicleData) {
+
+        public VehicleViewModel() {
             
-            VehicleDataService = vehicleData;
             AddVehicles();
             _ = GetVehiclesAsync();
         }

@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="L00177804_Project.View.ExpenseView"
-             Title="Expenses">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    x:Class="L00177804_Project.View.ExpenseView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+    xmlns:models="clr-namespace:L00177804_Project.Models.TripModel"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
+    Title="{Binding Heading}"
+    x:DataType="viewmodel:ExpensesViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}">
+
+    <AbsoluteLayout>
+        <!--  Content  -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+
+            <StackLayout Padding="5">
+                <!--  GRAPHING STATS  -->
+                <Grid Padding="10">
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="GhostWhite"
+                        CornerRadius="25"
+                        HeightRequest="350">
+                        <!--  Set the image to the start of the grid (left)  -->
+                        <StackLayout>
+                              <!--Bind ItemsSource and SelectedItem to ViewModel properties-->  
+                            <chart:SfCartesianChart Title="Expense Analysis">
+                                <chart:SfCartesianChart.BindingContext>
+                                    <viewmodel:ExpensesViewModel />
+                                </chart:SfCartesianChart.BindingContext>
+                                <chart:ColumnSeries
+                                    EnableTooltip="True"
+                                    ItemsSource="{Binding Summaries}"
+                                    Label="Trip Costs"
+                                    XBindingPath="Vehicle"
+                                    YBindingPath="TotalTripCosts" />
+
+                                <chart:SfCartesianChart.Legend>
+                                    <chart:ChartLegend />
+                                </chart:SfCartesianChart.Legend>
+                                <chart:SfCartesianChart.XAxes>
+                                    <chart:CategoryAxis>
+                                        <chart:CategoryAxis.Title>
+                                            <chart:ChartAxisTitle Text="Vehicle" />
+                                        </chart:CategoryAxis.Title>
+                                    </chart:CategoryAxis>
+                                </chart:SfCartesianChart.XAxes>
+
+                                <chart:SfCartesianChart.YAxes>
+                                    <chart:NumericalAxis>
+                                        <chart:NumericalAxis.Title>
+                                            <chart:ChartAxisTitle Text="Cost (€)" />
+                                        </chart:NumericalAxis.Title>
+                                    </chart:NumericalAxis>
+                                </chart:SfCartesianChart.YAxes>
+                            </chart:SfCartesianChart>
+
+                           
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+
+                <Grid Padding="10">
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="GhostWhite"
+                        CornerRadius="25"
+                        HeightRequest="350">
+                        <!--  Set the image to the start of the grid (left)  -->
+                        <StackLayout>
+                            <!--Bind ItemsSource and SelectedItem to ViewModel properties-->
+                            <chart:SfCartesianChart Title="Expense Overview of Trips">
+                                <chart:SfCartesianChart.BindingContext>
+                                    <viewmodel:ExpensesViewModel />
+                                </chart:SfCartesianChart.BindingContext>
+                                <chart:ScatterSeries
+                                    PointHeight="7"
+						 PointWidth="7"
+                                    EnableTooltip="True"
+                                    ItemsSource="{Binding VehiclesCollection}"
+                                    Label="Trip Costs"
+                                   
+                                    XBindingPath="TripDates"
+                                    YBindingPath="TripCosts" />
+
+                                <chart:SfCartesianChart.Legend>
+                                    <chart:ChartLegend />
+                                </chart:SfCartesianChart.Legend>
+                                <chart:SfCartesianChart.XAxes>
+                                    <chart:CategoryAxis>
+                                        <chart:CategoryAxis.Title>
+                                            <chart:ChartAxisTitle Text="Vehicle" />
+                                        </chart:CategoryAxis.Title>
+                                    </chart:CategoryAxis>
+                                </chart:SfCartesianChart.XAxes>
+
+                                <chart:SfCartesianChart.YAxes>
+                                    <chart:NumericalAxis>
+                                        <chart:NumericalAxis.Title>
+                                            <chart:ChartAxisTitle Text="Cost (€)" />
+                                        </chart:NumericalAxis.Title>
+                                    </chart:NumericalAxis>
+                                </chart:SfCartesianChart.YAxes>
+                            </chart:SfCartesianChart>
+
+
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </AbsoluteLayout>
 </ContentPage>
 

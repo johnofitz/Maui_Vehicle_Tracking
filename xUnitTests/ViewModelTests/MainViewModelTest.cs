@@ -1,28 +1,24 @@
-﻿using L00177804_Project.Service.VehicleInfoService;
-using L00177804_Project.ViewModel;
+﻿
 using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace xUnitTests.ViewModelTests
 {
     public class MainPageViewModelTests
     {
-        //[Fact]
-        //public async Task AddToMainAsync()
-        //{
+        [Fact]
+        public async Task AddVehiclesToMainAsync_AddsVehiclesToCollection()
+        {
+            // Arrange
+           
+            var viewModel = new MainViewModel();
 
-        //    var dataService = Substitute.For<VehicleDataService>();
+            // Act
+            await viewModel.AddVehiclesToMainAsync();
 
-        //    // Arrange
-        //    MainPageViewModel viewModel = new(dataService);
-        //    // Act
-        //    var car = viewModel.AddVehiclesToMainAsync();
-        //    //
-        //    Assert.NotNull(car);
-        //}
+            // Assert
+            Assert.Empty(viewModel.VehiclesCollection);
+        }
+
     }
 }

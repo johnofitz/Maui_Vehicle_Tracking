@@ -106,7 +106,18 @@ namespace L00177804_Project.ViewModel
             }
             finally
             {
-                await Shell.Current.GoToAsync(nameof(MainPage));
+                await Shell.Current.DisplayAlert("Sucess", "A Trip has been Added", "OK");
+                origin = string.Empty;
+                destination = string.Empty;
+                tripName = string.Empty;
+                tripNotes = string.Empty;
+                tripDate = string.Empty;
+                tripDistance = string.Empty;
+                tripCost = string.Empty;
+                tripConsumption = string.Empty;
+                tripCost = string.Empty;
+                tripConsumption = string.Empty;
+                tripCost = string.Empty;
             }
         }
 
@@ -116,6 +127,7 @@ namespace L00177804_Project.ViewModel
             // Check if the file exists
             if (!File.Exists(targetFile))
             {
+                trip.Id = 1;
                 logging.Add(trip);
                 string json = JsonConvert.SerializeObject(logging);
                 File.WriteAllText(targetFile, json);
@@ -126,7 +138,8 @@ namespace L00177804_Project.ViewModel
                 string json = File.ReadAllText(targetFile);
                 logging = JsonConvert.DeserializeObject<List<Trip>>(json);
 
-
+                // Set the ID for subsequent entries
+                trip.Id = logging.Max(v => v.Id) + 1;
                 logging.Add(trip);
                 string newJson = JsonConvert.SerializeObject(logging);
                 File.WriteAllText(targetFile, newJson);
@@ -155,19 +168,19 @@ namespace L00177804_Project.ViewModel
             {
                
                 Vehicle = vehicle.Name,
-                tripNames = tripName,
+                TripNames = tripName,
                 Origins = start,
                 Destinations = finish,
-                tripDates = dates,
-                tripTimes = time,
-                tripDistances = dist,
-                tripDurations = duration,
+                TripDates = dates,
+                TripTimes = time,
+                TripDistances = dist,
+                TripDurations = duration,
                 DistInt = distMeters,
                 DurInt = durationSeconds,
-                tripCosts = cost,
-                tripNote = tripNotes,
-                carbonEmissions = carbons,
-                fuelConsumed = fuels,
+                TripCosts = cost,
+                TripNote = tripNotes,
+                CarbonEmissions = carbons,
+                FuelConsumed = fuels
             
             };
             return trip;

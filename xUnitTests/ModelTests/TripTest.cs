@@ -22,7 +22,7 @@ namespace xUnitTests.ModelTests
             };
 
             // Act
-            trip.vehicle = "Test Vehicle";
+            trip.Vehicle = "Test Vehicle";
 
             // Assert
             Assert.False(wasPropertyChangedCalled, "PropertyChanged event not raised for 'vehicle' property.");

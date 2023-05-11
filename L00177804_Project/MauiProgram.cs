@@ -28,8 +28,8 @@ public static class MauiProgram
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
+        builder.Services.AddTransient<MainViewModel>();
 
-        builder.Services.AddTransient<MainPageViewModel>();
         builder.Services.AddTransient<MainPage>();
 
 		builder.Services.AddTransient<EditVehicleView>();
@@ -60,7 +60,7 @@ public static class MauiProgram
 
 
 		builder.Services.AddTransient<ReminderView>();
-		//builder.Services.AddTransient<ReminderViewModel>();
+		builder.Services.AddTransient<ReminderViewModel>();
 
 		builder.Services.AddTransient<AddVehicleView>();
 		builder.Services.AddTransient<AddVehicleViewModel>();

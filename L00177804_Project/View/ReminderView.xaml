@@ -3,8 +3,62 @@
     x:Class="L00177804_Project.View.ReminderView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundColor="{DynamicResource BackgroundColor}"
-    Title="Reminder">
+    xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+    xmlns:models="clr-namespace:L00177804_Project.Models.TripModel"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
+    Title="{Binding Heading}"
+    x:DataType="viewmodel:TripLogViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}">
+
+
+    <AbsoluteLayout>
+        <!--  Content  -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+
+            <StackLayout Padding="5">
+                <!--  CollectionView content  -->
+                <CollectionView ItemsSource="{Binding Summaries}" SelectionMode="Multiple">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:TripSummary">
+                            <Grid Padding="10">
+                                <Frame
+                                    Margin="20"
+                                    Padding="0"
+                                    BackgroundColor="GhostWhite"
+                                    CornerRadius="25"
+                                    HeightRequest="165">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <StackLayout Orientation="Vertical">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Medium"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Vehicle}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding ServiceDistance, StringFormat=' {0} Km Until Service'}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </AbsoluteLayout>
 
 
 </ContentPage>

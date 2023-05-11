@@ -46,7 +46,7 @@
 
                             <Entry
                                 FontSize="Body"
-                                Placeholder="Odmeter"
+                                Placeholder="Fuel Consumption in Litres"
                                 PlaceholderColor="DarkGray"
                                 Text="{Binding FuelConsumptionKm}"
                                 TextColor="Black" />

@@ -2,23 +2,29 @@
 
 namespace L00177804_Project.Models
 {
-    public partial class Trip: ObservableObject
+    public partial class Trip
     {
-        [ObservableProperty] public string vehicle;
-        [ObservableProperty] public string tripNames;
-        [ObservableProperty] public string tripDates;
-        [ObservableProperty] public string tripTimes;
-        [ObservableProperty] public string tripDistances;
-        [ObservableProperty] public string tripDurations;
-        [ObservableProperty] public double tripCosts;
-        [ObservableProperty] public string tripNote;
-        [ObservableProperty] public string origins;
-        [ObservableProperty] public string destinations;
-        [ObservableProperty] public double carbonEmissions;
-        [ObservableProperty] public int distInt;
-        [ObservableProperty] public int durInt;
-        [ObservableProperty] public double fuelConsumed;
-        [ObservableProperty] public double carbon;
+        public int Id { get; set; }
+        public string Vehicle { get; set; }
+        public string TripNames { get; set; }
+        public string TripDates { get; set; }
+        public string TripTimes { get; set; }
+        public string TripDistances { get; set; }
+        public string TripDurations { get; set; }
+        public double TripCosts { get; set; }
+        public double CarbonEmissions { get; set; }
+        public int DistInt { get; set; }
+        public int DurInt { get; set; }
+        public double FuelConsumed { get; set; }
+        public string TripNote { get; set; }
+        public string Origins { get; set; }
+        public string Destinations { get; set; }
+  
+        public DateOnly DateOnly { get; set; }
+        public TimeOnly DimeOnly { get; set; }
+
+
+      
 
     }
 }

@@ -1,20 +1,26 @@
-using L00177804_Project.Service.VehicleInfoService;
+﻿using L00177804_Project.Service.VehicleInfoService;
 using L00177804_Project.Service.GoogleMapService;
 using L00177804_Project.Service.LocationService;
 using L00177804_Project.Service.NearByService;
 using Mopups.Services;
-
+using L00177804_Project.Models.TripModel;
+using L00177804_Project.Service.TripService;
 
 namespace L00177804_Project.ViewModel
 {
-    public partial class MainPageViewModel : ParentViewModel
+    public partial class MainViewModel : ParentViewModel
     {
 
         private const string _vehicleFile = "vehicle.json";
 
+        private const string _tripFile = "trips.json";
+
+        private readonly TripServiceLog _tripServiceLog = new();
+
+        public ObservableCollection<Trip> Summaries { get; set; } = new();
 
         // Create an instance of the VehicleDataService class
-        private readonly VehicleDataService VehicleDataService;
+        private readonly VehicleDataService VehicleDataService = new();
 
         // Create an instance of the GoogleMapService class
         private readonly PopUpViewModel popUp = new();
@@ -37,20 +43,19 @@ namespace L00177804_Project.ViewModel
         /// <summary>
         /// Constructor for the MainPageViewModel class
         /// </summary>
-        /// <param name="vehicleData"></param>
-        public MainPageViewModel(VehicleDataService vehicleData)
+        public MainViewModel()
         {
-           
-            // Create an instance of the VehicleDataService class
-            VehicleDataService = vehicleData;
 
+        
             // Get Vehicle data from json file
             _ = AddVehiclesToMainAsync();
 
             // Get NearBy Fuel stations within 1.5km
             _ = GetNearByItemsAsync();
+
+            LoadTripLogs();
         }
-    
+
         /// <summary>
         /// This method adds vehicle information to a collection 
         /// and selects a default vehicle.
@@ -86,7 +91,31 @@ namespace L00177804_Project.ViewModel
             }
         }
 
+        public async void LoadTripLogs()
+        {
+            try
+            {
+                // Get the trip information from a file using the tripService.
+                var item = await _tripServiceLog.GetVehiclesInfo(_tripFile);
 
+                // If the tripollection already has items, clear them out.
+                if (Summaries.Count != 0)
+                {
+                    Summaries.Clear();
+                }
+         
+                // Add each vehicle in the item list to the tripCollection.
+                item.ForEach(Summaries.Add);
+
+
+
+            }
+            catch (Exception ex)
+            {
+                // If an exception is thrown, print the error message to the debug console.
+                Debug.WriteLine(ex);
+            }
+        }
 
         /// <summary>
         ///  Relay Command that accesses NearByRestService to get nearby fuel stations
@@ -128,7 +157,7 @@ namespace L00177804_Project.ViewModel
         /// <returns></returns>
         [RelayCommand]
         public async Task GoToFuelStation(NearBy nearBy)
-        {      
+        {
             // Create a new cancellation token source and token.
             tokenSource = new();
             token = tokenSource.Token;
@@ -147,7 +176,7 @@ namespace L00177804_Project.ViewModel
                 // by passing the current latitude and longitude to the GetGoogleMaps method.
                 if (current != null)
                 {
-                    await GoogleMapService.GetGoogleMapsRoute(current.Latitude.ToString(), current.Longitude.ToString(),nearBy.Geometry.Location.Latitiude.ToString(), nearBy.Geometry.Location.Longitude.ToString());
+                    await GoogleMapService.GetGoogleMapsRoute(current.Latitude.ToString(), current.Longitude.ToString(), nearBy.Geometry.Location.Latitiude.ToString(), nearBy.Geometry.Location.Longitude.ToString());
                 }
             }
             catch (Exception ex)
@@ -155,7 +184,7 @@ namespace L00177804_Project.ViewModel
                 // If an exception is thrown, print the error message to the debug console.
                 Debug.WriteLine(ex);
             }
-            
+
         }
 
         /// <summary>
