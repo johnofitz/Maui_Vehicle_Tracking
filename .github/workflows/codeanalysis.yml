@@ -1,47 +1,44 @@
-
-
 name: "CodeQL"
 
 on:
   push:
-    branches: [master]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+    branches:
+      - master # Only trigger the workflow on the master branch
+    paths-ignore:
+      - '**/*.md' # Ignore markdown files
+      - '**/*.git*' # Ignore git files
   pull_request:
-    branches: [master]
-    paths:
-    - '**.cs'
-    - '**.csproj'
+    branches:
+      - master # Only trigger the workflow on the master branch
   workflow_dispatch:
 
 jobs:
   analyze:
-
     name: analyze
-    runs-on: ubuntu-latest
-
+    runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
         language: ['csharp']
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v1.2.1
       with:
-        fetch-depth: 2
-
-    - run: git checkout HEAD^2
-      if: ${{ github.event_name == 'pull_request' }}
-
+        path: |
+          ~/.nuget/packages
+          ./bin
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/project.assets.json') }}-${{ matrix.language }}
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - run: dotnet workload install maui --ignore-failed-sources
+    - name: Restore NuGet packages
+      run: dotnet restore
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
-
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
-
+    - name: Build project
+      run: dotnet build 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

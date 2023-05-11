@@ -27,14 +27,23 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [self-hosted]
+        os: [windows-latest]
         dotnet-version: [7.0.x]
     steps:
       # Checkout the repository
       - uses: actions/checkout@v3
-      - uses: actions/setup-dotnet@v3
+      
+      # Cache NuGet packages and the .NET SDK for faster builds
+      - name: Cache .NET packages
+        uses: actions/cache@v1.2.1
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          path: '~/.nuget/packages'
+          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
+            ${{ runner.os }}-dotnet-
+      
       # Install the MAUI workload
       - run: dotnet workload install maui --ignore-failed-sources
   
@@ -43,7 +52,7 @@ jobs:
     # Define the jobs that this job depends on
     needs: [setup]
     name: Build MAUI for Android
-    runs-on: self-hosted
+    runs-on: windows-latest
     strategy:
       matrix:
         os: [android-latest]
@@ -51,6 +60,18 @@ jobs:
         target-framework: [net7.0-android]
     steps:
       - uses: actions/checkout@v3
+      
+      # Cache NuGet packages and the .NET SDK for faster builds
+      - name: Cache .NET packages
+        uses: actions/cache@v1.2.1
+        with:
+          path: '~/.nuget/packages'
+          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
+            ${{ runner.os }}-dotnet-
+      
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
@@ -61,13 +82,13 @@ jobs:
         with:
           name: MAUI-Android-artifacts
           path: L00177804_Project/bin/Release/net7.0-android/
-      
- # Build job to build the MAUI app for iOS
+          
+  # Build job to build the MAUI app for ios
   build-ios:
     # Define the jobs that this job depends on
     needs: [setup]
-    name: Build MAUI for iOS
-    runs-on: self-hosted
+    name: Build MAUI for IOS
+    runs-on: windows-latest
     strategy:
       matrix:
         os: [macos-latest]
@@ -75,22 +96,36 @@ jobs:
         target-framework: [net7.0-ios]
     steps:
       - uses: actions/checkout@v3
+      
+      # Cache NuGet packages and the .NET SDK for faster builds
+      - name: Cache .NET packages
+        uses: actions/cache@v1.2.1
+        with:
+          path: '~/.nuget/packages'
+          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
+            ${{ runner.os }}-dotnet-
+      
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
-
+      
       - name: Create IOS artifacts
         uses: actions/upload-artifact@v3.1.2
         with:
           name: MAUI-iOS-artifacts
           path: L00177804_Project/bin/Release/net7.0-ios/
+      
+
     
 
   # Test job to test the MAUI app
   test:
     needs: [build-android, build-ios]
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-dotnet@v3
@@ -104,19 +139,14 @@ jobs:
         working-directory: ./xUnitTests
       - name: Run tests
         run: dotnet test xUnitTests/xUnitTests.csproj
-        #run: dotnet test --no-build --configuration Release --logger "trx;LogFileName=test_results.xml" ./xUnitTests
-      #- name: Publish Test Results
-      #  uses: EnricoMi/publish-unit-test-result-action@v2.7.0
-      #  with:
-      #    files: |
-      #      **/test_results.xml
+
 
   # Deploy job to deploy the MAUI app         
   deploy:
     needs: test
     if: ${{ needs.test.result == 'success' }}
     name: Deploy MAUI App
-    runs-on: self-hosted
+    runs-on: windows-latest
     steps:
       - name: Deploy to Playstore
         run: echo "Deploying to Playstore in progress"
