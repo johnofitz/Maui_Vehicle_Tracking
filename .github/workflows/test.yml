@@ -37,8 +37,8 @@ jobs:
       # Install the MAUI workload
       - run: dotnet workload install maui --ignore-failed-sources
 
+
   # Test job to test the MAUI app
-  # Job 1: Test
   test:
     needs: [setup]
     runs-on: ${{ matrix.os }}
@@ -62,16 +62,11 @@ jobs:
         run: dotnet build --configuration Release --no-restore
         working-directory: ./xUnitTests
       - name: Run tests
-        run: dotnet test --logger:xunit --results-directory:$GITHUB_WORKSPACE/test-results
-
-  # Job 2: Publish Test Results
-  publish-test-results:
-    needs: [test]
-    runs-on: windows-latest
-    if: always()
-    steps:
+        run: dotnet test --logger:xunit
+        
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
         with:
-          files: ${{ github.workspace }}/test-results/TestResults.xml
+          files: |
+            **/TestResults.xml
