@@ -38,13 +38,10 @@ namespace L00177804_Project.Service.NearByService
         /// <returns> A List of Nearby fuel stations</returns>
         public async Task<List<NearBy>> GetNearByAsync(string lat, string lng)
         {
-
             string apitok = await SecureStorage.GetAsync(apiKey);
-
-            // Create a new cancellation token source and token.
+         // Create a new cancellation token source and token.
             tokenSource = new();
             token = tokenSource.Token;
-          
 
             var current = await LocationTrackService.CurrentLocation(token);
             var currentloc = new Location(current.Latitude, current.Longitude);
@@ -63,7 +60,6 @@ namespace L00177804_Project.Service.NearByService
 
             // pass string as a json object
             JObject json = JObject.Parse(value);
-
             // Check if contains Response key
             if (json.ContainsKey(resp))
             {

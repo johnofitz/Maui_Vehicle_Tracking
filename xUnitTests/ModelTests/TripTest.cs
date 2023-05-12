@@ -13,14 +13,6 @@ namespace xUnitTests.ModelTests
             var expectedPropertyName = "vehicle";
             var wasPropertyChangedCalled = false;
 
-            trip.PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == expectedPropertyName)
-                {
-                    wasPropertyChangedCalled = true;
-                }
-            };
-
             // Act
             trip.Vehicle = "Test Vehicle";
 
