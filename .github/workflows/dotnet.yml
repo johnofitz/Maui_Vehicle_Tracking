@@ -47,17 +47,17 @@ jobs:
       # Install the MAUI workload
       - run: dotnet workload install maui --ignore-failed-sources
   
-  # Build job to build the MAUI app for Android
-  build-android:
+  # Build job to build the MAUI app for Android & IOS
+  build-maui:
     # Define the jobs that this job depends on
     needs: [setup]
     name: Build MAUI for Android
     runs-on: windows-latest
     strategy:
       matrix:
-        os: [android-latest]
+        os: [android-latest,macos-latest]
         dotnet-version: [7.0.x]
-        target-framework: [net7.0-android]
+        target-framework: [net7.0-android,net7.0-ios]
     steps:
       - uses: actions/checkout@v3
       
@@ -81,51 +81,15 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v3.1.2
         with:
-          name: MAUI-Android-artifacts
+          name: MAUI-artifacts
           path: L00177804_Project/bin/Release/net7.0-android/
+                L00177804_Project/bin/Release/net7.0-ios/
           
-  # Build job to build the MAUI app for ios
-  build-ios:
-    # Define the jobs that this job depends on
-    needs: [setup]
-    name: Build MAUI for IOS
-    runs-on: windows-latest
-    strategy:
-      matrix:
-        os: [macos-latest]
-        dotnet-version: [7.0.x]
-        target-framework: [net7.0-ios]
-    steps:
-      - uses: actions/checkout@v3
-      
-      # Cache NuGet packages and the .NET SDK for faster builds
-      - name: Cache .NET packages
-        uses: actions/cache@v1.2.1
-        with:
-          path: '~/.nuget/packages'
-          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
-            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
-            ${{ runner.os }}-dotnet-
-      
-      - uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
-      
-      - name: Create IOS artifacts
-        if: success()
-        uses: actions/upload-artifact@v3.1.2
-        with:
-
-          name: MAUI-iOS-artifacts
-          path: L00177804_Project/bin/Release/net7.0-ios/
       
   # Test job to run the unit tests
 
   test:
-    needs: [build-android, build-ios]
+    needs: [build-maui]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -163,7 +127,7 @@ jobs:
             **/TestResults.xml
 
   analyze:
-    needs: [build-android, build-ios]
+    needs: [build-maui]
     name: analyze
     runs-on: windows-latest
     strategy:
