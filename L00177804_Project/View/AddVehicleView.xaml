@@ -4,9 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:L00177804_Project.Models"
+        xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     Title="Add Vehicle"
-    x:DataType="viewmodel:AddVehicleViewModel">
+    x:DataType="viewmodel:AddVehicleViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}">
 
 
     <ContentPage.Resources>
@@ -36,20 +38,47 @@
                                 Placeholder="Name"
                                 PlaceholderColor="DarkGray"
                                 Text="{Binding Names}"
-                                TextColor="Black" />
+                                >
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="10"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
                             <Entry
                                 FontSize="Body"
                                 Placeholder="Odmeter"
                                 PlaceholderColor="DarkGray"
                                 Text="{Binding Odometers}"
-                                TextColor="Black" />
+                                >
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="10"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
 
                             <Entry
                                 FontSize="Body"
                                 Placeholder="Fuel Consumption in Litres"
                                 PlaceholderColor="DarkGray"
                                 Text="{Binding FuelConsumptionKm}"
-                                TextColor="Black" />
+                                >
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="10"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>

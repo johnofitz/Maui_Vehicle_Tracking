@@ -20,8 +20,8 @@ namespace L00177804_Project.Models
         public string Origins { get; set; }
         public string Destinations { get; set; }
   
-        public DateOnly DateOnly { get; set; }
-        public TimeOnly DimeOnly { get; set; }
+        public DateTime DateTime { get; set; }
+
 
 
       

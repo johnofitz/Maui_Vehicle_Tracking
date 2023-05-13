@@ -36,7 +36,6 @@ namespace L00177804_Project.ViewModel
                 }
                 var recentTrips = item.OrderByDescending(t => t.TripDates) // sort by date, most recent first
                       .Take(4) // take the most recent 5 trips
-                      .Reverse()
                       .ToList();
                 recentTrips.ForEach(TripCollection.Add);
 

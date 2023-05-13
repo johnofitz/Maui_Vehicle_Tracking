@@ -38,6 +38,8 @@ namespace L00177804_Project.Service.NearByService
         /// <returns> A List of Nearby fuel stations</returns>
         public async Task<List<NearBy>> GetNearByAsync(string lat, string lng)
         {
+           
+
             string apitok = await SecureStorage.GetAsync(apiKey);
          // Create a new cancellation token source and token.
             tokenSource = new();

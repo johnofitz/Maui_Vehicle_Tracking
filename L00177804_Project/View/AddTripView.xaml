@@ -9,7 +9,11 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     Title="Add Trip"
-    x:DataType="viewmodel:AddTripViewModel">
+    x:DataType="viewmodel:AddTripViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}">
+
+    
+
 
 
     <ContentPage.Resources>
@@ -19,6 +23,9 @@
         <Style x:Key="ValidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Green" />
         </Style>
+        <!--<Style TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
+        </Style>-->
     </ContentPage.Resources>
 
     <ScrollView>
@@ -60,7 +67,16 @@
                                 FontSize="Body"
                                 Placeholder="Trip Name"
                                 PlaceholderColor="DarkGray"
-                                Text="{Binding TripName}" />
+                                Text="{Binding TripName}">
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="20"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </Frame>
                     </StackLayout>
                 </Grid>
@@ -103,7 +119,16 @@
                                     FontSize="Body"
                                     Placeholder="Origin"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding Origin}" />
+                                    Text="{Binding Origin}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="20"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </Frame>
                         </StackLayout>
 
@@ -149,7 +174,16 @@
                                     FontSize="Body"
                                     Placeholder="Average Fuel per Litre"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding FuelPricePerLitre}" />
+                                    Text="{Binding FuelPricePerLitre}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="10"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </Frame>
                         </StackLayout>
 
@@ -238,7 +272,16 @@
                                     FontSize="Body"
                                     Placeholder="Destination"
                                     PlaceholderColor="DarkGray"
-                                    Text="{Binding Destination}" />
+                                    Text="{Binding Destination}">
+                                    <Entry.Behaviors>
+                                        <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="20"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                    </Entry.Behaviors>
+                                </Entry>
                             </Frame>
 
                         </StackLayout>
@@ -265,15 +308,24 @@
                             BackgroundColor="GhostWhite"
                             BorderColor="DarkGray"
                             CornerRadius="10"
-                            HorizontalOptions="FillAndExpand"
-                            >
+                            HorizontalOptions="FillAndExpand">
                             <Entry
                                 Grid.Column="1"
                                 Margin="10,0,0,0"
                                 FontSize="Body"
                                 Placeholder="Add Note"
                                 PlaceholderColor="DarkGray"
-                                Text="{Binding TripNotes}" />
+                                Text="{Binding TripNotes}"
+                                >
+                                <Entry.Behaviors>
+                                    <toolkit:TextValidationBehavior
+                                        Flags="ValidateOnAttaching,ValidateOnValueChanged"
+                                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                        MaximumLength="20"
+                                        MinimumLength="1"
+                                        ValidStyle="{StaticResource ValidEntryStyle}" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </Frame>
                     </StackLayout>
                 </Grid>
@@ -289,7 +341,7 @@
                     BackgroundColor="#9eb2e0"
                     Command="{Binding AddTripCommand}"
                     CornerRadius="20"
-                    Text="Save Vehicle"
+                    Text="Save Trip"
                     WidthRequest="200" />
             </StackLayout>
 

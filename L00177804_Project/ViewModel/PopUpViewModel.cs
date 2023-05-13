@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Maui.Views;
-using L00177804_Project.Service.GoogleMapService;
+﻿using L00177804_Project.Service.GoogleMapService;
 using L00177804_Project.Service.LocationService;
 using Mopups.Services;
 

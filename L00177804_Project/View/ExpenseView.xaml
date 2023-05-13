@@ -20,13 +20,14 @@
                 <!--  GRAPHING STATS  -->
                 <Grid Padding="10">
                     <Frame
+                        Margin="0,20,0,0"
                         Padding="0"
                         BackgroundColor="GhostWhite"
                         CornerRadius="25"
                         HeightRequest="350">
                         <!--  Set the image to the start of the grid (left)  -->
                         <StackLayout>
-                              <!--Bind ItemsSource and SelectedItem to ViewModel properties-->  
+                            <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
                             <chart:SfCartesianChart Title="Expense Analysis">
                                 <chart:SfCartesianChart.BindingContext>
                                     <viewmodel:ExpensesViewModel />
@@ -58,32 +59,31 @@
                                 </chart:SfCartesianChart.YAxes>
                             </chart:SfCartesianChart>
 
-                           
+
                         </StackLayout>
                     </Frame>
                 </Grid>
 
                 <Grid Padding="10">
                     <Frame
+                        Margin="0,30,0,0"
                         Padding="0"
                         BackgroundColor="GhostWhite"
                         CornerRadius="25"
                         HeightRequest="350">
                         <!--  Set the image to the start of the grid (left)  -->
                         <StackLayout>
-                            <!--Bind ItemsSource and SelectedItem to ViewModel properties-->
+                            <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
                             <chart:SfCartesianChart Title="Expense Overview of Trips">
                                 <chart:SfCartesianChart.BindingContext>
                                     <viewmodel:ExpensesViewModel />
                                 </chart:SfCartesianChart.BindingContext>
-                                <chart:ScatterSeries
-                                    PointHeight="7"
-						 PointWidth="7"
+                                <chart:SplineAreaSeries
                                     EnableTooltip="True"
                                     ItemsSource="{Binding VehiclesCollection}"
                                     Label="Trip Costs"
-                                   
-                                    XBindingPath="TripDates"
+                                
+                                    XBindingPath="DateTime"
                                     YBindingPath="TripCosts" />
 
                                 <chart:SfCartesianChart.Legend>
@@ -105,8 +105,6 @@
                                     </chart:NumericalAxis>
                                 </chart:SfCartesianChart.YAxes>
                             </chart:SfCartesianChart>
-
-
                         </StackLayout>
                     </Frame>
                 </Grid>

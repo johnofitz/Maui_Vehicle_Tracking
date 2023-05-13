@@ -37,7 +37,7 @@ namespace L00177804_Project.ViewModel
                 new Theme("Dark", "Dark"),
                 new Theme("Light", "Light"),
                 new Theme("Blue","Blue"),
-                new Theme("Red", "Red")
+                new Theme("Pink", "Pink")
             };
             Themes = new List<Theme>(defaultThemes);
 

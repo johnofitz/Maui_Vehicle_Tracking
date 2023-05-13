@@ -27,7 +27,7 @@
                                     Padding="0"
                                     BackgroundColor="GhostWhite"
                                     CornerRadius="25"
-                                    HeightRequest="165">
+                                    HeightRequest="100">
 
                                     <Grid>
                                         <Grid.ColumnDefinitions>

@@ -27,7 +27,8 @@
         <!--  Content  -->
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
 
-            <StackLayout Padding="5">
+            <StackLayout Padding="5"
+                         Margin="0,20,0,0">
 
                 <!--  IMAGE FOR VEHICLE SYMBOL  -->
                 <Border
@@ -72,7 +73,7 @@
 
                 <!--  DISPLAY FOR CURRENT VEHICLE  -->
                 <Frame
-                    Margin="5"
+                    Margin="5,20"
                     BackgroundColor="GhostWhite"
                     CornerRadius="15"
                     HasShadow="True"
@@ -220,7 +221,7 @@
                 <!--  IMAGE FOR EXPENSE SYMBOL  -->
 
                 <Border
-                    Margin="0,0,0,0"
+                    Margin="5,10,0,20"
                     HeightRequest="60"
                     HorizontalOptions="Center"
                     Stroke="GhostWhite"
@@ -262,10 +263,11 @@
                 <!--  GRAPHING STATS  -->
                 <Grid Padding="10">
                     <Frame
+                        
                         Padding="0"
                         BackgroundColor="GhostWhite"
                         CornerRadius="25"
-                        HeightRequest="350">
+                        HeightRequest="400">
                         <!--  Set the image to the start of the grid (left)  -->
                         <StackLayout>
                             <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
@@ -273,11 +275,12 @@
                                 <chart:SfCartesianChart.BindingContext>
                                     <viewmodel:MainViewModel />
                                 </chart:SfCartesianChart.BindingContext>
-                                <chart:LineSeries
+                                <chart:SplineSeries
+                                   
                                     EnableTooltip="True"
                                     ItemsSource="{Binding Summaries}"
                                     Label="Trip Costs"
-                                    XBindingPath="TripDates"
+                                    XBindingPath="DateTime"
                                     YBindingPath="TripCosts" />
 
                                 <chart:SfCartesianChart.Legend>

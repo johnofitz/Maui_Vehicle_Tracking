@@ -98,6 +98,7 @@ namespace L00177804_Project.ViewModel
                     var summary = AddToModel(retDiststring,retDurstring,retDistint,retDurint,carbons,fuels, start, finish);
 
                     SaveTrip(summary);
+ 
                 }
             }
             catch (Exception ex)
@@ -107,17 +108,16 @@ namespace L00177804_Project.ViewModel
             finally
             {
                 await Shell.Current.DisplayAlert("Sucess", "A Trip has been Added", "OK");
-                origin = string.Empty;
-                destination = string.Empty;
-                tripName = string.Empty;
-                tripNotes = string.Empty;
-                tripDate = string.Empty;
-                tripDistance = string.Empty;
-                tripCost = string.Empty;
-                tripConsumption = string.Empty;
-                tripCost = string.Empty;
-                tripConsumption = string.Empty;
-                tripCost = string.Empty;
+
+                TripName = string.Empty;
+                TripNotes = string.Empty;
+                TripConsumption = string.Empty;
+                Origin = string.Empty;
+                Destination = string.Empty;
+                FuelPricePerLitre = string.Empty;
+
+
+  
             }
         }
 
@@ -180,7 +180,8 @@ namespace L00177804_Project.ViewModel
                 TripCosts = cost,
                 TripNote = tripNotes,
                 CarbonEmissions = carbons,
-                FuelConsumed = fuels
+                FuelConsumed = fuels,
+                DateTime = CurrentDate
             
             };
             return trip;

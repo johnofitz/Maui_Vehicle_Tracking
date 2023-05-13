@@ -1,12 +1,5 @@
 ﻿using L00177804_Project.Models.RouteModel;
-using Microsoft.Maui;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
+
 
 namespace L00177804_Project.Service.LocationService
 {
@@ -23,7 +16,8 @@ namespace L00177804_Project.Service.LocationService
         {
             try
             {
-              
+                
+
                 string apitok = await SecureStorage.GetAsync(apiKey);
 
                 string fullUrl = $"https://maps.googleapis.com/maps/api/distancematrix/json?origins={origin}&destinations={dest}&key={apitok}";
