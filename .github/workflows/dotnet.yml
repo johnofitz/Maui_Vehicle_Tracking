@@ -77,13 +77,15 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
       
+      
       - name: Create Android artifacts
         if: success()
         uses: actions/upload-artifact@v3.1.2
         with:
           name: MAUI-artifacts
-          path: L00177804_Project/bin/Release/net7.0-android/
-                L00177804_Project/bin/Release/net7.0-ios/
+          path: |
+            L00177804_Project/bin/Release/net7.0-android/
+            L00177804_Project/bin/Release/net7.0-ios/
           
       
   # Test job to run the unit tests
