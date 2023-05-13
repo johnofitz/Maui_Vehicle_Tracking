@@ -1,4 +1,6 @@
-﻿namespace L00177804_Project.Service.GoogleMapService
+﻿
+
+namespace L00177804_Project.Service.GoogleMapService
 {
     /// <summary>
     ///  This class is used to open the Google Maps app on the device

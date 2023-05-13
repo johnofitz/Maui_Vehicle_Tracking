@@ -7,7 +7,7 @@ namespace L00177804_Project.ViewModel
 {
     public partial class AddTripViewModel : ParentViewModel
     {
-        private const string _vehicleFile = "vehicle.json";
+        public const string _vehicleFile = "vehicle.json";
 
         private readonly RouteDistanceService _routeDistanceService = new();
 
@@ -115,9 +115,6 @@ namespace L00177804_Project.ViewModel
                 Origin = string.Empty;
                 Destination = string.Empty;
                 FuelPricePerLitre = string.Empty;
-
-
-  
             }
         }
 
