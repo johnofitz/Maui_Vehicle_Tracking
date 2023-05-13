@@ -32,19 +32,17 @@ namespace L00177804_Project.ViewModel
         public string SelectedDistanceType { get; set; }
 
         // Create an instance of the VehicleDataService class
-        private readonly VehicleDataService VehicleDataService;
+        private readonly VehicleDataService VehicleDataService = new();
 
         // Create object from Class VehicleViewModel for page redirection
 
-        private readonly VehicleViewModel vehicleViewModel = new(new VehicleDataService());
+        private readonly VehicleViewModel vehicleViewModel = new();
 
-        private readonly MainPageViewModel mainPageViewModel = new(new VehicleDataService());
 
-        public EditVehicleViewModel(VehicleDataService vehicleDataService)
+        public EditVehicleViewModel()
         {
 
             // Create an instance of the VehicleDataService class
-            VehicleDataService = vehicleDataService;
 
             AddConsumptionUnit();
 

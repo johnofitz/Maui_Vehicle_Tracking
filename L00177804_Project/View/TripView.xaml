@@ -4,9 +4,142 @@
     x:Class="L00177804_Project.View.TripView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:DataType="viewmodel:TripLogViewModel"
-    xmlns:model="clr-namespace:L00177804_Project.Models"
+    xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+    xmlns:models="clr-namespace:L00177804_Project.Models"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
-    Title="{Binding Heading}" />
+    Title="{Binding Heading}"
+    x:DataType="viewmodel:TripLogViewModel"
+    BackgroundColor="{DynamicResource BackgroundColor}">
+
+    <AbsoluteLayout>
+        <!--  Content  -->
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout>
+                <Frame
+                    Margin="20"
+                    Padding="10"
+                    BackgroundColor="GhostWhite"
+                    CornerRadius="25"
+                    HeightRequest="60">
+
+                    <StackLayout>
+                        <Label
+                            FontSize="Large"
+                            HorizontalTextAlignment="Center"
+                            Text="Recent Trips"
+                            TextColor="Black"
+                            VerticalTextAlignment="Center" />
+                        <!--  Other content for the Frame goes here  -->
+                    </StackLayout>
+                </Frame>
+
+                <!--  CollectionView content  -->
+                <CollectionView ItemsSource="{Binding TripCollection}" SelectionMode="Multiple">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Trip">
+                            <Grid Padding="10">
+                                <Frame
+                                    Margin="20"
+                                    Padding="0"
+                                    BackgroundColor="GhostWhite"
+                                    CornerRadius="25"
+                                    HeightRequest="165">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <StackLayout Orientation="Vertical">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Small"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Destinations}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Vehicle, StringFormat='Vehicle: {0}'}"
+                                                VerticalOptions="CenterAndExpand" />
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding CarbonEmissions, StringFormat='Carbon: {0:F2} Kg'}"
+                                                VerticalOptions="CenterAndExpand" />
+
+
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="Small"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding FuelConsumed, StringFormat='Fuel:  {0:F2} Litres'}"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding TripNote}"
+                                                VerticalOptions="CenterAndExpand" />
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--  GRAPHING STATS  -->
+                <Grid Padding="10">
+                    <Frame
+                        Margin="20"
+                        Padding="0"
+                        BackgroundColor="GhostWhite"
+                        CornerRadius="25"
+                        HeightRequest="350">
+                        <!--  Set the image to the start of the grid (left)  -->
+                        <StackLayout>
+                            <!--  Bind ItemsSource and SelectedItem to ViewModel properties  -->
+                            <chart:SfCartesianChart Title="Total Co2 Per Vehicle">
+                                <chart:SfCartesianChart.BindingContext>
+                                    <viewmodel:TripLogViewModel />
+                                </chart:SfCartesianChart.BindingContext>
+                                <chart:ColumnSeries
+                                    EnableTooltip="True"
+                                    ItemsSource="{Binding Summaries}"
+                                    Label="CarbonEmissions"
+                                    XBindingPath="Vehicle"
+                                    YBindingPath="TotalCarbonEmissions" />
+
+                                <chart:SfCartesianChart.Legend>
+                                    <chart:ChartLegend />
+                                </chart:SfCartesianChart.Legend>
+                                <chart:SfCartesianChart.XAxes>
+                                    <chart:CategoryAxis>
+                                        <chart:CategoryAxis.Title>
+                                            <chart:ChartAxisTitle Text="Vehicles" />
+                                        </chart:CategoryAxis.Title>
+                                    </chart:CategoryAxis>
+                                </chart:SfCartesianChart.XAxes>
+
+                                <chart:SfCartesianChart.YAxes>
+                                    <chart:NumericalAxis>
+                                        <chart:NumericalAxis.Title>
+                                            <chart:ChartAxisTitle Text="Carbon Emissions (kg)" />
+                                        </chart:NumericalAxis.Title>
+                                    </chart:NumericalAxis>
+                                </chart:SfCartesianChart.YAxes>
+                            </chart:SfCartesianChart>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </AbsoluteLayout>
+</ContentPage>
+
 

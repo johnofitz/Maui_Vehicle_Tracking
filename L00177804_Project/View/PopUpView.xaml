@@ -9,7 +9,8 @@
     xmlns:viewmodel="clr-namespace:L00177804_Project.ViewModel"
     x:DataType="viewmodel:PopUpViewModel"
     Title="PopUpView"
-    CloseWhenBackgroundIsClicked="True">
+    CloseWhenBackgroundIsClicked="True"
+    BackgroundColor="{DynamicResource BackgroundColor}">
 
     <mopups:PopupPage.Animation>
         <mopupsanim:ScaleAnimation

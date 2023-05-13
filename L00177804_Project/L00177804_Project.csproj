@@ -79,8 +79,8 @@
 		<PackageReference Include="Mopups" Version="1.1.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Syncfusion.Maui.Calendar" Version="21.1.39" />
-		<PackageReference Include="Syncfusion.Maui.Charts" Version="21.1.39" />
-		<PackageReference Include="Syncfusion.Maui.Core" Version="21.1.39" />
+		<PackageReference Include="Syncfusion.Maui.Charts" Version="21.2.4" />
+		<PackageReference Include="Syncfusion.Maui.Core" Version="21.2.4" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -5,7 +5,7 @@ using L00177804_Project.Service.VehicleInfoService;
 public partial class MainPage : ContentPage
 {
     
-    public MainPage(MainPageViewModel viewModel)
+    public MainPage(MainViewModel viewModel)
     {
         InitializeComponent();
         BindingContext = viewModel;

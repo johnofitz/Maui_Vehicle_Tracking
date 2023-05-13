@@ -7,7 +7,7 @@ namespace L00177804_Project.ViewModel
 {
     public partial class AddTripViewModel : ParentViewModel
     {
-        private const string _vehicleFile = "vehicle.json";
+        public const string _vehicleFile = "vehicle.json";
 
         private readonly RouteDistanceService _routeDistanceService = new();
 
@@ -98,6 +98,7 @@ namespace L00177804_Project.ViewModel
                     var summary = AddToModel(retDiststring,retDurstring,retDistint,retDurint,carbons,fuels, start, finish);
 
                     SaveTrip(summary);
+ 
                 }
             }
             catch (Exception ex)
@@ -106,7 +107,14 @@ namespace L00177804_Project.ViewModel
             }
             finally
             {
-                await Shell.Current.GoToAsync(nameof(MainPage));
+                await Shell.Current.DisplayAlert("Sucess", "A Trip has been Added", "OK");
+
+                TripName = string.Empty;
+                TripNotes = string.Empty;
+                TripConsumption = string.Empty;
+                Origin = string.Empty;
+                Destination = string.Empty;
+                FuelPricePerLitre = string.Empty;
             }
         }
 
@@ -116,6 +124,7 @@ namespace L00177804_Project.ViewModel
             // Check if the file exists
             if (!File.Exists(targetFile))
             {
+                trip.Id = 1;
                 logging.Add(trip);
                 string json = JsonConvert.SerializeObject(logging);
                 File.WriteAllText(targetFile, json);
@@ -126,7 +135,8 @@ namespace L00177804_Project.ViewModel
                 string json = File.ReadAllText(targetFile);
                 logging = JsonConvert.DeserializeObject<List<Trip>>(json);
 
-
+                // Set the ID for subsequent entries
+                trip.Id = logging.Max(v => v.Id) + 1;
                 logging.Add(trip);
                 string newJson = JsonConvert.SerializeObject(logging);
                 File.WriteAllText(targetFile, newJson);
@@ -155,19 +165,20 @@ namespace L00177804_Project.ViewModel
             {
                
                 Vehicle = vehicle.Name,
-                tripNames = tripName,
+                TripNames = tripName,
                 Origins = start,
                 Destinations = finish,
-                tripDates = dates,
-                tripTimes = time,
-                tripDistances = dist,
-                tripDurations = duration,
+                TripDates = dates,
+                TripTimes = time,
+                TripDistances = dist,
+                TripDurations = duration,
                 DistInt = distMeters,
                 DurInt = durationSeconds,
-                tripCosts = cost,
-                tripNote = tripNotes,
-                carbonEmissions = carbons,
-                fuelConsumed = fuels,
+                TripCosts = cost,
+                TripNote = tripNotes,
+                CarbonEmissions = carbons,
+                FuelConsumed = fuels,
+                DateTime = CurrentDate
             
             };
             return trip;

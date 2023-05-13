@@ -16,28 +16,14 @@ namespace L00177804_Project.ViewModel
         [ObservableProperty]
         private Theme selectedTheme;
 
-        //[ObservableProperty]
-        //private Vehicle preferedVehicle;
-
-        // File name for vehicle.json
-        //private const string _vehicleFile = "vehicle.json";
-
-        // Create observable collection for vehicle
-        //public ObservableCollection<Vehicle> VehiclesCollection { get; set; } = new();
-
-        // Create an instance of the VehicleDataService class
-        private readonly VehicleDataService VehicleDataService;
-
+ 
         /// <summary>
         ///  Constructor for the SettingsViewModel class
         /// </summary>
-        /// <param name="dataService"></param>
-        public SettingsViewModel( VehicleDataService dataService)
+        public SettingsViewModel( )
         {
-            VehicleDataService = dataService;
-            AddThemes();
-            //AddVehiclesToMainAsync();
            
+            AddThemes();      
         }
 
         /// <summary>
@@ -51,7 +37,7 @@ namespace L00177804_Project.ViewModel
                 new Theme("Dark", "Dark"),
                 new Theme("Light", "Light"),
                 new Theme("Blue","Blue"),
-                new Theme("Red", "Red")
+                new Theme("Pink", "Pink")
             };
             Themes = new List<Theme>(defaultThemes);
 

@@ -27,8 +27,10 @@ namespace xUnitTests.ViewModelTests
         public void ParentViewModel_IsNotBusy_ShouldReturnCorrectValue()
         {
             // Arrange
-            var parentViewModel = new ParentViewModel();
-            parentViewModel.isBusy = true;
+            var parentViewModel = new ParentViewModel
+            {
+                isBusy = true
+            };
 
             // Act
             bool result = parentViewModel.IsNotBusy;
@@ -41,8 +43,10 @@ namespace xUnitTests.ViewModelTests
         public void ParentViewModel_IsNotBusy_ShouldReturnTrueWhenIsBusyIsFalse()
         {
             // Arrange
-            var parentViewModel = new ParentViewModel();
-            parentViewModel.isBusy = false;
+            var parentViewModel = new ParentViewModel
+            {
+                isBusy = false
+            };
 
             // Act
             bool result = parentViewModel.IsNotBusy;
@@ -55,12 +59,13 @@ namespace xUnitTests.ViewModelTests
         public void ParentViewModel_SetProperties_ShouldReflectChanges()
         {
             // Arrange
-            var parentViewModel = new ParentViewModel();
-
-            // Act
-            parentViewModel.heading = "Test Heading";
-            parentViewModel.vehicleName = "Test Vehicle";
-            parentViewModel.vehicleKm = 100.0;
+            ParentViewModel parentViewModel = new()
+            {
+                // Act
+                heading = "Test Heading",
+                vehicleName = "Test Vehicle",
+                vehicleKm = 100.0
+            };
 
             // Assert
             Assert.Equal("Test Heading", parentViewModel.heading);

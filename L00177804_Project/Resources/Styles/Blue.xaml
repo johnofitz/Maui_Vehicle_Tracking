@@ -3,7 +3,7 @@
     x:Class="L00177804_Project.Resources.Styles.Blue"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Color x:Key="BackgroundColor">#002175</Color>
+    <Color x:Key="BackgroundColor">#86d6eb</Color>
     <Color x:Key="TextColor">#333333</Color>
     <Color x:Key="Button">#9eb2e0</Color>
     <Color x:Key="InputBackgroundColor">#2A468C</Color>
