@@ -32,7 +32,7 @@ jobs:
     steps:
       # Checkout the repository
       - uses: actions/checkout@v3
-      - name: Srtup Key Store
+      - name: Setup Key Store
         run: |
           echo "${{ secrets.JOHNKEY }}" > myapp.keystore.asc
           gpg -d --passphrase "${{ secrets.KEYPASSWORD }}" --batch myapp.keystore.asc > myapp.keystore
@@ -79,7 +79,7 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=ghactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYPASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_AILIAS }}" --no-restore
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=ghactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYPASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_AILIAS }}"
       
       
       - name: Create Android artifacts
@@ -123,22 +123,13 @@ jobs:
       - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
       
       
-      - name: Create Android artifacts
+      - name: Create IOS artifacts
         if: success()
         uses: actions/upload-artifact@v3.1.2
         with:
           name: MAUI-artifacts
           path: L00177804_Project/bin/Release/net7.0-ios/
       
-      
-      - name: Create IOS artifacts
-        if: success()
-        uses: actions/upload-artifact@v3.1.2
-        with:
-          name: MAUI-artifacts
-          path: |
-            ./**/*.aab
-            ./**/*.apk
   # Test job to run the unit tests
 
   test:
