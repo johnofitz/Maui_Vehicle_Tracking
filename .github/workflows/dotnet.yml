@@ -32,6 +32,10 @@ jobs:
     steps:
       # Checkout the repository
       - uses: actions/checkout@v3
+      - name: Srtup Key Store
+        run: |
+          echo "${{ secrets.JOHNKEY }}" > myapp.keystore.asc
+          gpg -d --passphrase "${{ secrets.KEYPASSWORD }}" --batch myapp.keystore.asc > myapp.keystore
       
       # Cache NuGet packages and the .NET SDK for faster builds
       - name: Cache .NET packages
@@ -48,7 +52,7 @@ jobs:
       - run: dotnet workload install maui --ignore-failed-sources
   
   # Build job to build the MAUI app for Android & IOS
-  build-maui:
+  build-maui-android:
     # Define the jobs that this job depends on
     needs: [setup]
     name: Build MAUI for Android
@@ -57,7 +61,48 @@ jobs:
       matrix:
         os: [windows-latest]
         dotnet-version: [7.0.x]
-        target-framework: [net7.0-android,net7.0-ios]
+        target-framework: [net7.0-android]
+    steps:
+      - uses: actions/checkout@v3
+      
+      # Cache NuGet packages and the .NET SDK for faster builds
+      - name: Cache .NET packages
+        uses: actions/cache@v3.2.6
+        with:
+          path: '~/.nuget/packages'
+          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
+            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
+            ${{ runner.os }}-dotnet-
+      
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=ghactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYPASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_AILIAS }}" --no-restore
+      
+      
+      - name: Create Android artifacts
+        if: success()
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: MAUI-artifacts
+          path: |
+            ./**/*.aab
+            ./**/*.apk
+          
+  # Build job to build the MAUI app for Android & IOS
+  # Build job to build the MAUI app for Android & IOS
+  build-maui-ios:
+    # Define the jobs that this job depends on
+    needs: [setup]
+    name: Build MAUI for IOS
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+        dotnet-version: [7.0.x]
+        target-framework: [net7.0-ios]
     steps:
       - uses: actions/checkout@v3
       
@@ -83,15 +128,21 @@ jobs:
         uses: actions/upload-artifact@v3.1.2
         with:
           name: MAUI-artifacts
-          path: |
-            L00177804_Project/bin/Release/net7.0-android/
-            L00177804_Project/bin/Release/net7.0-ios/
-          
+          path: L00177804_Project/bin/Release/net7.0-ios/
       
+      
+      - name: Create IOS artifacts
+        if: success()
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: MAUI-artifacts
+          path: |
+            ./**/*.aab
+            ./**/*.apk
   # Test job to run the unit tests
 
   test:
-    needs: [build-maui]
+    needs: [build-maui-android]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -129,7 +180,7 @@ jobs:
             **/TestResults.xml
 
   analyze:
-    needs: [build-maui]
+    needs: [build-maui-android, build-maui-ios]
     name: analyze
     runs-on: windows-latest
     strategy:
