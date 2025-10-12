@@ -84,7 +84,7 @@ jobs:
       
       - name: Create Android artifacts
         if: success()
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: MAUI-artifacts
           path: |
@@ -125,7 +125,7 @@ jobs:
       
       - name: Create IOS artifacts
         if: success()
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: MAUI-artifacts
           path: L00177804_Project/bin/Release/net7.0-ios/
