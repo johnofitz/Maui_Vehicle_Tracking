@@ -1,6 +1,6 @@
-
 # Name of the Github Actions workflow
 name: MAUI CI/CD
+
 # Define the events that trigger the Github Actions workflow
 on:
   push:
@@ -20,52 +20,25 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
-
 jobs:
-  # Setup job to install .NET and MAUI workload
-  setup:
-    runs-on: ${{ matrix.os }}
+  # Build job to build the MAUI app for Android
+  build-maui-android:
+    name: Build MAUI for Android
+    runs-on: windows-latest
     strategy:
       matrix:
-        os: [windows-latest]
-        dotnet-version: [7.0.x]
+        dotnet-version: [8.0.x]
+        target-framework: [net8.0-android]
     steps:
-      # Checkout the repository
       - uses: actions/checkout@v3
+      
+      # Setup Key Store for Android signing
       - name: Setup Key Store
         run: |
           echo "${{ secrets.JOHNKEY }}" > myapp.keystore.asc
           gpg -d --passphrase "${{ secrets.KEYPASSWORD }}" --batch myapp.keystore.asc > myapp.keystore
       
-      # Cache NuGet packages and the .NET SDK for faster builds
-      - name: Cache .NET packages
-        uses: actions/cache@v4.3.0
-        with:
-          path: '~/.nuget/packages'
-          key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
-          restore-keys: |
-            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-
-            ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-
-            ${{ runner.os }}-dotnet-
-      
-      # Install the MAUI workload
-      - run: dotnet workload install maui --ignore-failed-sources
-  
-  # Build job to build the MAUI app for Android & IOS
-  build-maui-android:
-    # Define the jobs that this job depends on
-    needs: [setup]
-    name: Build MAUI for Android
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
-        dotnet-version: [7.0.x]
-        target-framework: [net7.0-android]
-    steps:
-      - uses: actions/checkout@v3
-      
-      # Cache NuGet packages and the .NET SDK for faster builds
+      # Cache NuGet packages for faster builds
       - name: Cache .NET packages
         uses: actions/cache@v4.3.0
         with:
@@ -79,34 +52,35 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=ghactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYPASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_AILIAS }}"
       
+      # Install the MAUI workload
+      - name: Install MAUI workload
+        run: dotnet workload install maui --ignore-failed-sources
       
-      - name: Create Android artifacts
+      - name: Build Android App
+        run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }} /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias=ghactionskey /p:AndroidSigningKeyPass="${{ secrets.KEYPASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_ALIAS }}"
+      
+      - name: Upload Android artifacts
         if: success()
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: MAUI-artifacts
+          name: android-artifacts
           path: |
             ./**/*.aab
             ./**/*.apk
           
-  # Build job to build the MAUI app for Android & IOS
-  # Build job to build the MAUI app for Android & IOS
+  # Build job to build the MAUI app for iOS
   build-maui-ios:
-    # Define the jobs that this job depends on
-    needs: [setup]
-    name: Build MAUI for IOS
-    runs-on: ${{ matrix.os }}
+    name: Build MAUI for iOS
+    runs-on: macos-latest  # iOS builds require macOS
     strategy:
       matrix:
-        os: [windows-latest]
-        dotnet-version: [7.0.x]
-        target-framework: [net7.0-ios]
+        dotnet-version: [8.0.x]
+        target-framework: [net8.0-ios]
     steps:
       - uses: actions/checkout@v3
       
-      # Cache NuGet packages and the .NET SDK for faster builds
+      # Cache NuGet packages for faster builds
       - name: Cache .NET packages
         uses: actions/cache@v4.3.0
         with:
@@ -120,24 +94,25 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      - run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
       
+      # Install the MAUI workload
+      - name: Install MAUI workload
+        run: dotnet workload install maui --ignore-failed-sources
       
-      - name: Create IOS artifacts
+      - name: Build iOS App
+        run: dotnet build L00177804_Project/L00177804_Project.csproj -c Release -f ${{ matrix.target-framework }}
+      
+      - name: Upload iOS artifacts
         if: success()
         uses: actions/upload-artifact@v4.6.2
         with:
-          name: MAUI-artifacts
-          path: L00177804_Project/bin/Release/net7.0-ios/
+          name: ios-artifacts
+          path: L00177804_Project/bin/Release/net8.0-ios/
       
   # Test job to run the unit tests
-
   test:
     needs: [build-maui-android]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest]
+    runs-on: windows-latest
     permissions:
       contents: read
       pull-requests: write
@@ -145,24 +120,30 @@ jobs:
       statuses: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v4.3.0
+      
+      - name: Cache NuGet packages
+        uses: actions/cache@v4.3.0
         with:
-          path: |
-            ~/.nuget/packages
+          path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/xUnitTests.csproj') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
+      
       - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
+      
       - name: Restore NuGet packages
         run: dotnet restore
         working-directory: ./xUnitTests
+      
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
         working-directory: ./xUnitTests
+      
       - name: Run tests
         run: dotnet test --logger:xunit
+      
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v2
         if: always()
@@ -170,37 +151,44 @@ jobs:
           files: |
             **/TestResults.xml
 
+  # CodeQL Analysis
   analyze:
     needs: [build-maui-android, build-maui-ios]
-    name: analyze
+    name: CodeQL Analysis
     runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
         language: ['csharp']
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/cache@v4.3.0
-      with:
-        path: |
-          ~/.nuget/packages
-          ./bin
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/project.assets.json') }}-${{ matrix.language }}
-    - uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
-    - name: Restore NuGet packages
-      run: dotnet restore
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
-        config-file: ./.github/workflows/dotnet/codeql-config.yml
-    - name: Build project
-      run: dotnet build 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-
+      - uses: actions/checkout@v3
+      
+      - name: Cache NuGet packages
+        uses: actions/cache@v4.3.0
+        with:
+          path: |
+            ~/.nuget/packages
+            ./bin
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/project.assets.json') }}-${{ matrix.language }}
+      
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      
+      - name: Restore NuGet packages
+        run: dotnet restore
+      
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          config-file: ./.github/workflows/dotnet/codeql-config.yml
+      
+      - name: Build project
+        run: dotnet build 
+      
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
 
   # Deploy job to deploy the MAUI app         
   deploy:
@@ -211,7 +199,3 @@ jobs:
     steps:
       - name: Deploy to Playstore
         run: echo "Deploying to Playstore in progress"
-  
-            
-      
-    
