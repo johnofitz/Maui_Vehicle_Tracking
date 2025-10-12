@@ -67,7 +67,7 @@ jobs:
       
       # Cache NuGet packages and the .NET SDK for faster builds
       - name: Cache .NET packages
-        uses: actions/cache@v3.2.6
+        uses: actions/cache@v4.3.0
         with:
           path: '~/.nuget/packages'
           key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
@@ -108,7 +108,7 @@ jobs:
       
       # Cache NuGet packages and the .NET SDK for faster builds
       - name: Cache .NET packages
-        uses: actions/cache@v3.2.6
+        uses: actions/cache@v4.3.0
         with:
           path: '~/.nuget/packages'
           key: ${{ runner.os }}-dotnet-${{ matrix.dotnet-version }}-packages-${{ hashFiles('**/*.csproj') }}
@@ -145,7 +145,7 @@ jobs:
       statuses: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3.2.6
+      - uses: actions/cache@v4.3.0
         with:
           path: |
             ~/.nuget/packages
@@ -180,7 +180,7 @@ jobs:
         language: ['csharp']
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/cache@v3.2.6
+    - uses: actions/cache@v4.3.0
       with:
         path: |
           ~/.nuget/packages
